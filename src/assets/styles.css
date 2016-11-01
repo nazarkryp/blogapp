@@ -1,0 +1,36 @@
+.sidebar {
+    margin: 10px 10px 10px 10px;
+}
+
+.footer {
+    height: 70px;
+}
+
+.primary-nav {
+    height: inherit;
+    line-height: inherit;
+    background-color: transparent;
+}
+
+.header-toolbar{
+    min-height:40px;
+    background: black;
+    color: white;
+    background-color: black;
+    height: 40px;
+}
+
+.content-header {
+    font-size: 24px;
+    font-weight: lighter;
+}
+
+a:link {
+    text-decoration: none;
+    color: rgb(33, 150, 243);
+    font-weight: lighter;
+}
+
+a:hover {
+    text-decoration: underline;
+}

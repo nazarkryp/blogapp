@@ -1,21 +1,47 @@
 <!DOCTYPE html>
 <html ng-app="blogapp">
-    <head>
-        <title>Blog Application</title>
-        <link href="assets/libs/css/angular-material.min.css" rel="stylesheet"/>
-    </head>
-    <body>
-        <h1>Angular Material</h1>
 
-        <div ui-view></div>
+<head>
+	<title>Blog Application</title>
+	<link href="assets/libs/css/angular-material.min.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<link href="assets/styles.css" rel="stylesheet" />
+</head>
 
-        <script src="assets/libs/js/angular.min.js"></script>
-        <script src="assets/libs/js/angular-ui-router.min.js"></script>
-        <script src="assets/libs/js/angular-material.min.js"></script>
-        <script src="assets/libs/js/angular-aria.min.js"></script>
-        <script src="assets/libs/js/angular-animate.min.js"></script>
+<body layout="column">
+	<md-toolbar class="header-toolbar">
+		<div class="md-toolbar-tools" style="height: 40px;">
+			<h4>KrypApp</h4>
+			<span flex></span>
+			<md-button>nazarkryp@gmail.com</md-button>
+			<md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="ctrl.openMenu($mdOpenMenu, $event)">
+				<md-icon md-font-icon>settings</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<div class="md-padding" style="background: white;">
+		<div layout="row" layout-align="end">
+			<md-button>Create account</md-button>
+			<md-button>Sign In</md-button>
+		</div>
+	</div>
+	<hr/>
+	<div ui-view></div>
 
-        <script src="app/app.js"></script>
-        <script src="app/components/feed/feed.controller.js"></script>
-    </body>
+	<footer>
+		<div class="footer" layout="row" layout-align="center center">
+			<span>Copyright © 2016 KrypApp</span>
+		</div>
+	</footer>
+
+	<script src="assets/libs/js/angular.min.js"></script>
+	<script src="assets/libs/js/angular-ui-router.min.js"></script>
+	<script src="assets/libs/js/angular-material.min.js"></script>
+	<script src="assets/libs/js/angular-aria.min.js"></script>
+	<script src="assets/libs/js/angular-animate.min.js"></script>
+
+	<script src="app/app.js"></script>
+	<script src="app/components/feed/feed.controller.js"></script>
+</body>
+
 </html>
