@@ -1,9 +1,29 @@
+body {
+    overflow: hidden;
+}
+
+md-input-container {
+    margin: 0;
+}
+
+a:link {
+    text-decoration: none;
+    color: rgb(33, 150, 243);
+    font-weight: lighter;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
 .sidebar {
     margin: 10px 10px 10px 10px;
 }
 
 .footer {
     height: 70px;
+    background-color: white;
+    border-top: 1px solid #dbdbdb;
 }
 
 .primary-nav {
@@ -12,7 +32,7 @@
     background-color: transparent;
 }
 
-.header-toolbar{
+.header-toolbar {
     background-color: white;
     border-bottom: 1px;
     border-color: black;
@@ -46,16 +66,6 @@
     font-weight: lighter;
 }
 
-a:link {
-    text-decoration: none;
-    color: rgb(33, 150, 243);
-    font-weight: lighter;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
 .likes {
     height: 35px;
 }
@@ -64,10 +74,6 @@ a:hover {
     min-height: 35px;
     padding: 0px 0px 10px 0px;
     border-bottom: 1px solid #dbdbdb;
-}
-
-md-input-container {
-    margin: 0;
 }
 
 .liked {

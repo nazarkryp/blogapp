@@ -6,19 +6,18 @@
 	<link href="assets/libs/css/angular-material.min.css" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" />
+	<!--<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>-->
 	<link href="assets/styles.css" rel="stylesheet" />
 </head>
 
-<body layout="column" ng-controller="IndexController">
-	<md-toolbar class="header-toolbar" md-scroll-shrink>
+<body layout="column" ng-controller="IndexController" ng-cloak>
+	<md-toolbar md-scroll-shrink ng-if="true">
 		<div class="md-toolbar-tools">
 			<div layout="row" flex>
 				<div flex="25">
-					<span class="logo-text" layout="row" layout-align="end end" ng-click="gotoFeedPage()">KryptoGram</span>
+					<a class="logo-text" layout="row" layout-align="end end" ng-click="gotoFeedPage()">Kryptogram</a>
 				</div>
-				<div flex="40">
-
-				</div>
+				<div flex="40"></div>
 				<div layout="row" layout-align="start start" flex="35">
 					<md-button ng-if="false">nazarkryp@gmail.com</md-button>
 					<md-button>Create account</md-button>
@@ -27,14 +26,16 @@
 			</div>
 		</div>
 	</md-toolbar>
-	<hr/>
-	<div ui-view></div>
 
-	<footer>
-		<div class="footer" layout="row" layout-align="center center">
-			<span>Copyright © 2016 KrypApp</span>
-		</div>
-	</footer>
+	<md-content>
+		<div ui-view></div>
+		<div flex></div>
+		<footer>
+			<div class="footer" layout="row" layout-align="center center">
+				<span>Copyright © 2016 KrypApp</span>
+			</div>
+		</footer>
+	</md-content>
 
 	<script src="assets/libs/js/angular.min.js"></script>
 	<script src="assets/libs/js/angular-ui-router.min.js"></script>

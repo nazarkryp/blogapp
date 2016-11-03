@@ -1,71 +1,67 @@
-<md-content id="content">
-	<div layout="row">
-		<div layout="row" layout-align="space-around center" flex>
-			<div flex-xs flex-gt-xs="45">
-				<div class="md-padding" ng-repeat="post in posts">
-					<md-card>
-						<md-card-header>
-							<md-card-avatar>
-								<img src="https://pp.vk.me/c637628/v637628861/8dd2/zVnIT81dJWk.jpg" />
-							</md-card-avatar>
-							<md-card-header-text>
-								<span class="md-title">nazarkryp</span>
-								<span class="md-subhead">Posted on 01.11.2016</span>
-							</md-card-header-text>
-						</md-card-header>
-						<img ng-src="{{post.imageUrl}}" class="md-card-image" alt="Washed Out">
-						<md-card-content>
-							<div layout="column" flex>
-								<div class="likes">
-									<span class="md-body-2">100500 likes</span>
-								</div>
-								<div class="caption">
-									<span class="md-body-2">nazarkryp</span>
-									<span class="md-body-1">This is AngularJS blog application using material design by google. Here is some text because I need to see behaviour is there are several rows</span>
-								</div>
-							</div>
-						</md-card-content>
-						<md-card-actions>
-							<div layout="row">
-								<md-button class="md-icon-button" aria-label="Like" ng-click="like(post)">
-									<md-icon ng-class="{'liked': post.isLiked}" style="font-size: 30px;">favorite_border</md-icon>
-								</md-button>
-								<div flex>
-									<md-input-container class="md-block" md-no-float>
-										<input type="text" placeholder="Add comment" class="comment-box" style="font-size: 17px; font-weight: lighter;"/>
-									</md-input-container>
-								</div>
-								<md-menu>
-									<md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
-										<md-icon style="font-size: 30px;">more_horiz</md-icon>
+<div class="md-padding" layout="row" layout-align="center center">
+	<div flex-xs flex-gt-xs="45">
+		<div class="md-padding" ng-repeat="post in posts">
+			<md-card>
+				<md-card-header>
+					<md-card-avatar>
+						<img src="https://pp.vk.me/c637628/v637628861/8dd2/zVnIT81dJWk.jpg" />
+					</md-card-avatar>
+					<md-card-header-text>
+						<span class="md-title">nazarkryp</span>
+						<span class="md-subhead">Posted on 01.11.2016</span>
+					</md-card-header-text>
+				</md-card-header>
+				<img ng-src="{{post.imageUrl}}" class="md-card-image" alt="Washed Out">
+				<md-card-content>
+					<div layout="column" flex>
+						<div class="likes">
+							<span class="md-body-2">100500 likes</span>
+						</div>
+						<div class="caption">
+							<span class="md-body-2">nazarkryp</span>
+							<span class="md-body-1">This is AngularJS blog application using material design by google. Here is some text because I need to see behaviour is there are several rows</span>
+						</div>
+					</div>
+				</md-card-content>
+				<md-card-actions>
+					<div layout="row">
+						<md-button class="md-icon-button" aria-label="Like" ng-click="like(post)">
+							<md-icon ng-class="{'liked': post.isLiked}" style="font-size: 30px;">favorite_border</md-icon>
+						</md-button>
+						<div flex>
+							<md-input-container class="md-block" md-no-float>
+								<input type="text" placeholder="Add comment" class="comment-box" style="font-size: 17px; font-weight: lighter;" />
+							</md-input-container>
+						</div>
+						<md-menu>
+							<md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+								<md-icon style="font-size: 30px;">more_horiz</md-icon>
+							</md-button>
+							<md-menu-content width="4">
+								<md-menu-item>
+									<md-button ng-click="ctrl.redial($event)">
+										<md-icon>file_download</md-icon>
+										Download
 									</md-button>
-									<md-menu-content width="4">
-										<md-menu-item>
-											<md-button ng-click="ctrl.redial($event)">
-												<md-icon>file_download</md-icon>
-												Download
-											</md-button>
-										</md-menu-item>
-										<md-menu-item>
-											<md-button ng-click="ctrl.redial($event)">
-												<md-icon>link</md-icon>
-												Copy link
-											</md-button>
-										</md-menu-item>
-										<md-menu-divider></md-menu-divider>
-										<md-menu-item>
-											<md-button>
-												<md-icon></md-icon>
-												Unsubscribe
-											</md-button>
-										</md-menu-item>
-									</md-menu-content>
-								</md-menu>
-							</div>
-						</md-card-actions>
-					</md-card>
-				</div>
-			</div>
+								</md-menu-item>
+								<md-menu-item>
+									<md-button ng-click="ctrl.redial($event)">
+										<md-icon>link</md-icon>
+										Copy link
+									</md-button>
+								</md-menu-item>
+								<md-menu-divider></md-menu-divider>
+								<md-menu-item>
+									<md-button>
+										<md-icon></md-icon>
+										Unsubscribe
+									</md-button>
+								</md-menu-item>
+							</md-menu-content>
+						</md-menu>
+					</div>
+				</md-card-actions>
+			</md-card>
 		</div>
 	</div>
-</md-content>
+</div>

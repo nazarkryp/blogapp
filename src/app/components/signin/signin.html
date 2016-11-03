@@ -1,24 +1,32 @@
-<div layout="column" layout="center center">
-	<div layout="row" layout-align="space-around center" flex>
-		<div flex-xs flex-gt-xs="30">
-			<md-card>
-				<md-card-title>
-					<span class="md-headline">Login to Kryptogram</span>
-				</md-card-title>
-				<md-card-content>
-					<md-input-container class="md-block" md-no-float>
-						<input type="text" placeholder="username" />
-					</md-input-container>
-					<md-input-container class="md-block" md-no-float>
-						<input type="password" placeholder="password" />
-					</md-input-container>
-				</md-card-content>
-				<md-card-actions>
-                    <div class="md-padding" layout="row" layout-align="end">
-                        <md-button class="md-raised" md-colors="{background: 'blue'}">Sign In</md-button>
-                    </div>
-				</md-card-actions>
-			</md-card>
+<div layout="column" layout-align="center stretch" style="min-height: 500px;">
+	<div layout="row" layout-align="center center">
+		<div flex>
+			<div layout="column" layout-align="center end" flex="75">
+				<h1 class="md-display-2">Welcome to Kryptogram</h1>
+				<h3 class="md-headline">This is description</h3>
+			</div>
+		</div>
+		<div flex>
+			<div flex-xs flex-gt-xs="65">
+				<md-card>
+					<md-card-title>
+						<span class="md-headline">Login to Kryptogram</span>
+					</md-card-title>
+					<md-card-content>
+						<md-input-container class="md-block" md-no-float>
+							<input type="text" placeholder="username" />
+						</md-input-container>
+						<md-input-container class="md-block" md-no-float>
+							<input type="password" placeholder="password" />
+						</md-input-container>
+					</md-card-content>
+					<md-card-actions>
+						<div class="md-padding" layout="row" layout-align="end">
+							<md-button class="md-raised" md-colors="{background: 'blue'}">Sign In</md-button>
+						</div>
+					</md-card-actions>
+				</md-card>
+			</div>
 		</div>
 	</div>
 </div>
