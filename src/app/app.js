@@ -7,7 +7,11 @@ angular.module('blogapp', ['ui.router', 'ngMaterial'])
                 url: '/feed',
                 templateUrl: 'app/components/feed/feed.html',
                 controller: 'FeedController'
-            });
+            })
+            .state('signin', {
+                url: '/signin',
+                templateUrl: 'app/components/signin/signin.html',
+            });;
 
         $mdIconProvider.fontSet('md', 'material-icons');
     }]);

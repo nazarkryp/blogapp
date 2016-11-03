@@ -13,11 +13,32 @@
 }
 
 .header-toolbar{
-    min-height:40px;
-    background: black;
+    background-color: white;
+    border-bottom: 1px;
+    border-color: black;
     color: white;
-    background-color: black;
-    height: 40px;
+}
+
+.header-toolbar.md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+    background-color: white;
+    color: black;
+    border-bottom: 1px solid #dbdbdb;
+    height: 75px;
+    min-height: 75px;
+}
+
+.comment-box.md-input {
+    border-style: none;
+}
+
+.md-toolbar-tools {
+    height: 75px;
+    max-height: 75px;
+}
+
+.logo-text {
+    font-weight: lighter;
+    font-size: 24px;
 }
 
 .content-header {
@@ -33,4 +54,22 @@ a:link {
 
 a:hover {
     text-decoration: underline;
+}
+
+.likes {
+    height: 35px;
+}
+
+.caption {
+    min-height: 35px;
+    padding: 0px 0px 10px 0px;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+md-input-container {
+    margin: 0;
+}
+
+.liked {
+    color: red;
 }

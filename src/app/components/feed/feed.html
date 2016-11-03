@@ -1,33 +1,7 @@
 <md-content id="content">
 	<div layout="row">
-        <div class="md-padding" layout="row" layout-align="center start">
-			<md-sidenav md-is-locked-open="true" flex>
-				<md-toolbar layout="row">
-                    <div class="md-toolbar-tools">
-                        <h2>Categories</h2>
-                    </div>
-				</md-toolbar>
-				<md-list>
-					<md-list-item>
-						<a href="#">Category Name</a>
-					</md-list-item>
-                    <md-list-item>
-						<a href="#">Category Name</a>
-					</md-list-item>
-                    <md-list-item>
-						<a href="#">Category Name</a>
-					</md-list-item>
-                    <md-list-item>
-						<a href="#">Category Name</a>
-					</md-list-item>
-                    <md-list-item>
-						<a href="#">Category Name</a>
-					</md-list-item>
-				</md-list>
-			</md-sidenav>
-		</div>
 		<div layout="row" layout-align="space-around center" flex>
-			<div flex-xs>
+			<div flex-xs flex-gt-xs="45">
 				<div class="md-padding" ng-repeat="post in posts">
 					<md-card>
 						<md-card-header>
@@ -40,42 +14,58 @@
 							</md-card-header-text>
 						</md-card-header>
 						<img ng-src="{{post.imageUrl}}" class="md-card-image" alt="Washed Out">
-						<md-card-title>
-							<md-card-title-text>
-								<a href="#">
-									<span class="md-headline">{{post.title}}</span>
-								</a>
-							</md-card-title-text>
-						</md-card-title>
 						<md-card-content>
-							{{post.content}}
+							<div layout="column" flex>
+								<div class="likes">
+									<span class="md-body-2">100500 likes</span>
+								</div>
+								<div class="caption">
+									<span class="md-body-2">nazarkryp</span>
+									<span class="md-body-1">This is AngularJS blog application using material design by google. Here is some text because I need to see behaviour is there are several rows</span>
+								</div>
+							</div>
 						</md-card-content>
-						<md-card-actions class="md-padding">
-							<div layout="row" layout-align="end">
-								<md-button class="md-raised" md-colors="{background: 'blue'}">Read More</md-button>
+						<md-card-actions>
+							<div layout="row">
+								<md-button class="md-icon-button" aria-label="Like" ng-click="like(post)">
+									<md-icon ng-class="{'liked': post.isLiked}" style="font-size: 30px;">favorite_border</md-icon>
+								</md-button>
+								<div flex>
+									<md-input-container class="md-block" md-no-float>
+										<input type="text" placeholder="Add comment" class="comment-box" style="font-size: 17px; font-weight: lighter;"/>
+									</md-input-container>
+								</div>
+								<md-menu>
+									<md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+										<md-icon style="font-size: 30px;">more_horiz</md-icon>
+									</md-button>
+									<md-menu-content width="4">
+										<md-menu-item>
+											<md-button ng-click="ctrl.redial($event)">
+												<md-icon>file_download</md-icon>
+												Download
+											</md-button>
+										</md-menu-item>
+										<md-menu-item>
+											<md-button ng-click="ctrl.redial($event)">
+												<md-icon>link</md-icon>
+												Copy link
+											</md-button>
+										</md-menu-item>
+										<md-menu-divider></md-menu-divider>
+										<md-menu-item>
+											<md-button>
+												<md-icon></md-icon>
+												Unsubscribe
+											</md-button>
+										</md-menu-item>
+									</md-menu-content>
+								</md-menu>
 							</div>
 						</md-card-actions>
 					</md-card>
 				</div>
 			</div>
-		</div>
-		<div class="md-padding" layout="row" layout-align="center start">
-			<md-sidenav md-is-locked-open="true" md-whiteframe="6" flex>
-				<div layout="row">
-					<md-button class="md-raised" md-colors="{background: 'blue'}" flex>Create new post</md-button>
-				</div>
-				<md-list flex>
-					<md-list-item flex>
-						<md-button>Category Name</md-button>
-					</md-list-item>
-					<md-list-item flex>
-						<md-button>Category Name</md-button>
-					</md-list-item>
-					<md-list-item flex>
-						<md-button>Category Name</md-button>
-					</md-list-item>
-				</md-list>
-			</md-sidenav>
 		</div>
 	</div>
 </md-content>
