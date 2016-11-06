@@ -6,30 +6,67 @@
 	<link href="assets/libs/css/angular-material.min.css" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" />
-	<!--<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>-->
 	<link href="assets/styles.css" rel="stylesheet" />
 </head>
 
 <body layout="column" ng-controller="IndexController" ng-cloak>
-	<md-toolbar md-scroll-shrink ng-if="true">
-		<div class="md-toolbar-tools">
-			<div layout="row" flex>
-				<div flex="25">
-					<a class="logo-text" layout="row" layout-align="end end" ng-click="gotoFeedPage()">Kryptogram</a>
-				</div>
-				<div flex="40"></div>
-				<div layout="row" layout-align="start start" flex="35">
-					<md-button ng-if="false">nazarkryp@gmail.com</md-button>
-					<md-button>Create account</md-button>
-					<md-button class="md-raised" md-colors="{background: 'blue'}" ng-click="gotoSignInPage()">Sign In</md-button>
+	<md-content layout="column">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<div layout="row" flex>
+					<div flex="25">
+						<a class="logo-text" layout="row" layout-align="end end" ng-click="gotoFeedPage()">Kryptogram</a>
+					</div>
+					<div flex="40"></div>
+					<div layout="row" layout-align="center start" flex="35" ng-if="isAuthenticated">
+						<md-menu>
+							<md-button aria-label="Open interactions menu" ng-click="$mdOpenMenu($event)">{{username}}</md-button>
+							<md-menu-content width="4">
+								<md-menu-item>
+									<md-button>
+										<md-icon>home</md-icon>
+										Profile
+									</md-button>
+								</md-menu-item>
+								<md-menu-divider></md-menu-divider>
+								<md-menu-item>
+									<md-button ng-click="signOut()">
+										<md-icon>exit_to_app</md-icon>
+										Sign out
+									</md-button>
+								</md-menu-item>
+							</md-menu-content>
+						</md-menu>
+					</div>
+					<div layout="row" layout-align="start start" flex="35" ng-if="!isAuthenticated">
+						<md-menu ng-if="isAuthenticated">
+							<md-button aria-label="Open interactions menu" ng-click="$mdOpenMenu($event)">{{username}}</md-button>
+							<md-menu-content width="4">
+								<md-menu-item>
+									<md-button>
+										<md-icon>home</md-icon>
+										Profile
+									</md-button>
+								</md-menu-item>
+								<md-menu-divider></md-menu-divider>
+								<md-menu-item>
+									<md-button ng-click="signOut()">
+										<md-icon>exit_to_app</md-icon>
+										Sign out
+									</md-button>
+								</md-menu-item>
+							</md-menu-content>
+						</md-menu>
+						<md-button>Create account</md-button>
+						<md-button class="md-raised" md-colors="{background: 'blue'}" ng-click="gotoSignInPage()">Sign In</md-button>
+					</div>
 				</div>
 			</div>
-		</div>
-	</md-toolbar>
-
-	<md-content>
-		<div ui-view></div>
-		<div flex></div>
+		</md-toolbar>
+		<main>
+			<ui-view></ui-view>
+		</main>
+		<span flex></span>
 		<footer>
 			<div class="footer" layout="row" layout-align="center center">
 				<span>Copyright © 2016 KrypApp</span>
@@ -45,7 +82,16 @@
 
 	<script src="app/app.js"></script>
 	<script src="app/components/feed/feed.controller.js"></script>
+	<script src="app/components/feed/posts.service.js"></script>
+	<script src="app/components/signin/signin.controller.js"></script>
+	<script src="app/components/signin/signin.service.js"></script>
+
 	<script src="app/components/index/index.controller.js"></script>
+
+	<script src="app/shared/http.service.js"></script>
+	<script src="app/shared/const.service.js"></script>
+	<script src="app/shared/auth.service.js"></script>
+	<script src="app/shared/authinterpretator.service.js"></script>
 </body>
 
 </html>

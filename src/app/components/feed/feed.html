@@ -1,36 +1,63 @@
 <div class="md-padding" layout="row" layout-align="center center">
-	<div flex-xs flex-gt-xs="45">
+	<div class="loading-indicator" layout="column" layout-align="end center" ng-if="isLoading">
+		<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+	</div>
+	<div flex-xs flex-gt-xs="45" ng-if="!isLoading">
+		<div class="md-padding">
+			<div class="post-box" layout="row" layout-align="center center" md-whiteframe="1" flex>
+				<div class="post-box-image" layout="row" layout="center center">
+					<img ng-src="https://pp.vk.me/c637628/v637628861/8dcf/VODaYD0PGeQ.jpg" />
+				</div>
+				<div flex>
+					<md-input-container class="md-block">
+						<input type="text" ng-model="newPost.value" ng-blur="newPostCaptionFocusLost()" placeholder="What's new?" class="comment-box" style="font-size: 17px; font-weight: lighter;" />
+					</md-input-container>
+				</div>
+				<div flex="20">
+					<md-button class="md-raised" md-colors="{background: 'blue'}">Post</md-button>
+				</div>
+			</div>
+		</div>
 		<div class="md-padding" ng-repeat="post in posts">
 			<md-card>
 				<md-card-header>
 					<md-card-avatar>
-						<img src="https://pp.vk.me/c637628/v637628861/8dd2/zVnIT81dJWk.jpg" />
+						<img ng-src="{{post.User.ProfileImageUri}}" />
 					</md-card-avatar>
 					<md-card-header-text>
-						<span class="md-title">nazarkryp</span>
-						<span class="md-subhead">Posted on 01.11.2016</span>
+						<a class="md-title">{{post.User.Username}}</a>
+						<span class="md-subhead">{{post.Created}}</span>
 					</md-card-header-text>
 				</md-card-header>
-				<img ng-src="{{post.imageUrl}}" class="md-card-image" alt="Washed Out">
+				<img ng-src="{{post.ImageUri}}" class="md-card-image" alt="Washed Out">
 				<md-card-content>
 					<div layout="column" flex>
 						<div class="likes">
-							<span class="md-body-2">100500 likes</span>
+							<a class="md-body-2">{{post.LikesCount}} likes</a>
 						</div>
-						<div class="caption">
-							<span class="md-body-2">nazarkryp</span>
-							<span class="md-body-1">This is AngularJS blog application using material design by google. Here is some text because I need to see behaviour is there are several rows</span>
+						<div ng-class="{'caption': isAuthenticated}">
+							<a class="md-body-2">{{post.User.Username}}</a>
+							<span class="md-body-1">{{post.Caption}}</span>
+							<br/>
+							<a class="md-body-1" ng-if="post.CommentsCount > 3 && post.CommentsCount > post.Comments.length">
+								<span class="show-comments-link" ng-click="viewMoreCommentsClick(post)">view all {{post.CommentsCount}} comments</span>
+							</a>
+							<div ng-repeat="comment in post.Comments">
+								<a class="md-body-2">{{comment.From.Username}}</a>
+								<span class="md-body-1">{{comment.Text}}</span>
+							</div>
 						</div>
 					</div>
 				</md-card-content>
-				<md-card-actions>
+				<md-card-actions ng-if="isAuthenticated">
 					<div layout="row">
 						<md-button class="md-icon-button" aria-label="Like" ng-click="like(post)">
-							<md-icon ng-class="{'liked': post.isLiked}" style="font-size: 30px;">favorite_border</md-icon>
+							<md-icon ng-class="{'liked': post.UserHasLiked}" style="font-size: 30px;">favorite_border</md-icon>
 						</md-button>
 						<div flex>
 							<md-input-container class="md-block" md-no-float>
-								<input type="text" placeholder="Add comment" class="comment-box" style="font-size: 17px; font-weight: lighter;" />
+								<input type="text" placeholder="Add comment" class="comment-box" style="font-size: 17px; font-weight: lighter;" ng-model="newComment.Text"
+									ng-keydown="postComment(newComment, post, $event)" />
 							</md-input-container>
 						</div>
 						<md-menu>

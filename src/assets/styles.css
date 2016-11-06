@@ -1,6 +1,12 @@
-body {
-    overflow: hidden;
+md-content {
+  height: calc(100vh);
 }
+
+body {
+    /*overflow: hidden;*/
+}
+
+
 
 md-input-container {
     margin: 0;
@@ -14,10 +20,6 @@ a:link {
 
 a:hover {
     cursor: pointer;
-}
-
-.sidebar {
-    margin: 10px 10px 10px 10px;
 }
 
 .footer {
@@ -78,4 +80,26 @@ a:hover {
 
 .liked {
     color: red;
+}
+
+.show-comments-link {
+    color: #999;
+}
+
+.loading-indicator {
+    height: 275px;
+}
+
+.post-box {
+    padding-left: 10px;
+    height: 70px;
+}
+
+.post-box-image>img {
+    height: 50px;
+    width: 50px;
+}
+
+.post-box>md-block md-input-has-placeholder {
+    margin-top: 30px;
 }
