@@ -5,9 +5,21 @@ angular.module('blogapp')
             };
 
             $scope.createPost = function(post) {
-                UploadService.post();
+                console.log(post);
 
-                $mdDialog.hide('POST CREATED');
+                if (!post || !post.ImageUri) {
+                    return;
+                }
+
+                UploadService.post().then(
+                    function(response) {
+                        $scope.post = response;
+                        $mdDialog.hide($scope.post);
+                    },
+                    function(error) {
+                        console.log(error);
+                    }
+                );
             };
 
             $scope.cancel = function() {

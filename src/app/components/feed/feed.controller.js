@@ -91,10 +91,15 @@ angular.module('blogapp')
                     targetEvent: ev,
                     clickOutsideToClose: true,
                     fullscreen: '-sm'
-                })
-                    .then(function(answer) {
-                        
-                    }, function() {
+                }).then(
+                    function(post) {
+                        if (post) {
+                            $scope.posts.push(post);
+                        } else {
+                            console.log('fuck');
+                        }
+                    },
+                    function() {
                     });
             };
 

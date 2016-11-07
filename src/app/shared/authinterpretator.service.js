@@ -6,6 +6,12 @@ angular.module('blogapp')
             var request = function (config) {
                 config.headers = config.headers || {};
 
+                if (config.url) {
+                    if (config.url.includes('dropbox')) {
+                        return config;
+                    }
+                }
+
                 var session = AuthService.getSessionInfo();
 
                 if (session) {
