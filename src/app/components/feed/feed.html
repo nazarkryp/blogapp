@@ -7,7 +7,7 @@
 			<md-card>
 				<md-card-header>
 					<md-card-avatar>
-						<img ng-src="{{post.User.ProfileImageUri}}" />
+						<img ng-src="{{post.User.ProfileImageUri}}" style="max-height: 40px;"/>
 					</md-card-avatar>
 					<md-card-header-text>
 						<a ui-sref="usersfeed({id: post.User.Id})" class="md-title">{{post.User.Username}}</a>
@@ -76,7 +76,7 @@
 			</md-card>
 		</div>
 	</div>
-	<md-fab-speed-dial class="md-fab-bottom-right" ng-click="showCreatePostDialog($event)">
+	<md-fab-speed-dial class="md-fab-bottom-right" ng-click="showCreatePostDialog($event)" ng-if="isAuthenticated">
 		<md-fab-trigger>
 			<md-button aria-label="create post" class="md-fab" md-colors="{background: 'blue'}">
 				<md-icon>add_to_photos</md-icon>

@@ -11,7 +11,7 @@ angular.module('blogapp')
                     return;
                 }
 
-                UploadService.post().then(
+                UploadService.post(post).then(
                     function(response) {
                         $scope.post = response;
                         $mdDialog.hide($scope.post);

@@ -3,7 +3,7 @@ angular.module('blogapp').service('SignUpService', ['$q', 'HttpService', 'ConstS
         this.signUp = function (user) {
             var deferred = $q.defer();
 
-            HttpService.post(ConstService.baseAddress + 'api/account/create', data, deferred);
+            HttpService.post(ConstService.baseAddress + 'api/account/create', user, deferred);
 
             return deferred.promise;
         };

@@ -60,6 +60,10 @@ angular.module('blogapp')
 
                         PostsService.postComment(comment, post.Id).then(
                             function(response) {
+                                if (!post.Comments) {
+                                    post.Comments = [];
+                                }
+
                                 post.Comments.push(response);
                             },
                             function(error) {
@@ -94,7 +98,7 @@ angular.module('blogapp')
                 }).then(
                     function(post) {
                         if (post) {
-                            $scope.posts.push(post);
+                            $scope.posts.unshift(post);
                         } else {
                             console.log('fuck');
                         }
