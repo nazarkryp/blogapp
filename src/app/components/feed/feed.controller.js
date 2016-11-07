@@ -1,6 +1,6 @@
 angular.module('blogapp')
     .controller('FeedController', ['$scope', '$state', '$stateParams', '$mdDialog', 'PostsService', 'AuthService',
-        function($scope, $state, $stateParams, $mdDialog, PostsService, AuthService) {
+        function ($scope, $state, $stateParams, $mdDialog, PostsService, AuthService) {
             $scope.authService = AuthService;
             $scope.isAuthenticated = false;
             $scope.isLoading = false;
@@ -9,49 +9,52 @@ angular.module('blogapp')
             };
 
             $scope.$watch("authService.Authenticated",
-                function(value) {
+                function (value) {
                     $scope.isAuthenticated = value;
                 });
 
-            var init = function() {
+            var init = function () {
                 $scope.getFeed($stateParams.id);
             };
 
-            $scope.newPostCaptionFocusLost = function() {
+            $scope.newPostCaptionFocusLost = function () {
                 $scope.newPost.value = '';
             };
 
-            $scope.openMenu = function($mdOpenMenu, ev) {
+            $scope.openMenu = function ($mdOpenMenu, ev) {
                 originatorEv = ev;
                 $mdOpenMenu(ev);
             };
 
-            $scope.getFeed = function(userId) {
+            $scope.getFeed = function (userId) {
                 $scope.isLoading = true;
 
                 PostsService.getPosts(userId)
-                    .then(function(response) {
+                    .then(function (response) {
                         $scope.posts = response;
                         $scope.isLoading = false;
                     },
-                    function(error) {
+                    function (error) {
+                        if (error.status === 404) {
+                            $scope.errorMessage = "User not found";
+                        }
+
                         $scope.isLoading = false;
-                        $scope.errorMessage = error;
                     });
             };
 
-            $scope.viewMoreCommentsClick = function(post) {
+            $scope.viewMoreCommentsClick = function (post) {
                 PostsService.getComments(post.Id).then(
-                    function(response) {
+                    function (response) {
                         post.Comments = response;
                     },
-                    function(error) {
+                    function (error) {
                         $scope.errorMessage = error;
                     }
                 );
             };
 
-            $scope.postComment = function(newComment, post, event) {
+            $scope.postComment = function (newComment, post, event) {
                 if (event.key === 'Enter') {
                     if (newComment) {
                         var comment = {
@@ -59,14 +62,14 @@ angular.module('blogapp')
                         };
 
                         PostsService.postComment(comment, post.Id).then(
-                            function(response) {
+                            function (response) {
                                 if (!post.Comments) {
                                     post.Comments = [];
                                 }
 
                                 post.Comments.push(response);
                             },
-                            function(error) {
+                            function (error) {
                                 $scope.errorMessage = error;
                             });
 
@@ -75,19 +78,19 @@ angular.module('blogapp')
                 }
             };
 
-            $scope.like = function(post) {
+            $scope.like = function (post) {
                 PostsService.like(post.Id).then(
-                    function(response) {
+                    function (response) {
                         post.LikesCount = response.LikesCount;
                         post.UserHasLiked = response.UserHasLiked;
                     },
-                    function(error) {
+                    function (error) {
                         $scope.errorMessage = error;
                     }
                 );
             };
 
-            $scope.showCreatePostDialog = function(ev) {
+            $scope.showCreatePostDialog = function (ev) {
                 $mdDialog.show({
                     controller: 'CreatePostController',
                     templateUrl: 'app/components/upload/create-post.html',
@@ -96,20 +99,20 @@ angular.module('blogapp')
                     clickOutsideToClose: true,
                     fullscreen: '-sm'
                 }).then(
-                    function(post) {
+                    function (post) {
                         if (post) {
                             $scope.posts.unshift(post);
                         } else {
                             console.log('fuck');
                         }
                     },
-                    function() {
+                    function () {
                     });
             };
 
             init();
         }])
-    .service("DataSource", [function() {
+    .service("DataSource", [function () {
         this.posts = [
             {
                 Id: 1,

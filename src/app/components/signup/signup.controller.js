@@ -15,6 +15,10 @@ angular.module('blogapp')
                 );
             };
 
+            $scope.gotoSignInPage = function () {
+                $state.go('signin');
+            };
+
             var showLoadingDialog = function () {
                 $mdDialog.show({
                     contentElement: '#myDialog',

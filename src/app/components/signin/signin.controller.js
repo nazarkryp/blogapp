@@ -24,6 +24,10 @@ angular.module('blogapp')
                 credentials = {};
             };
 
+            $scope.gotoCreateAccountPage = function () {
+                $state.go('signup');
+            };
+
             var showLoadingDialog = function () {
                 $mdDialog.show({
                     contentElement: '#myDialog',

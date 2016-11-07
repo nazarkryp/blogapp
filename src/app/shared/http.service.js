@@ -5,7 +5,12 @@ angular.module("blogapp").service("HttpService", ["$http", function ($http) {
                 deferred.resolve(response);
             })
             .error(function (error, status) {
-                deferred.reject(error);
+                var errorObject = {
+                    error: error,
+                    status: status
+                };
+                
+                deferred.reject(errorObject);
             });
     };
 
