@@ -57,7 +57,7 @@
 								</md-menu-item>
 							</md-menu-content>
 						</md-menu>
-						<md-button>Create account</md-button>
+						<md-button ng-click="gotoSignUpPage()">Create account</md-button>
 						<md-button class="md-raised" md-colors="{background: 'blue'}" ng-click="gotoSignInPage()">Sign In</md-button>
 					</div>
 				</div>
@@ -79,12 +79,18 @@
 	<script src="assets/libs/js/angular-material.min.js"></script>
 	<script src="assets/libs/js/angular-aria.min.js"></script>
 	<script src="assets/libs/js/angular-animate.min.js"></script>
+	<script src="assets/libs/js/angular-messages.min.js"></script>
 
 	<script src="app/app.js"></script>
+
 	<script src="app/components/feed/feed.controller.js"></script>
 	<script src="app/components/feed/posts.service.js"></script>
+	
 	<script src="app/components/signin/signin.controller.js"></script>
 	<script src="app/components/signin/signin.service.js"></script>
+
+	<script src="app/components/signup/signup.controller.js"></script>
+	<script src="app/components/signup/signup.service.js"></script>
 
 	<script src="app/components/index/index.controller.js"></script>
 

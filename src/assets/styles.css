@@ -14,8 +14,15 @@ md-input-container {
 
 a:link {
     text-decoration: none;
-    color: rgb(33, 150, 243);
-    font-weight: lighter;
+    color: black;
+    /*font-weight: lighter;*/
+}
+
+
+a:visited {
+    text-decoration: none;
+    color: black;
+    /*font-weight: lighter;*/
 }
 
 a:hover {

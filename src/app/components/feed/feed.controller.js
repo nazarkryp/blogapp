@@ -1,59 +1,57 @@
 angular.module('blogapp')
-    .controller('FeedController', ['$scope', '$state', '$mdDialog', 'PostsService', 'AuthService',
-        function($scope, $state, $mdDialog, PostsService, AuthService) {
+    .controller('FeedController', ['$scope', '$state', '$stateParams', '$mdDialog', 'PostsService', 'AuthService',
+        function ($scope, $state, $stateParams, $mdDialog, PostsService, AuthService) {
             $scope.authService = AuthService;
             $scope.isAuthenticated = false;
+            $scope.isLoading = false;
+            $scope.posts = [];
             $scope.newPost = {
             };
 
-            $scope.newPostCaptionFocusLost = function() {
-                $scope.newPost.value = '';
-            };
-
             $scope.$watch("authService.Authenticated",
-                function(value) {
+                function (value) {
                     $scope.isAuthenticated = value;
                 });
 
-            $scope.isLoading = false;
-
-            $scope.posts = [];
-
-            var init = function() {
-                $scope.getPosts();
+            var init = function () {
+                $scope.getFeed($stateParams.id);
             };
 
-            $scope.openMenu = function($mdOpenMenu, ev) {
+            $scope.newPostCaptionFocusLost = function () {
+                $scope.newPost.value = '';
+            };
+
+            $scope.openMenu = function ($mdOpenMenu, ev) {
                 originatorEv = ev;
                 $mdOpenMenu(ev);
             };
 
-            $scope.getPosts = function() {
+            $scope.getFeed = function (userId) {
                 $scope.isLoading = true;
 
-                PostsService.getPosts()
-                    .then(function(response) {
+                PostsService.getPosts(userId)
+                    .then(function (response) {
                         $scope.posts = response;
                         $scope.isLoading = false;
                     },
-                    function(error) {
+                    function (error) {
                         $scope.isLoading = false;
                         $scope.errorMessage = error;
                     });
             };
 
-            $scope.viewMoreCommentsClick = function(post) {
+            $scope.viewMoreCommentsClick = function (post) {
                 PostsService.getComments(post.Id).then(
-                    function(response) {
+                    function (response) {
                         post.Comments = response;
                     },
-                    function(error) {
+                    function (error) {
                         $scope.errorMessage = error;
                     }
                 );
             };
 
-            $scope.postComment = function(newComment, post, event) {
+            $scope.postComment = function (newComment, post, event) {
                 if (event.key === 'Enter') {
                     if (newComment) {
                         var comment = {
@@ -61,10 +59,10 @@ angular.module('blogapp')
                         };
 
                         PostsService.postComment(comment, post.Id).then(
-                            function(response) {
+                            function (response) {
                                 post.Comments.push(response);
                             },
-                            function(error) {
+                            function (error) {
                                 $scope.errorMessage = error;
                             });
 
@@ -73,12 +71,12 @@ angular.module('blogapp')
                 }
             };
 
-            $scope.like = function(post) {
+            $scope.like = function (post) {
                 PostsService.like(post.Id).then(
-                    function(response) {
+                    function (response) {
                         post.UserHasLiked = response.UserHasLiked;
                     },
-                    function(error) {
+                    function (error) {
                         $scope.errorMessage = error;
                     }
                 );
@@ -86,7 +84,7 @@ angular.module('blogapp')
 
             init();
         }])
-    .service("DataSource", [function() {
+    .service("DataSource", [function () {
         this.posts = [
             {
                 Id: 1,

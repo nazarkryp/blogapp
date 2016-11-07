@@ -1,8 +1,12 @@
 angular.module('blogapp').service('PostsService', ['$q', 'HttpService', 'ConstService', function ($q, HttpService, ConstService) {
-    this.getPosts = function () {
+    this.getPosts = function (userId) {
         var deferred = $q.defer();
 
-        HttpService.get(ConstService.baseAddress + 'api/posts', deferred);
+        if (!userId) {
+            HttpService.get(ConstService.baseAddress + 'api/posts', deferred);
+        } else {
+            HttpService.get(ConstService.baseAddress + 'api/posts?userId=' + userId, deferred);
+        }
 
         return deferred.promise;
     };

@@ -3,21 +3,6 @@
 		<md-progress-circular md-mode="indeterminate"></md-progress-circular>
 	</div>
 	<div flex-xs flex-gt-xs="45" ng-if="!isLoading">
-		<div class="md-padding">
-			<div class="post-box" layout="row" layout-align="center center" md-whiteframe="1" flex>
-				<div class="post-box-image" layout="row" layout="center center">
-					<img ng-src="https://pp.vk.me/c637628/v637628861/8dcf/VODaYD0PGeQ.jpg" />
-				</div>
-				<div flex>
-					<md-input-container class="md-block">
-						<input type="text" ng-model="newPost.value" ng-blur="newPostCaptionFocusLost()" placeholder="What's new?" class="comment-box" style="font-size: 17px; font-weight: lighter;" />
-					</md-input-container>
-				</div>
-				<div flex="20">
-					<md-button class="md-raised" md-colors="{background: 'blue'}">Post</md-button>
-				</div>
-			</div>
-		</div>
 		<div class="md-padding" ng-repeat="post in posts">
 			<md-card>
 				<md-card-header>
@@ -25,7 +10,7 @@
 						<img ng-src="{{post.User.ProfileImageUri}}" />
 					</md-card-avatar>
 					<md-card-header-text>
-						<a class="md-title">{{post.User.Username}}</a>
+						<a ui-sref="usersfeed({id: post.User.Id})" class="md-title">{{post.User.Username}}</a>
 						<span class="md-subhead">{{post.Created}}</span>
 					</md-card-header-text>
 				</md-card-header>
@@ -36,14 +21,14 @@
 							<a class="md-body-2">{{post.LikesCount}} likes</a>
 						</div>
 						<div ng-class="{'caption': isAuthenticated}">
-							<a class="md-body-2">{{post.User.Username}}</a>
+							<a ui-sref="usersfeed({id: post.User.Id})" class="md-body-2">{{post.User.Username}}</a>
 							<span class="md-body-1">{{post.Caption}}</span>
 							<br/>
 							<a class="md-body-1" ng-if="post.CommentsCount > 3 && post.CommentsCount > post.Comments.length">
 								<span class="show-comments-link" ng-click="viewMoreCommentsClick(post)">view all {{post.CommentsCount}} comments</span>
 							</a>
 							<div ng-repeat="comment in post.Comments">
-								<a class="md-body-2">{{comment.From.Username}}</a>
+								<a class="md-body-2" ui-sref="usersfeed({id: comment.From.Id})">{{comment.From.Username}}</a>
 								<span class="md-body-1">{{comment.Text}}</span>
 							</div>
 						</div>

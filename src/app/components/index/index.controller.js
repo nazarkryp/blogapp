@@ -8,6 +8,10 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
             $state.go('signin');
         };
 
+        $scope.gotoSignUpPage = function () {
+            $state.go('signup');
+        };
+
         $scope.gotoFeedPage = function () {
             $state.go('feed');
         };

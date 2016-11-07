@@ -9,6 +9,7 @@ gulp.task('copy-assets', function () {
             './node_modules/angular-material/angular-material.min.js',
             './node_modules/angular-animate/angular-animate.min.js',
             './node_modules/angular-aria/angular-aria.min.js',
+            './node_modules/angular-messages/angular-messages.min.js'
         ],
         css: [
             './node_modules/angular-material/angular-material.min.css'
