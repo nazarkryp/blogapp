@@ -2,7 +2,7 @@
 	<div class="loading-indicator" layout="column" layout-align="end center" ng-if="isLoading">
 		<md-progress-circular md-mode="indeterminate"></md-progress-circular>
 	</div>
-	<div flex-xs flex-gt-xs="45" ng-if="!isLoading">
+	<div flex="45" ng-if="!isLoading">
 		<div class="md-padding" ng-repeat="post in posts">
 			<md-card>
 				<md-card-header>
@@ -11,7 +11,7 @@
 					</md-card-avatar>
 					<md-card-header-text>
 						<a ui-sref="usersfeed({id: post.User.Id})" class="md-title">{{post.User.Username}}</a>
-						<span class="md-subhead">{{post.Created}}</span>
+						<span class="md-subhead">{{post.Created | date:'MM.dd.yyyy'}}</span>
 					</md-card-header-text>
 				</md-card-header>
 				<img ng-src="{{post.ImageUri}}" class="md-card-image" alt="Washed Out">
@@ -76,4 +76,11 @@
 			</md-card>
 		</div>
 	</div>
+	<md-fab-speed-dial class="md-fab-bottom-right" ng-click="showCreatePostDialog($event)">
+		<md-fab-trigger>
+			<md-button aria-label="create post" class="md-fab" md-colors="{background: 'blue'}">
+				<md-icon>add_to_photos</md-icon>
+			</md-button>
+		</md-fab-trigger>
+	</md-fab-speed-dial>
 </div>

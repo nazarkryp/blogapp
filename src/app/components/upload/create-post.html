@@ -1,0 +1,46 @@
+<md-dialog aria-label="Create Post" flex="50">
+    <form ng-submit="createPost()" ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Create post</h2>
+                <span flex></span>
+                <md-button aria-label="menu" class="md-icon-button md-primary">
+                    <md-icon>close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <h3>To create new post pick up image from your computer or add link to it</h3>
+                <div layout="column">
+                    <div layout="column">
+                        <md-button class="md-raised" flex>Upload file</md-button>
+                        <span class="md-padding" flex></span>
+                        <md-input-container md-no-float flex>
+                            <label>External resource url</label>
+                            <input type="text" placeholder="http://" class="comment-box text-area" style="font-weight: lighter;" ng-model="post.uri"
+                            />
+                        </md-input-container>
+                    </div>
+                    <img style="margin: auto; max-width: 100%;width:100%;" alt="Lush mango tree" ng-src="{{post.uri}}" ng-if="post.uri">
+                    <div flex>
+                        <md-input-container class="md-block">
+                            <label>Edit description</label>
+                            <textarea name="description" rows="3" ng-model="post.description"></textarea>
+                        </md-input-container>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()">
+                Cancel
+            </md-button>
+            <md-button type="submit" md-colors="{background: 'blue'}">
+                Post
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

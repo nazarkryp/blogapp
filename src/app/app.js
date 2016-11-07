@@ -1,8 +1,6 @@
 angular.module('blogapp', ['ui.router', 'ngMaterial', 'ngMessages'])
     .config(['$stateProvider', '$urlRouterProvider', '$mdIconProvider', '$httpProvider',
-        function($stateProvider, $urlRouterProvider, $mdIconProvider, $httpProvider) {
-            $urlRouterProvider.otherwise('/feed');
-
+        function ($stateProvider, $urlRouterProvider, $mdIconProvider, $httpProvider) {
             $stateProvider
                 .state('feed', {
                     url: '/feed',
@@ -25,12 +23,13 @@ angular.module('blogapp', ['ui.router', 'ngMaterial', 'ngMessages'])
                     controller: 'SignInController'
                 });
 
+            $urlRouterProvider.otherwise('/feed');
             $httpProvider.interceptors.push("authInterpretatorService");
         }])
     .run(["$rootScope", "$location", "AuthService",
-        function($rootScope, $location, AuthService) {
+        function ($rootScope, $location, AuthService) {
             $rootScope.$on("$stateChangeStart",
-                function(event, next) {
+                function (event, next) {
                     if (AuthService.Authenticated) {
                         if (next.name) {
                             if (next.url === "/signin") {
