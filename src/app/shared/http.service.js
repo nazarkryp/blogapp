@@ -9,7 +9,7 @@ angular.module("blogapp").service("HttpService", ["$http", function ($http) {
                     error: error,
                     status: status
                 };
-                
+
                 deferred.reject(errorObject);
             });
     };
@@ -40,6 +40,28 @@ angular.module("blogapp").service("HttpService", ["$http", function ($http) {
                 deferred.resolve(response);
             })
             .error(function (error, status) {
+                deferred.reject(error);
+            });
+    };
+
+    this.postMultipart = function (url, data, deferred) {
+        var formData = new FormData();
+
+        console.log(data.name);
+
+        formData.append(data.name, data);
+
+        $http.post(url,
+            formData,
+            {
+                headers: {
+                    "Content-Type": undefined
+                }
+            })
+            .success(function (response) {
+                deferred.resolve(response);
+            })
+            .error(function (error) {
                 deferred.reject(error);
             });
     };

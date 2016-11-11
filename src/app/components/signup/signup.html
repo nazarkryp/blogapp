@@ -40,8 +40,18 @@
                                     <ng-message when="required">Password confirm field is required.</ng-message>
                                 </div>
                             </md-input-container>
+                            <div layout="column" style="border: 1px solid #dbdbdb;">
+                                <!--<div style="padding: 5px 0px 0px 5px;">
+                                    <span class="md-subhead" style="padding: 5px;">Set your profile picture</span>
+                                </div>-->
+                                <md-button md-colors="{background : 'red'}" ng-click="browse()" flex>Upload profile picture</md-button>
+                                <div layout="row" layout-align="center center" style="padding: 5px 5px 5px 10px;">
+                                    <img ng-src="{{attachment.Url}}" style="max-width: 100px; max-height: 100px;" />
+                                </div>
+                                <input id="uploadInput" file-model="file" type="file" aria-label class="md-input" ng-hide="true" />
+                            </div>
                             <div ng-if="errorMessage" class="md-padding" layout="row" layout-align="center stretch">
-                                <label md-colors="{color : 'red'}">ERROR: {{errorMessage}}</label>
+                                <label md-colors="{color : 'red'}">{{errorMessage}}</label>
                             </div>
                             <div layout="row" layout-align="stretch">
                                 <md-button type="submit" class="md-raised md-primary" md-colors="{background: 'blue'}" flex>Create account</md-button>
