@@ -1,9 +1,12 @@
 angular.module('blogapp')
     .controller('SignUpController', ['$scope', '$state', '$mdDialog', 'SignUpService', 'UploadService',
         function ($scope, $state, $mdDialog, SignUpService, UploadService) {
-            $scope.file = null;
+            $scope.isUploading = false;
+            $scope.browsedFile = {
+                file : null
+            };
             $scope.user = {
-                AttachmentId: 0
+                Attachment: {}
             };
 
             $scope.gotoSignInPage = function () {
@@ -12,9 +15,11 @@ angular.module('blogapp')
 
             $scope.signUp = function (user) {
                 if ($scope.attachment) {
-                    user.AttachmentId = $scope.attachment.Id;
+                    user.Attachment = $scope.attachment;
                 }
+
                 showLoadingDialog();
+
                 SignUpService.signUp(user).then(
                     function (response) {
                         $mdDialog.hide();
@@ -31,24 +36,28 @@ angular.module('blogapp')
                 uploadInput.click();
             };
 
-            $scope.$watch("file",
-                function (data) {
-                    if (data) {
-                        uploadImage();
-                    }
-                });
+            $scope.$watch("browsedFile.file", function (file) {
+                if (file) {
+                    uploadImage(file);
+                }
+            });
 
-            var uploadImage = function () {
-                $scope.uploaded = false;
-                if ($scope.file) {
-                    UploadService.uploadFile($scope.file)
+            var uploadImage = function (file) {
+                $scope.isUploading = true;
+                if (file) {
+                    UploadService.uploadFile(file)
                         .then(function (response) {
-                            $scope.uploaded = true;
+                            $scope.isUploading = false;
                             $scope.attachment = response;
+                            $scope.browsedFile.file = null;
                         },
                         function (error) {
-                            console.log(error);
-                            $scope.uploaded = false;
+                            console.log('ERROR: ' + error);
+                            $scope.isUploading = false;
+                            $scope.browsedFile.file = null;
+                        },
+                        function (notify) {
+                            console.log('Notify: ' + notify);
                         });
                 }
             };

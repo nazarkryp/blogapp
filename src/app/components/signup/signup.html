@@ -40,7 +40,12 @@
                                     <ng-message when="required">Password confirm field is required.</ng-message>
                                 </div>
                             </md-input-container>
-                            <div layout="column" style="border: 1px solid #dbdbdb;">
+                            <div layout="column" layout-align="center center" ng-if="isUploading">
+                                <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+                                <span style="padding: 10px;">Uploading image</span>
+                                <!--<md-progress-circular md-mode="indeterminate"></md-progress-circular>-->
+                            </div>
+                            <div layout="column" style="border: 1px solid #dbdbdb;" ng-if="!isUploading">
                                 <!--<div style="padding: 5px 0px 0px 5px;">
                                     <span class="md-subhead" style="padding: 5px;">Set your profile picture</span>
                                 </div>-->
@@ -48,7 +53,7 @@
                                 <div layout="row" layout-align="center center" style="padding: 5px 5px 5px 10px;">
                                     <img ng-src="{{attachment.Url}}" style="max-width: 100px; max-height: 100px;" />
                                 </div>
-                                <input id="uploadInput" file-model="file" type="file" aria-label class="md-input" ng-hide="true" />
+                                <input id="uploadInput" file-model="browsedFile.file" type="file" aria-label class="md-input" ng-hide="true" />
                             </div>
                             <div ng-if="errorMessage" class="md-padding" layout="row" layout-align="center stretch">
                                 <label md-colors="{color : 'red'}">{{errorMessage}}</label>

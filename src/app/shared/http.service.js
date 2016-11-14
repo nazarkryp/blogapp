@@ -47,9 +47,7 @@ angular.module("blogapp").service("HttpService", ["$http", function ($http) {
     this.postMultipart = function (url, data, deferred) {
         var formData = new FormData();
 
-        console.log(data.name);
-
-        formData.append(data.name, data);
+        formData.append('"' + data.name + '"', data);
 
         $http.post(url,
             formData,
