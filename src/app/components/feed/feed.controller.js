@@ -4,18 +4,56 @@ angular.module('blogapp')
             $scope.authService = AuthService;
             $scope.isAuthenticated = false;
             $scope.isLoading = false;
+            $scope.isLoadingMorePosts = false;
             $scope.posts = [];
             $scope.newPost = {
+            };
+
+            $scope.feed = {
+                PageIndex: 0,
+                PageSize: 3,
+                Posts: [],
+                HasMoreItems: false
+            };
+
+            var getFeedPromise = function () {
+                if (!$stateParams.id) {
+                    return PostsService.getFeed($scope.feed.PageIndex + 1, $scope.feed.PageSize);
+                } else {
+                    return PostsService.getUsersFeed($stateParams.id, $scope.feed.PageIndex + 1, $scope.feed.PageSize);
+                }
+            };
+
+            var getFeed = function () {
+                getFeedPromise($stateParams.id).then(
+                    function (response) {
+                        if (response.Posts) {
+                            response.Posts.forEach(function (post) {
+                                $scope.feed.Posts.push(post);
+                            }, this);
+                        }
+
+                        $scope.feed.HasMoreItems = response.HasMoreItems;
+                        $scope.feed.PageIndex = response.PageIndex;
+
+                        $scope.isLoading = false;
+                        $scope.isLoadingMorePosts = false;
+                    },
+                    function (error) {
+                        $scope.isLoading = false;
+                        $scope.isLoadingMorePosts = false;
+                    });
+            };
+
+            $scope.loadMorePosts = function () {
+                $scope.isLoadingMorePosts = true;
+                getFeed($stateParams.id);
             };
 
             $scope.$watch("authService.Authenticated",
                 function (value) {
                     $scope.isAuthenticated = value;
                 });
-
-            var init = function () {
-                $scope.getFeed($stateParams.id);
-            };
 
             $scope.newPostCaptionFocusLost = function () {
                 $scope.newPost.value = '';
@@ -24,23 +62,6 @@ angular.module('blogapp')
             $scope.openMenu = function ($mdOpenMenu, ev) {
                 originatorEv = ev;
                 $mdOpenMenu(ev);
-            };
-
-            $scope.getFeed = function (userId) {
-                $scope.isLoading = true;
-
-                PostsService.getPosts(userId)
-                    .then(function (response) {
-                        $scope.posts = response;
-                        $scope.isLoading = false;
-                    },
-                    function (error) {
-                        if (error.status === 404) {
-                            $scope.errorMessage = "User not found";
-                        }
-
-                        $scope.isLoading = false;
-                    });
             };
 
             $scope.viewMoreCommentsClick = function (post) {
@@ -108,6 +129,11 @@ angular.module('blogapp')
                     },
                     function () {
                     });
+            };
+
+            var init = function () {
+                $scope.isLoading = true;
+                getFeed();
             };
 
             init();

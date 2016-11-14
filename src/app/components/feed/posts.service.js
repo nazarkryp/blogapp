@@ -11,6 +11,22 @@ angular.module('blogapp').service('PostsService', ['$q', 'HttpService', 'ConstSe
         return deferred.promise;
     };
 
+    this.getFeed = function (pageIndex, pageSize) {
+        var deferred = $q.defer();
+
+        HttpService.get(ConstService.baseAddress + 'api/posts?pageIndex=' + pageIndex + '&pageSize=' + pageSize, deferred);
+
+        return deferred.promise;
+    };
+
+    this.getUsersFeed = function (userId, pageIndex, pageSize) {
+        var deferred = $q.defer();
+
+        HttpService.get(ConstService.baseAddress + 'api/posts?ownerId=' + userId + '&pageIndex=' + pageIndex + '&pageSize=' + pageSize, deferred);
+
+        return deferred.promise;
+    };
+
     this.getComments = function (postId) {
         var deferred = $q.defer();
 

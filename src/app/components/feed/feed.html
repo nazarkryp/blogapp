@@ -4,7 +4,7 @@
 	</div>
 	<div flex="45" ng-if="!isLoading">
 		<h1 layout="row" layout-align="center center">{{errorMessage}}</h1>
-		<div class="md-padding" ng-repeat="post in posts">
+		<div class="md-padding" ng-repeat="post in feed.Posts">
 			<md-card>
 				<md-card-header>
 					<md-card-avatar>
@@ -76,8 +76,9 @@
 				</md-card-actions>
 			</md-card>
 		</div>
-		<div layout="column" layout-align="center center">
-			<md-button>Load More</md-button>
+		<div layout="column" layout-align="center center" ng-if="feed.HasMoreItems">
+			<md-button ng-click="loadMorePosts()" ng-if="!isLoadingMorePosts">Load More</md-button>
+			<md-progress-circular md-mode="indeterminate" ng-if="isLoadingMorePosts"></md-progress-circular>
 		</div>
 	</div>
 	<md-fab-speed-dial class="md-fab-bottom-right" ng-click="showCreatePostDialog($event)" ng-if="isAuthenticated">
