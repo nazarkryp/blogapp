@@ -30,8 +30,16 @@ angular.module('blogapp').service("AuthService", ["$window",
             return false;
         };
 
+        this.userId = function () {
+            var session = self.getSessionInfo();
+
+            if (session) {
+                return session["userId"];
+            }
+        };
+
         this.Authenticated = this.isAuthenticated();
-        //this.Username = '';
+        this.UserId = this.userId();
 
         this.signIn = function (session) {
             sessionInfo = session;

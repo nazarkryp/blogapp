@@ -9,7 +9,7 @@ angular.module('blogapp', ['ui.router', 'ngMaterial', 'ngMessages'])
                 })
                 .state('usersfeed', {
                     url: '/feed/users/:id',
-                    templateUrl: 'app/components/feed/feed.html',
+                    templateUrl: 'app/components/feed/users/users-feed.html',
                     controller: 'FeedController'
                 })
                 .state('signup', {

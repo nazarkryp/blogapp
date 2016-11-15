@@ -1,6 +1,6 @@
 angular.module('blogapp')
-    .controller('FeedController', ['$scope', '$state', '$stateParams', '$mdDialog', '$window', '$timeout', 'PostsService', 'AuthService',
-        function ($scope, $state, $stateParams, $mdDialog, $window, $timeout, PostsService, AuthService) {
+    .controller('FeedController', ['$scope', '$state', '$stateParams', '$mdDialog', '$window', '$timeout', 'PostsService', 'RelationshipsService', 'AuthService',
+        function($scope, $state, $stateParams, $mdDialog, $window, $timeout, PostsService, RelationshipsService, AuthService) {
             $scope.authService = AuthService;
             $scope.isAuthenticated = false;
             $scope.isLoading = false;
@@ -16,7 +16,19 @@ angular.module('blogapp')
                 HasMoreItems: false
             };
 
-            var getFeedPromise = function () {
+            var getUser = function(userId) {
+                RelationshipsService.getRelationships(userId).then(
+                    function(response) {
+                        $scope.user = response.User;
+                        $scope.isUserFollowed = response.IsFollowed;
+                    },
+                    function(error) {
+                        console.log(error);
+                    }
+                );
+            };
+
+            var getFeedPromise = function() {
                 if (!$stateParams.id) {
                     return PostsService.getFeed($scope.feed.PageIndex + 1, $scope.feed.PageSize);
                 } else {
@@ -24,11 +36,11 @@ angular.module('blogapp')
                 }
             };
 
-            var getFeed = function () {
+            var getFeed = function() {
                 getFeedPromise($stateParams.id).then(
-                    function (response) {
+                    function(response) {
                         if (response.Posts) {
-                            response.Posts.forEach(function (post) {
+                            response.Posts.forEach(function(post) {
                                 $scope.feed.Posts.push(post);
                             }, this);
                         }
@@ -39,43 +51,43 @@ angular.module('blogapp')
                         $scope.isLoading = false;
                         $scope.isLoadingMorePosts = false;
                     },
-                    function (error) {
+                    function(error) {
                         $scope.isLoading = false;
                         $scope.isLoadingMorePosts = false;
                     });
             };
 
-            $scope.loadMorePosts = function () {
+            $scope.loadMorePosts = function() {
                 $scope.isLoadingMorePosts = true;
                 getFeed($stateParams.id);
             };
 
             $scope.$watch("authService.Authenticated",
-                function (value) {
+                function(value) {
                     $scope.isAuthenticated = value;
                 });
 
-            $scope.newPostCaptionFocusLost = function () {
+            $scope.newPostCaptionFocusLost = function() {
                 $scope.newPost.value = '';
             };
 
-            $scope.openMenu = function ($mdOpenMenu, ev) {
+            $scope.openMenu = function($mdOpenMenu, ev) {
                 originatorEv = ev;
                 $mdOpenMenu(ev);
             };
 
-            $scope.viewMoreCommentsClick = function (post) {
+            $scope.viewMoreCommentsClick = function(post) {
                 PostsService.getComments(post.Id).then(
-                    function (response) {
+                    function(response) {
                         post.Comments = response;
                     },
-                    function (error) {
+                    function(error) {
                         $scope.errorMessage = error;
                     }
                 );
             };
 
-            $scope.postComment = function (newComment, post, event) {
+            $scope.postComment = function(newComment, post, event) {
                 if (event.key === 'Enter') {
                     if (newComment) {
                         var comment = {
@@ -83,14 +95,14 @@ angular.module('blogapp')
                         };
 
                         PostsService.postComment(comment, post.Id).then(
-                            function (response) {
+                            function(response) {
                                 if (!post.Comments) {
                                     post.Comments = [];
                                 }
 
                                 post.Comments.push(response);
                             },
-                            function (error) {
+                            function(error) {
                                 $scope.errorMessage = error;
                             });
 
@@ -99,19 +111,19 @@ angular.module('blogapp')
                 }
             };
 
-            $scope.like = function (post) {
+            $scope.like = function(post) {
                 PostsService.like(post.Id).then(
-                    function (response) {
+                    function(response) {
                         post.LikesCount = response.LikesCount;
                         post.UserHasLiked = response.UserHasLiked;
                     },
-                    function (error) {
+                    function(error) {
                         $scope.errorMessage = error;
                     }
                 );
             };
 
-            $scope.showCreatePostDialog = function (ev) {
+            $scope.showCreatePostDialog = function(ev) {
                 $mdDialog.show({
                     controller: 'CreatePostController',
                     templateUrl: 'app/components/upload/create-post.html',
@@ -120,20 +132,29 @@ angular.module('blogapp')
                     clickOutsideToClose: true,
                     fullscreen: '-sm'
                 }).then(
-                    function (post) {
+                    function(post) {
                         if (post) {
-                            $scope.posts.unshift(post);
+                            if (!$stateParams.id) {
+                                $scope.feed.Posts.unshift(post);
+                            }
+                            if ($stateParams.id === AuthService.UserId) {
+                                $scope.feed.Posts.unshift(post);
+                            }
                         } else {
                             console.log('fuck');
                         }
                     },
-                    function () {
+                    function() {
                     });
             };
 
-            var init = function () {
+            var init = function() {
                 $scope.isLoading = true;
                 getFeed();
+
+                if ($stateParams.id) {
+                    getUser($stateParams.id);
+                }
             };
 
             init();
