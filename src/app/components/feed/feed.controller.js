@@ -1,6 +1,6 @@
 angular.module('blogapp')
-    .controller('FeedController', ['$scope', '$state', '$stateParams', '$mdDialog', '$window', '$timeout', 'PostsService', 'RelationshipsService', 'AuthService',
-        function($scope, $state, $stateParams, $mdDialog, $window, $timeout, PostsService, RelationshipsService, AuthService) {
+    .controller('FeedController', ['$scope', '$state', '$stateParams', '$mdDialog', '$window', '$timeout', 'PostsService', 'AuthService',
+        function($scope, $state, $stateParams, $mdDialog, $window, $timeout, PostsService, AuthService) {
             $scope.authService = AuthService;
             $scope.isAuthenticated = false;
             $scope.isLoading = false;
@@ -14,18 +14,6 @@ angular.module('blogapp')
                 PageSize: 3,
                 Posts: [],
                 HasMoreItems: false
-            };
-
-            var getUser = function(userId) {
-                RelationshipsService.getRelationships(userId).then(
-                    function(response) {
-                        $scope.user = response.User;
-                        $scope.isUserFollowed = response.IsFollowed;
-                    },
-                    function(error) {
-                        console.log(error);
-                    }
-                );
             };
 
             var getFeedPromise = function() {
@@ -153,7 +141,7 @@ angular.module('blogapp')
                 getFeed();
 
                 if ($stateParams.id) {
-                    getUser($stateParams.id);
+                    $scope.userId = $stateParams.id; 
                 }
             };
 

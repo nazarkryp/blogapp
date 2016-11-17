@@ -99,6 +99,10 @@ a:hover {
     height: 275px;
 }
 
+.post {
+    margin-bottom: 50px;
+}
+
 .post-box {
     padding-left: 10px;
     height: 70px;
@@ -119,16 +123,21 @@ a:hover {
     background-color: rgb(239, 240, 241);
 }
 
-.user-info-bar {
-    height: 225px;
-    background: white;
-    border: 1px solid #dbdbdb;
-}
-
 .profile-info-bar {
     height: 275px;
 }
 
+.user-info-bar {
+    height: 175px;
+    padding-top: 25px;
+    /*background: white;*/
+    /*border: 1px solid #dbdbdb;*/
+}
+
 .profile-image {
     position: absolute;
+}
+
+.counters {
+    padding-top: 10px;
 }

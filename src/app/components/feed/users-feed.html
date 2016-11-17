@@ -1,54 +1,13 @@
 <div layout="column">
-    <div class="md-padding" layout="row" layout-align="center center" style="padding-top:50px;">
-        <div class="profile-info-bar" layout="column" flex="45">
-            <div flex="25"></div>
-            <div layout="column" layout-align="center center">
-                <img class="profile-image" ng-src="{{user.ProfileImageUri}}"
-                    alt="profile" style="width:150px;height:150px;border-radius: 90px 90px 90px 90px;" ng-cloak/>
-            </div>
-            <div class="user-info-bar" layout="column" layout-align="stretch stretch">
-                <div layout="row" layout-align="stretch stretch" flex="40">
-                    <div layout="row" layout-align="end start" flex>
-                        <md-button class="md-raised" md-colors="{background: 'green'}">FOLLOWING</md-button>
-                    </div>
-                </div>
-                <div layout="row" layout-align="center center" flex="25">
-                    <h1 class="md-headline">{{user.Username}}</h1>
-                </div>
-                <div layout="row" layout-align="space-around center" flex="20">
-                    <div layout="column" layout-align="center center">
-                        <span>POSTS</span>
-                        <span class="md-title">220</span>
-                    </div>
-                    <div layout="column" layout-align="center center">
-                        <span>FOLLOWERS</span>
-                        <span class="md-title">597</span>
-                    </div>
-                    <div layout="column" layout-align="center center">
-                        <span>FOLLOWS</span>
-                        <span class="md-title">240</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div layout="row" layout-align="center center">
         <div class="loading-indicator" layout="column" layout-align="end center" ng-if="isLoading">
             <md-progress-circular md-mode="indeterminate"></md-progress-circular>
         </div>
         <div flex="45" ng-if="!isLoading">
+            <user-info userid="userId"></user-info>
             <h1 layout="row" layout-align="center center">{{errorMessage}}</h1>
-            <div class="md-padding" ng-repeat="post in feed.Posts">
+            <div class="post" ng-repeat="post in feed.Posts">
                 <md-card>
-                    <md-card-header>
-                        <md-card-avatar>
-                            <img ng-src="{{post.User.ProfileImageUri}}" style="max-height: 40px;border-radius: 90px 90px 90px 90px;" />
-                        </md-card-avatar>
-                        <md-card-header-text>
-                            <a ui-sref="usersfeed({id: post.User.Id})" class="md-title">{{post.User.Username}}</a>
-                            <span class="md-subhead">{{post.Created | date:'MM.dd.yyyy'}}</span>
-                        </md-card-header-text>
-                    </md-card-header>
                     <img ng-src="{{post.Attachment.Url}}" class="md-card-image" alt="Washed Out">
                     <md-card-content>
                         <div layout="column" flex>
