@@ -8,8 +8,8 @@ angular.module('blogapp')
                     controller: 'FeedController'
                 })
                 .state('usersfeed', {
-                    url: '/feed/users/:id',
-                    templateUrl: 'app/components/feed/users/users-feed.html',
+                    url: '/feed/:username',
+                    templateUrl: 'app/components/feed/users-feed.html',
                     controller: 'FeedController'
                 })
                 .state('signup', {

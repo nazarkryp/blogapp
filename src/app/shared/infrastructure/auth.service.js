@@ -30,7 +30,7 @@ angular.module('blogapp').service("AuthService", ["$window",
             return false;
         };
 
-        this.userId = function () {
+        this.getUserId = function () {
             var session = self.getSessionInfo();
 
             if (session) {
@@ -38,8 +38,17 @@ angular.module('blogapp').service("AuthService", ["$window",
             }
         };
 
+        this.getUsername = function () {
+            var session = self.getSessionInfo();
+
+            if (session) {
+                return session["userName"];
+            }
+        };
+
         this.Authenticated = this.isAuthenticated();
-        this.UserId = this.userId();
+        this.UserId = this.getUserId();
+        this.Username = this.getUsername();
 
         this.signIn = function (session) {
             sessionInfo = session;

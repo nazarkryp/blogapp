@@ -1,38 +1,53 @@
 angular.module('blogapp')
-    .controller('UserInfoController', ['$scope', 'UserService', 'AuthService',
-        function ($scope, UserService, AuthService) {
+    .controller('UserInfoController', ['$scope', 'UserService', 'AuthService', 'RELATIONSHIPS',
+        function($scope, UserService, AuthService, RELATIONSHIPS) {
             $scope.isLoading = false;
 
-            $scope.userInfo = {
-                User: {
-                    Username: 'nazarkryp'
-                },
-                IsFollowed: false,
-                Posts: 0,
-                Followers: 0,
-                Follows: 0
-            };
+            $scope.currentUserName = AuthService.Username;
+            $scope.user = null;
 
-            var getUserInfo = function (userId) {
+            var getUser = function(username) {
                 $scope.isLoading = true;
 
-                UserService.getRelationships(userId).then(
-                    function (response) {
-                        $scope.userInfo = response;
-                        $scope.isLoading = false;
+                UserService.getUserByName(username).then(
+                    function(response) {
+                        $scope.user = response;
+
+                        if ($scope.currentUserName != $scope.user.Username) {
+                            getRelationshipStatus(response.Id);
+                        } else {
+                            $scope.isLoading = false;
+                        }
                     },
-                    function (error) {
+                    function(error) {
                         $scope.isLoading = false;
                         console.log(error);
                     }
                 );
             };
 
-            var init = function () {
-                var userId = $scope.$ctrl.userid;
+            var getRelationshipStatus = function(userId) {
+                UserService.getRelationshipWithUser(userId).then(
+                    function(response) {
+                        $scope.isLoading = false;
+                        if (response.IsFollowed) {
+                            $scope.actionName = RELATIONSHIPS.Following;
+                        } else {
+                            $scope.actionName = RELATIONSHIPS.NotFollowing;
+                        }
+                    },
+                    function(error) {
+                        $scope.isLoading = false;
+                        console.log(error);
+                    }
+                );
+            };
 
-                if (userId) {
-                    getUserInfo(userId);
+            var init = function() {
+                var username = $scope.$ctrl.username;
+
+                if (username) {
+                    getUser(username);
                 }
             };
 

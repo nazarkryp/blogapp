@@ -1,23 +1,23 @@
-<div class="user-info-bar" layout="row" layout-align="center center">
+<div class="user-info-bar" layout="row" layout-align="center center" ng-if="user">
     <div layout="column" layout-align="center end" flex="20">
-        <img ng-src="{{userInfo.User.ProfileImageUri}}" alt="profile" style="width:125px;height:125px;border-radius: 90px 90px 90px 90px;"/>
+        <img ng-src="{{user.ImageUri}}" alt="profile" style="width:125px;height:125px;border-radius: 90px 90px 90px 90px;"/>
     </div>
     <div class="md-padding" layout="column" layout-align="stretch stretch" flex>
         <div layout="row" layout-align="space-between center" flex>
-            <span class="md-headline">{{userInfo.User.Username}}</span>
-            <md-button class="md-raised" md-colors="{background: 'green'}">FOLLOWING</md-button>
+            <span class="md-headline">{{user.Username}}</span>
+            <md-button class="md-raised" md-colors="{background: 'green'}" ng-if="currentUserName != user.Username && !isLoading">{{actionName}}</md-button>
         </div>
         <div class="counters" layout="row" layout-align="space-between end" flex="30">
             <div flex="20">
-                <span class="md-title">{{userInfo.Counters.Posts}} </span>
+                <span class="md-title">{{user.Counters.Posts}} </span>
                 <span class="md-subhead">posts </span>
             </div>
             <div flex="20">
-                <span class="md-title">{{userInfo.Counters.Followers}} </span>
+                <span class="md-title">{{user.Counters.Followers}} </span>
                 <span class="md-subhead">followers </span>
             </div>
             <div flex="20">
-                <span class="md-title">{{userInfo.Counters.Follows}} </span>
+                <span class="md-title">{{user.Counters.Follows}} </span>
                 <span class="md-subhead">follows</span>
             </div>
         </div>

@@ -11,7 +11,7 @@
 						<img ng-src="{{post.User.ProfileImageUri}}" style="max-height: 40px;" />
 					</md-card-avatar>
 					<md-card-header-text>
-						<a ui-sref="usersfeed({id: post.User.Id})" class="md-title">{{post.User.Username}}</a>
+						<a ui-sref="usersfeed({username: post.User.Username})" class="md-title">{{post.User.Username}}</a>
 						<span class="md-subhead">{{post.Created | date:'MM.dd.yyyy'}}</span>
 					</md-card-header-text>
 				</md-card-header>
@@ -22,14 +22,14 @@
 							<a class="md-body-2">{{post.LikesCount}} likes</a>
 						</div>
 						<div ng-class="{'caption': isAuthenticated}">
-							<a ui-sref="usersfeed({id: post.User.Id})" class="md-body-2">{{post.User.Username}}</a>
+							<a ui-sref="usersfeed({username: post.User.Username})" class="md-body-2">{{post.User.Username}}</a>
 							<span class="md-body-1">{{post.Caption}}</span>
 							<br/>
 							<a class="md-body-1" ng-if="post.CommentsCount > 3 && post.CommentsCount > post.Comments.length">
 								<span class="show-comments-link" ng-click="viewMoreCommentsClick(post)">view all {{post.CommentsCount}} comments</span>
 							</a>
 							<div ng-repeat="comment in post.Comments">
-								<a class="md-body-2" ui-sref="usersfeed({id: comment.From.Id})">{{comment.From.Username}}</a>
+								<a class="md-body-2" ui-sref="usersfeed({username: comment.From.Username})">{{comment.From.Username}}</a>
 								<span class="md-body-1">{{comment.Text}}</span>
 							</div>
 						</div>

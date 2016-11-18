@@ -4,7 +4,7 @@
             <md-progress-circular md-mode="indeterminate"></md-progress-circular>
         </div>
         <div flex="45" ng-if="!isLoading">
-            <user-info userid="userId"></user-info>
+            <user-info username="username"></user-info>
             <h1 layout="row" layout-align="center center">{{errorMessage}}</h1>
             <div class="post" ng-repeat="post in feed.Posts">
                 <md-card>
