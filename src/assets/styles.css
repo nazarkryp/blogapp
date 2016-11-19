@@ -134,6 +134,13 @@ a:hover {
     /*border: 1px solid #dbdbdb;*/
 }
 
+.user-bar-image {
+    width:125px;
+    height:125px;
+    border: 1px solid #dbdbdb;
+    border-radius: 90px 90px 90px 90px;
+}
+
 .profile-image {
     position: absolute;
 }

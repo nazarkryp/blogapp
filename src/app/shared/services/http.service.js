@@ -22,6 +22,16 @@ angular.module("blogapp").service("HttpService", ["$http", function ($http) {
             .error(function (error, status) {
                 deferred.reject(error);
             });
+    };
+
+    this.postEmptyModel = function (url, deferred) {
+        $http.post(url)
+            .success(function (response) {
+                deferred.resolve(response);
+            })
+            .error(function (error, status) {
+                deferred.reject(error);
+            });
     }
 
     this.put = function (url, data, deferred) {

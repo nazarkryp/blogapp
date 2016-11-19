@@ -1,11 +1,11 @@
 <div class="user-info-bar" layout="row" layout-align="center center" ng-if="user">
     <div layout="column" layout-align="center end" flex="20">
-        <img ng-src="{{user.ImageUri}}" alt="profile" style="width:125px;height:125px;border-radius: 90px 90px 90px 90px;"/>
+        <img class="user-bar-image" ng-src="{{user.ImageUri}}" alt="profile"/>
     </div>
     <div class="md-padding" layout="column" layout-align="stretch stretch" flex>
         <div layout="row" layout-align="space-between center" flex>
             <span class="md-headline">{{user.Username}}</span>
-            <md-button class="md-raised" md-colors="{background: 'green'}" ng-if="currentUserName != user.Username && !isLoading">{{actionName}}</md-button>
+            <md-button class="md-raised" md-colors="{background: 'green'}" ng-click="invertRelationshipsWithUser()" ng-if="currentUserName != user.Username && !isLoading">{{actionName}}</md-button>
         </div>
         <div class="counters" layout="row" layout-align="space-between end" flex="30">
             <div flex="20">
