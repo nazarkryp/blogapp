@@ -130,13 +130,11 @@ a:hover {
 .user-info-bar {
     height: 175px;
     padding-top: 25px;
-    /*background: white;*/
-    /*border: 1px solid #dbdbdb;*/
 }
 
 .user-bar-image {
-    width:125px;
-    height:125px;
+    width: 150px;
+    height: 150px;
     border: 1px solid #dbdbdb;
     border-radius: 90px 90px 90px 90px;
 }
@@ -147,4 +145,11 @@ a:hover {
 
 .counters {
     padding-top: 10px;
+}
+
+.thumbnail {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    overflow: hidden;
 }

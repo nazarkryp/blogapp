@@ -5,7 +5,6 @@ angular.module('blogapp')
             $scope.isAuthenticated = false;
             $scope.isLoading = false;
             $scope.isLoadingMorePosts = false;
-            $scope.posts = [];
             $scope.newPost = {
             };
 
@@ -109,6 +108,20 @@ angular.module('blogapp')
                         $scope.errorMessage = error;
                     }
                 );
+            };
+
+            $scope.removePost = function (index) {
+                var post = $scope.feed.Posts[index];
+
+                if (post.Id) {
+                    PostsService.remove(post.Id).then(
+                        function (response) {
+                            $scope.feed.Posts.splice(index, 1);
+                        },
+                        function (error) {
+                            console.log(error);
+                        });
+                }
             };
 
             $scope.showCreatePostDialog = function (ev) {

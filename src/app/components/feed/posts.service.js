@@ -39,4 +39,12 @@ angular.module('blogapp').service('PostsService', ['$q', 'HttpService', 'ConstSe
 
             return deferred.promise;
         };
+
+        this.remove = function (postId) {
+            var deferred = $q.defer();
+
+            HttpService.delete(ConstService.baseAddress + 'api/posts?postId=' + postId, null, deferred);
+
+            return deferred.promise;
+        };
     }]);
