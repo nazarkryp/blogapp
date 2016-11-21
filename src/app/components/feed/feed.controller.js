@@ -10,7 +10,7 @@ angular.module('blogapp')
 
             $scope.feed = {
                 PageIndex: 0,
-                PageSize: 3,
+                PageSize: 5,
                 Posts: [],
                 HasMoreItems: false
             };
@@ -44,12 +44,16 @@ angular.module('blogapp')
                     });
             };
 
+            $scope.showDetails = function () {
+                console.log(123);
+            };
+
             $scope.loadMorePosts = function () {
                 $scope.isLoadingMorePosts = true;
                 getFeed($stateParams.username);
             };
 
-            $scope.$watch("authService.Authenticated",
+            $scope.$watch("authService.authenticated",
                 function (value) {
                     $scope.isAuthenticated = value;
                 });

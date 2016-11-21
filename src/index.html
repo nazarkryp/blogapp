@@ -20,7 +20,12 @@
 					<div flex="40"></div>
 					<div layout="row" layout-align="center start" flex="35" ng-if="isAuthenticated">
 						<md-menu>
-							<md-button aria-label="Open interactions menu" ng-click="$mdOpenMenu($event)">{{username}}</md-button>
+							<md-button aria-label="Open interactions menu" ng-click="$mdOpenMenu($event)">
+								<div layout="row">
+									<span class="navbar-username">{{user.Username}}</span>
+									<img class="navbar-image" ng-src="{{user.ImageUri}}" alt="profile image">
+								</div>
+							</md-button>
 							<md-menu-content width="4">
 								<md-menu-item>
 									<md-button>

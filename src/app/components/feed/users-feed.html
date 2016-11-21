@@ -4,7 +4,13 @@
     </div>
     <div style="padding:0px 150px 0px 150px;">
         <md-grid-list md-cols-gt-md="3" md-row-height-gt-md="1:1">
-            <md-grid-tile ng-repeat="post in feed.Posts">
+            <md-grid-tile ng-repeat="post in feed.Posts" ng-mouseenter="showDetails()">
+                <div class="post-thumbnail-container" layout="row">
+                    <div class="post-details">
+                    </div>
+                    <md-icon class="post-labels">favorite</md-icon>
+                    <md-icon class="post-labels">favorite</md-icon>
+                </div>
                 <img class="thumbnail" ng-src="{{post.Attachment.Url}}" alt="post.Attachment.Url">
             </md-grid-tile>
         </md-grid-list>

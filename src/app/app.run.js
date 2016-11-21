@@ -3,7 +3,7 @@ angular.module('blogapp')
         function ($rootScope, $location, AuthService) {
             $rootScope.$on("$stateChangeStart",
                 function (event, next) {
-                    if (AuthService.Authenticated) {
+                    if (AuthService.authenticated) {
                         if (next.name) {
                             if (next.url === "/signin") {
                                 $location.path("/");

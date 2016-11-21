@@ -1,16 +1,15 @@
 angular.module('blogapp').service("AuthService", ["$window",
     function ($window) {
         var self = this;
-        var sessionInfo;
 
         this.getSessionInfo = function () {
             var session = $window.localStorage.getItem("session");
 
             if (session) {
-                sessionInfo = angular.fromJson(session);
+                return angular.fromJson(session);
             }
 
-            return sessionInfo;
+            return null;
         };
 
         this.isAuthenticated = function () {
@@ -46,21 +45,21 @@ angular.module('blogapp').service("AuthService", ["$window",
             }
         };
 
-        this.Authenticated = this.isAuthenticated();
-        this.UserId = this.getUserId();
-        this.Username = this.getUsername();
-
         this.signIn = function (session) {
-            sessionInfo = session;
             var json = angular.toJson(session);
             $window.localStorage.setItem("session", json);
-            self.Authenticated = true;
-            self.Username = session.userName;
+
+            self.authenticated = true;
+            self.userId = session.userId;
+            self.username = session.userName;
         };
 
         this.signOut = function () {
-            sessionInfo = null;
             $window.localStorage.clear();
-            self.Authenticated = false;
+            self.authenticated = false;
         };
+
+        this.authenticated = this.isAuthenticated();
+        this.userId = this.getUserId();
+        this.username = this.getUsername();
     }]);

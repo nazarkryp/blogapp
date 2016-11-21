@@ -8,7 +8,7 @@
 			<md-card>
 				<md-card-header>
 					<md-card-avatar>
-						<img ng-src="{{post.User.ProfileImageUri}}" style="max-height: 40px;" />
+						<img class="post-profile-image" ng-src="{{post.User.ProfileImageUri}}"/>
 					</md-card-avatar>
 					<md-card-header-text>
 						<a ui-sref="usersfeed({username: post.User.Username})" class="md-title">{{post.User.Username}}</a>
