@@ -8,8 +8,14 @@
                 <div class="post-thumbnail-container" layout="row">
                     <div class="post-details">
                     </div>
-                    <md-icon class="post-labels">favorite</md-icon>
-                    <md-icon class="post-labels">favorite</md-icon>
+                    <div class="post-labels" layout="row" layout-align="center center" flex>
+                        <span>{{post.LikesCount}}</span>
+                        <md-icon class="post-labels">favorite</md-icon>
+                    </div>
+                    <div class="post-labels" layout="row" layout-align="center center">
+                        <span>{{post.CommentsCount}}</span>
+                        <md-icon class="post-labels">chat_bubble</md-icon>
+                    </div>
                 </div>
                 <img class="thumbnail" ng-src="{{post.Attachment.Url}}" alt="post.Attachment.Url">
             </md-grid-tile>
