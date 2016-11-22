@@ -1,76 +1,60 @@
-<div layout="row" flex>
-    <div style="visibility: hidden">
-        <div class="md-dialog-container" id="myDialog">
-            <md-dialog layout-padding>
-                <div layout="row" layout-align="center center">
-                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+<div class="authentication-container" layout="column" layout-align="center center">
+    <div class="authentication-form">
+        <div class="authentication-header" style="padding-bottom: 25px;">
+            <span class="md-headline">Create account</span>
+        </div>
+        <form name="signUpForm" ng-submit="signUp(user)">
+            <md-input-container class="md-block">
+                <label>Username or Email</label>
+                <input name="username" ng-model="user.username" required />
+                <div ng-messages="signUp.username.$error">
+                    <ng-message when="required">This field is required.</ng-message>
                 </div>
-            </md-dialog>
-        </div>
-    </div>
-    <div layout="column" flex style="width: 50%;padding-top: 100px;">
-        <div layout="row" layout-align="center center">
-            <div flex-xs flex-gt-xs="45">
-                <md-card>
-                    <md-card-title>
-                        <div style="padding-bottom: 25px;">
-                            <span class="md-headline">Create account</span>
-                        </div>
-                    </md-card-title>
-                    <md-card-content>
-                        <form name="signUpForm" ng-submit="signUp(user)">
-                            <md-input-container class="md-block">
-                                <label>Username or Email</label>
-                                <input name="username" ng-model="user.username" required />
-                                <div ng-messages="signUp.username.$error">
-                                    <ng-message when="required">This field is required.</ng-message>
-                                </div>
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <label>Password</label>
-                                <input required name="password" type="password" ng-model="user.password" />
-                                <div ng-messages="signUp.password.$error">
-                                    <ng-message when="required">Password field is required.</ng-message>
-                                </div>
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <label>Confirm password</label>
-                                <input required name="confirmpassword" type="password" ng-model="user.confirmpassword" />
-                                <div ng-messages="signUp.confirmpassword.$error">
-                                    <ng-message when="required">Password confirm field is required.</ng-message>
-                                </div>
-                            </md-input-container>
-                            <div layout="column" layout-align="center center" ng-if="isUploading">
-                                <md-progress-linear md-mode="indeterminate"></md-progress-linear>
-                                <span style="padding: 10px;">Uploading image</span>
-                                <!--<md-progress-circular md-mode="indeterminate"></md-progress-circular>-->
-                            </div>
-                            <div layout="column" style="border: 1px solid #dbdbdb;" ng-if="!isUploading">
-                                <!--<div style="padding: 5px 0px 0px 5px;">
-                                    <span class="md-subhead" style="padding: 5px;">Set your profile picture</span>
-                                </div>-->
-                                <md-button md-colors="{background : 'red'}" ng-click="browse()" flex>Upload profile picture</md-button>
-                                <div layout="row" layout-align="center center" style="padding: 5px 5px 5px 10px;">
-                                    <img ng-src="{{attachment.Url}}" style="max-width: 100px; max-height: 100px;" />
-                                </div>
-                                <input id="uploadInput" file-model="browsedFile.file" type="file" aria-label class="md-input" ng-hide="true" />
-                            </div>
-                            <div ng-if="errorMessage" class="md-padding" layout="row" layout-align="center stretch">
-                                <label md-colors="{color : 'red'}">{{errorMessage}}</label>
-                            </div>
-                            <div layout="row" layout-align="stretch">
-                                <md-button type="submit" class="md-raised md-primary" md-colors="{background: 'blue'}" flex>Create account</md-button>
-                            </div>
-                        </form>
-                    </md-card-content>
-                    <md-card-actions>
-                        <div layout="row" layout-align="center center">
-                            <md-button ng-click="gotoSignInPage()">Already have an account</md-button>
-                        </div>
-                    </md-card-actions>
-                </md-card>
-
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Password</label>
+                <input required name="password" type="password" ng-model="user.password" />
+                <div ng-messages="signUp.password.$error">
+                    <ng-message when="required">Password field is required.</ng-message>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Confirm password</label>
+                <input required name="confirmpassword" type="password" ng-model="user.confirmpassword" />
+                <div ng-messages="signUp.confirmpassword.$error">
+                    <ng-message when="required">Password confirm field is required.</ng-message>
+                </div>
+            </md-input-container>
+            <div layout="column" layout-align="center center" ng-if="isUploading">
+                <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+                <span style="padding: 10px;">Uploading image</span>
             </div>
-        </div>
+            <div layout="column" ng-if="!isUploading">
+                <md-button md-colors="{background : 'red'}" ng-click="browse()" flex>Upload profile picture</md-button>
+                <div layout="row" layout-align="center center" style="padding: 5px 5px 5px 10px;">
+                    <img ng-src="{{attachment.Url}}" style="max-width: 100px; max-height: 100px;" />
+                </div>
+                <input id="uploadInput" file-model="browsedFile.file" type="file" aria-label class="md-input" ng-hide="true" />
+            </div>
+            <div ng-if="errorMessage" class="md-padding" layout="row" layout-align="center stretch">
+                <label md-colors="{color : 'red'}">{{errorMessage}}</label>
+            </div>
+            <div layout="row" layout-align="stretch">
+                <md-button type="submit" class="md-raised md-primary" md-colors="{background: 'blue'}" flex>Create account</md-button>
+            </div>
+            <div layout="row" layout-align="center center">
+                <md-button ng-click="gotoSignInPage()">Already have an account</md-button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div style="visibility: hidden">
+    <div class="md-dialog-container" id="myDialog">
+        <md-dialog layout-padding>
+            <div layout="row" layout-align="center center">
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+        </md-dialog>
     </div>
 </div>

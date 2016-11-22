@@ -3,11 +3,11 @@
         <img class="user-bar-image" ng-src="{{user.ImageUri}}" alt="profile" />
     </div>
     <div class="md-padding" layout="column" layout-align="stretch stretch" flex>
-        <div layout="row" layout-align="space-between center" flex>
-            <span class="md-headline">{{user.Username}}</span>
-            <md-button class="md-raised" md-colors="{background: 'green'}" ng-click="invertRelationshipsWithUser()" ng-if="currentUserName != user.Username && !isLoading">{{actionName}}</md-button>
+        <div layout="row" layout-align="space-between center">
+            <span class="md-display-1" style="font-weight: lighter;">{{user.Username}}</span>
+            <md-button class="button-bordered" ng-click="invertRelationshipsWithUser()" ng-if="currentUserName && user.Username && currentUserName != user.Username && !isLoading">{{actionName}}</md-button>
         </div>
-        <div class="counters" layout="row" layout-align="space-between end" flex="30">
+        <div class="counters" layout="row" layout-align="start end">
             <div flex="20">
                 <span class="md-title">{{user.Counters.Posts}} </span>
                 <span class="md-subhead">posts </span>

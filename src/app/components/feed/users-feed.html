@@ -1,10 +1,10 @@
 <div layout="column">
-    <div style="padding: 40px 250px 75px 250px;">
+    <div style="padding: 40px 350px 75px 350px;">
         <user-info username="username"></user-info>
     </div>
     <div style="padding:0px 150px 0px 150px;">
         <md-grid-list md-cols-gt-md="3" md-row-height-gt-md="1:1">
-            <md-grid-tile ng-repeat="post in feed.Posts" ng-mouseenter="showDetails(post)" ng-mouseleave="hideDetails(post)">
+            <md-grid-tile class="user-post" ng-repeat="post in feed.Posts" ng-mouseenter="showDetails(post)" ng-mouseleave="hideDetails(post)">
                 <div class="post-thumbnail-container" layout="row" layout-align="space-around stretch" ng-if="post.showDetails">
                     <div class="post-labels" layout="row" layout-align="center center">
                         <span>{{post.LikesCount}}</span>

@@ -13,7 +13,7 @@ angular.module('blogapp')
                     function (response) {
                         $scope.user = response;
 
-                        if ($scope.currentUserName != $scope.user.Username) {
+                        if ($scope.currentUserName && $scope.user.Username && $scope.currentUserName != $scope.user.Username) {
                             getRelationshipsStatus(response.Id);
                         } else {
                             $scope.isLoading = false;

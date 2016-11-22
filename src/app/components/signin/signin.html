@@ -1,65 +1,49 @@
-<div layout="row" flex>
-	<div style="visibility: hidden">
-		<div class="md-dialog-container" id="myDialog">
-			<md-dialog layout-padding>
-				<div layout="row" layout-align="center center">
-					<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+<div class="authentication-container" layout="column" layout-align="center center">
+	<div class="authentication-form">
+		<div ng-if="serverError">
+			<p class="md-subhead" md-colors="{color: 'blue'}">Oops! Login failed</p>
+			<p>Something is technically wrong that's why you are not able to log in to your account. Please try again later</p>
+		</div>
+		<div class="authentication-form-header" style="padding-bottom: 25px;">
+			<span class="md-headline">Login to Kryptogram</span>
+		</div>
+		<form name="signInForm" ng-submit="signIn(credentials)">
+			<md-input-container class="md-block input-box">
+				<label>Username or Email</label>
+				<input name="username" ng-model="credentials.username" required />
+				<div ng-messages="signInForm.username.$error">
+					<ng-message when="required">This field is required.</ng-message>
 				</div>
-			</md-dialog>
+			</md-input-container>
+			<md-input-container class="md-block">
+				<label>Password</label>
+				<input name="password" type="password" ng-model="credentials.password" required/>
+				<div ng-messages="signInForm.password.$error">
+					<ng-message when="required">Password field is required.</ng-message>
+				</div>
+			</md-input-container>
+			<div ng-if="errorMessage" class="md-padding" layout="row" layout-align="center stretch">
+				<label md-colors="{color : 'red'}">{{errorMessage}}</label>
+			</div>
+			<div layout="row" layout-align="stretch">
+				<md-button flex>Forgot password?</md-button>
+				<md-button type="submit" class="md-raised md-primary" md-colors="{background: 'blue'}" flex>Sign In</md-button>
+			</div>
+		</form>
+		<div class="authentication-form-actions">
+			<div layout="row" layout-align="center center">
+				<md-button ng-click="gotoCreateAccountPage()">Create account</md-button>
+			</div>
 		</div>
 	</div>
-	<div layout="column" flex style="width: 50%;padding-top: 100px;">
-		<div layout="row" layout-align="center center">
-			<div flex>
-				<div layout="column" layout-align="center end" flex="75">
-					<h1 class="md-display-2">Welcome to Kryptogram</h1>
-					<span>But first let me take a selfie</span>
-				</div>
+</div>
+
+<div style="visibility: hidden">
+	<div class="md-dialog-container" id="myDialog">
+		<md-dialog layout-padding>
+			<div layout="row" layout-align="center center">
+				<md-progress-circular md-mode="indeterminate"></md-progress-circular>
 			</div>
-			<div flex>
-				<div flex-xs flex-gt-xs="65">
-					<md-card>
-						<md-card-title>
-							<div style="padding-bottom: 25px;">
-								<span class="md-headline">Login to Kryptogram</span>
-							</div>
-						</md-card-title>
-						<md-card-content>
-							<form name="signInForm" ng-submit="signIn(credentials)">
-								<md-input-container class="md-block">
-									<label>Username or Email</label>
-									<input name="username" ng-model="credentials.username" required />
-									<div ng-messages="signInForm.username.$error">
-										<ng-message when="required">This field is required.</ng-message>
-									</div>
-								</md-input-container>
-								<md-input-container class="md-block">
-									<label>Password</label>
-									<input required name="password" type="password" ng-model="credentials.password" />
-									<div ng-messages="signInForm.password.$error">
-										<ng-message when="required">Password field is required.</ng-message>
-									</div>
-								</md-input-container>
-								<div ng-if="errorMessage" class="md-padding" layout="row" layout-align="center stretch">
-									<label md-colors="{color : 'red'}">{{errorMessage}}</label>
-								</div>
-								<!--<div layout="row" layout-align="center center" ng-if="isLoading">
-									<md-progress-circular md-mode="indeterminate"></md-progress-circular>
-								</div>-->
-								<div layout="row" layout-align="stretch">
-									<md-button flex>Forgot password?</md-button>
-									<md-button type="submit" class="md-raised md-primary" md-colors="{background: 'blue'}" flex>Sign In</md-button>
-								</div>
-							</form>
-						</md-card-content>
-						<md-card-actions>
-							<div layout="row" layout-align="center center">
-								<md-button ng-click="gotoCreateAccountPage()">Create account</md-button>
-							</div>
-						</md-card-actions>
-					</md-card>
-				</div>
-			</div>
-		</div>
+		</md-dialog>
 	</div>
 </div>
