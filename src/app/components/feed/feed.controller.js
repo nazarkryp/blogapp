@@ -44,8 +44,12 @@ angular.module('blogapp')
                     });
             };
 
-            $scope.showDetails = function () {
-                console.log(123);
+            $scope.showDetails = function (post) {
+                post.showDetails = true;
+            };
+
+            $scope.hideDetails = function (post) {
+                post.showDetails = false;
             };
 
             $scope.loadMorePosts = function () {
