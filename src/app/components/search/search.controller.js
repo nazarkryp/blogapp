@@ -1,29 +1,43 @@
 angular.module('blogapp')
-    .controller('SearchController', ['$scope', '$timeout', '$q',
-        function ($scope, $timeout, $q) {
+    .controller('SearchController', ['$scope', '$timeout', '$q', 'SearchService',
+        function ($scope, $timeout, $q, SearchService) {
             $scope.states = loadAll();
             $scope.selectedItem = null;
             $scope.searchText = null;
-            $scope.querySearch = querySearch;
+            $scope.querySearch = searchUsers;
 
-            // ******************************
-            // Internal methods
-            // ******************************
+            // $scope.searchTextChange = function (searchQuery) {
+            //     $scope.users = [];
 
-            /**
-             * Search for states... use $timeout to simulate
-             * remote dataservice call.
-             */
+            //     if (searchQuery) {
+            //         SearchService.search(searchQuery).then(function (response) {
+            //             $scope.users = response;
+            //         });
+            //     } else {
+            //         $scope.users = [];
+            //     }
+            // };
+
             function querySearch(query) {
                 var results = query ? $scope.states.filter(createFilterFor(query)) : $scope.states;
                 var deferred = $q.defer();
+
                 $timeout(function () { deferred.resolve(results); }, Math.random() * 1000, false);
+
                 return deferred.promise;
             }
 
-            /**
-             * Build `states` list of key/value pairs
-             */
+            function searchUsers(searchQuery) {
+                if (searchQuery) {
+                    return SearchService.search(searchQuery);
+                }
+
+                var items = [];
+                var deferred = $q.defer();
+                deferred.resolve(items);
+                return deferred.promise;
+            }
+
             function loadAll() {
                 var allStates = 'Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Delaware,\
               Florida, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana,\
@@ -41,9 +55,6 @@ angular.module('blogapp')
                 });
             }
 
-            /**
-             * Create filter function for a query string
-             */
             function createFilterFor(query) {
                 var lowercaseQuery = angular.lowercase(query);
 
