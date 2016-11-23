@@ -157,6 +157,20 @@ angular.module('blogapp')
                     });
             };
 
+            $scope.showPostDetailsDialog = function (ev, post) {
+                $mdDialog.show({
+                    controller: 'PostController',
+                    templateUrl: 'app/components/post/post-details.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: true,
+                    fullscreen: '-sm',
+                    locals: {
+                        post: post
+                    }
+                });
+            };
+
             var init = function () {
                 $scope.isLoading = true;
                 getFeed();
