@@ -27,6 +27,6 @@ angular.module('blogapp')
                     templateUrl: 'app/components/post/post-details.html'
                 });
 
-            $urlRouterProvider.otherwise('/feed');
+            $urlRouterProvider.otherwise('/');
             $httpProvider.interceptors.push("authInterpretatorService");
         }]);

@@ -1,24 +1,27 @@
 <div layout="column">
-    <div style="padding: 40px 350px 75px 350px;">
+    <div layout="row" layout-align="center center">
         <user-info username="username"></user-info>
     </div>
-    <div style="padding:0px 150px 0px 150px;">
-        <md-grid-list md-cols-gt-md="3" md-row-height-gt-md="1:1">
-            <md-grid-tile class="user-post" ng-repeat="post in feed.Posts" ng-mouseenter="showDetails(post)" ng-mouseleave="hideDetails(post)">
-                <div class="post-thumbnail-container" layout="row" layout-align="space-around stretch" ng-if="post.showDetails">
-                    <div class="post-labels" layout="row" layout-align="center center">
-                        <span>{{post.LikesCount}}</span>
-                        <md-icon class="post-labels">favorite</md-icon>
+    <div layout="row" layout-align="center center">
+        <div style="width:1000px;">
+            <md-grid-list md-cols-gt-md="3" md-row-height-gt-md="1:1" layout-align="center center">
+                <md-grid-tile class="user-post" ng-repeat="post in feed.Posts" ng-mouseenter="showDetails(post)" ng-mouseleave="hideDetails(post)"
+                    ng-click="showPostDetailsDialog($event, post)" style="width: 300px; height: 300px;">
+                    <div class="post-thumbnail-container" layout="row" layout-align="space-around stretch" ng-if="post.showDetails">
+                        <div class="post-labels" layout="row" layout-align="center center">
+                            <span>{{post.LikesCount}}</span>
+                            <md-icon class="post-labels">favorite</md-icon>
+                        </div>
+                        <div class="post-labels" layout="row" layout-align="center center">
+                            <span>{{post.CommentsCount}}</span>
+                            <md-icon class="post-labels">chat_bubble</md-icon>
+                        </div>
+                        <div class="post-thumbnail-black" layout="row" layout-align="center center"></div>
                     </div>
-                    <div class="post-labels" layout="row" layout-align="center center">
-                        <span>{{post.CommentsCount}}</span>
-                        <md-icon class="post-labels">chat_bubble</md-icon>
-                    </div>
-                    <div class="post-thumbnail-black" layout="row" layout-align="center center"></div>
-                </div>
-                <img class="thumbnail" ng-src="{{post.Attachment.Url}}" alt="post.Attachment.Url">
-            </md-grid-tile>
-        </md-grid-list>
+                    <img class="thumbnail" ng-src="{{post.Attachment.Url}}" alt="post.Attachment.Url">
+                </md-grid-tile>
+            </md-grid-list>
+        </div>
     </div>
 </div>
 

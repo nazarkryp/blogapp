@@ -10,9 +10,9 @@
 					<md-card-avatar>
 						<img class="post-profile-image" ng-src="{{post.User.ProfileImageUri}}"/>
 					</md-card-avatar>
-					<md-card-header-text>
+					<md-card-header-text layout="row" layout-align="space-between center">
 						<a ui-sref="usersfeed({username: post.User.Username})" class="md-title">{{post.User.Username}}</a>
-						<span class="md-subhead">{{post.Created | date:'MM.dd.yyyy'}}</span>
+						<span class="md-subhead">{{difference(post.Created)}}</span>
 					</md-card-header-text>
 				</md-card-header>
 				<img ng-src="{{post.Attachment.Url}}" class="md-card-image" alt="Washed Out">

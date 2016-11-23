@@ -13,11 +13,17 @@
 	<md-content layout="column">
 		<md-toolbar>
 			<div class="md-toolbar-tools">
-				<div layout="row" flex>
-					<div flex="25">
+				<div layout="row" layout-align="center stretch" flex>
+					<div layout="row" layout-align="end center" flex="25">
 						<a class="logo-text" layout="row" layout-align="end end" ng-click="gotoFeedPage()">Kryptogram</a>
+						<!--<md-divider class="vertical-divider"></md-divider>-->
 					</div>
-					<div flex="40"></div>
+					<div layout="row" layout-align="end center" flex="40" style="padding: 0px 0px 0px 0px;">
+						<!--<md-input-container class="md-block" md-no-float flex>
+							<input class="search-box" type="text" placeholder="Search" ng-model="searchQuery">
+						</md-input-container>-->
+						<search flex="75"></search>
+					</div>
 					<div layout="row" layout-align="center start" flex="35" ng-if="isAuthenticated">
 						<md-menu>
 							<md-button aria-label="Open interactions menu" ng-click="$mdOpenMenu($event)">
@@ -93,6 +99,7 @@
 
 	<script src="app/components/userinfo/user-info.component.js"></script>
 	<script src="app/components/userinfo/user-info.controller.js"></script>
+	<script src="app/components/post/post.controller.js"></script>
 	<script src="app/components/userinfo/user.service.js"></script>
 	<script src="app/components/feed/feed.controller.js"></script>
 	<script src="app/components/feed/posts.service.js"></script>
@@ -102,6 +109,9 @@
 	<script src="app/components/signup/signup.service.js"></script>
 	<script src="app/components/upload/create-post.controller.js"></script>
 	<script src="app/components/index/index.controller.js"></script>
+	<script src="app/components/search/search.controller.js"></script>
+	<script src="app/components/search/search.component.js"></script>
+	<script src="app/components/search/search.service.js"></script>
 
 	<script src="app/shared/directives/file-model.directive.js"></script>
 	<script src="app/shared/services/http.service.js"></script>
@@ -109,6 +119,7 @@
 	<script src="app/shared/infrastructure/const.service.js"></script>
 	<script src="app/shared/infrastructure/auth.service.js"></script>
 	<script src="app/shared/infrastructure/authinterpretator.service.js"></script>
+	<script src="app/shared/infrastructure/date-calculator.service.js"></script>
 </body>
 
 </html>

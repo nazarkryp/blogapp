@@ -1,11 +1,74 @@
-<div layout="row" style="padding: 25px 250px 25px 250px;">
-    <div>
-        <img src="https://krypapp.blob.core.windows.net/testblobcontainer/BodyPart_749d3c8b-0969-4eb3-92b0-6d5453996b5d" alt="image" style="width:500px;">
-    </div>
-    <div layout="column" style="width: 400px;">
-        <div layout="row" layout-align="space-between center" style="padding: 0px 0px 0px 10px;">
-            <span class="md-headline">nazarkryp</span>
-            <md-button class="button-bordered">FOLLOW</md-button>
+<md-dialog>
+    <md-dialog-content>
+        <div layout="row">
+            <img ng-src="{{post.Attachment.Url}}" alt="image" style="min-height: 500px;max-width: 700px;max-height:700px;">
+            <div layout="column" style="width:350px;padding: 0px 10px 0px 15px;">
+                <div layout="row" layout-align="space-between center" style="height: 75px;">
+                    <div layout="row" layout-align="center center">
+                        <img class="post-profile-image" ng-src="{{post.User.ProfileImageUri}}" />
+                        <span class="md-headline" style="margin: 0px 0px 0px 10px;font-weight:lighter;">{{post.User.Username}}</span>
+                    </div>
+                    <md-button class="button-bordered">FOLLOWING</md-button>
+                </div>
+                <md-divider></md-divider>
+                <div layout="row" layout-align="space-between center" style="height: 50px;">
+                    <strong>{{post.LikesCount}} Likes</strong>
+                    <span>{{difference(post.Created)}}</span>
+                </div>
+                <div layout="row" layout-align="space-between center" style="min-height: 50px;" ng-if="post.Caption">
+                    <p>
+                        <string>{{post.User.Username}}</string> {{post.Caption}}</p>
+                </div>
+                <div flex>
+                    <a class="md-body-1" ng-if="post.CommentsCount > 3 && post.CommentsCount > post.Comments.length">
+                        <span class="show-comments-link" ng-click="viewMoreCommentsClick(post)">view all {{post.CommentsCount}} comments</span>
+                    </a>
+                    <div ng-repeat="comment in post.Comments">
+                        <a class="md-body-2" ui-sref="usersfeed({username: comment.From.Username})">{{comment.From.Username}}</a>
+                        <span class="md-body-1">{{comment.Text}}</span>
+                    </div>
+                </div>
+                <md-divider></md-divider>
+                <div layout="row" layout-align="center stretch" ng-if="isAuthenticated">
+                    <div layout="row" layout-align="start start">
+                        <md-icon class="button-like" ng-class="{'liked': post.UserHasLiked}" ng-click="like(post)">favorite_border</md-icon>
+                    </div>
+                    <div style="padding: 25px 0px 0px 10px;" flex>
+                        <md-input-container class="md-block" md-no-float>
+                            <input type="text" placeholder="Add comment" class="comment-box" ng-model="newComment.Text" ng-keydown="postComment(newComment, post, $event)"
+                            />
+                        </md-input-container>
+                    </div>
+                    <div layout="row" layout-align="end center">
+                        <md-menu>
+                            <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+                                <md-icon style="font-size: 30px;">more_horiz</md-icon>
+                            </md-button>
+                            <md-menu-content width="4">
+                                <md-menu-item>
+                                    <md-button ng-click="ctrl.redial($event)">
+                                        <md-icon>file_download</md-icon>
+                                        Download
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button ng-click="ctrl.redial($event)">
+                                        <md-icon>link</md-icon>
+                                        Copy link
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-divider></md-menu-divider>
+                                <md-menu-item>
+                                    <md-button>
+                                        <md-icon></md-icon>
+                                        Unsubscribe
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+    </md-dialog-content>
+</md-dialog>

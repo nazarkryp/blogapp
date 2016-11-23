@@ -2,6 +2,7 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
     function ($scope, $state, $mdDialog, AuthService, UserService) {
         $scope.AuthService = AuthService;
         $scope.isAuthenticated = false;
+        $scope.searchQuery = '';
 
         $scope.gotoSignInPage = function () {
             $state.go('signin');
@@ -33,6 +34,11 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
                     $scope.user = null;
                 }
             });
+
+        $scope.$watch('searchQuery', function (searchQuery) {
+            if (searchQuery) {
+            }
+        });
 
         $scope.signOut = function () {
             AuthService.signOut();

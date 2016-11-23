@@ -24,7 +24,6 @@ a:link {
 a:visited {
     text-decoration: none;
     color: black;
-    /*font-weight: lighter;*/
 }
 
 a:hover {
@@ -59,7 +58,13 @@ a:hover {
 }
 
 .comment-box.md-input {
+    border-style: none;    
+    font-weight: lighter;
+}
+
+.search-box.md-input {
     border-style: none;
+    font-weight: lighter;
 }
 
 .input-box.md-input {
@@ -134,11 +139,14 @@ a:hover {
 .user-info-bar {
     height: 175px;
     padding-top: 25px;
+    max-width: 650px;
+    width: 650px;
+    margin: 25px 0px 40px 0px;
 }
 
 .user-bar-image {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border: 1px solid #dbdbdb;
     border-radius: 90px 90px 90px 90px;
     object-fit: cover;
@@ -178,7 +186,7 @@ a:hover {
     border-radius: 90px 90px 90px 90px;
     object-fit: cover;
     overflow: hidden;
-    position: absolute;
+    /*position: absolute;*/
 }
 
 .post-thumbnail-container {
@@ -234,4 +242,18 @@ a:hover {
     font-size: 14px;
     border: 2px solid rgb(33, 150, 243);
     color: rgb(33, 150, 243);   
+}
+
+.button-like {
+    font-size: 30px;
+    cursor: pointer;
+    border-style: none;
+}
+
+.vertical-divider {
+  border-right: 3px;
+  border-right-style: solid;
+  height: 50%;
+  margin-left:10px;
+  margin-right: 5px; 
 }
