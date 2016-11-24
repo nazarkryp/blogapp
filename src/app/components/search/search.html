@@ -1,12 +1,12 @@
-<md-autocomplete flex md-selected-item="selectedItem" md-search-text-change="searchTextChange(searchText)" md-search-text="searchText"
-    md-selected-item-change="selectedItemChange(user)" md-items="user in querySearch(searchText)" md-item-text="user.display" md-min-length="0"
-    placeholder="Search..." md-input-minlength="2">
+<md-autocomplete style="border-style:none;" md-selected-item="selectedItem" md-selected-item-change="selectedItemChange(selectedItem)"
+    md-search-text="searchText" md-items="item in search(searchText)" md-item-text="item.Username" class="search-box" placeholder="Search">
     <md-item-template>
-        <span md-highlight-text="searchText" md-highlight-flags="^i">{{user.Username}}</span>
+        <div class="item-title" layout="row" layout-align="start center">
+            <img class="post-profile-image" ng-src="{{item.ProfileImageUri}}" alt="profile image">
+            <span style="padding: 0px 0px 0px 10px;"> {{item.Username}} </span>
+        </div>
     </md-item-template>
     <md-not-found>
-        <span>
-            No users matching '{{searchText}}' were found
-        </span>
+        <span>There are no matches</span>
     </md-not-found>
 </md-autocomplete>
