@@ -17,7 +17,8 @@
                 </div>
                 <div layout="row" layout-align="space-between center" style="min-height: 50px;" ng-if="post.Caption">
                     <p>
-                        <string>{{post.User.Username}}</string> {{post.Caption}}</p>
+                        <strong>{{post.User.Username}}</strong> {{post.Caption}}
+                    </p>
                 </div>
                 <div flex>
                     <a class="md-body-1" ng-if="post.CommentsCount > 3 && post.CommentsCount > post.Comments.length">

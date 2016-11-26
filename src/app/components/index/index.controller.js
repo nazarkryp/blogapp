@@ -2,7 +2,6 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
     function ($scope, $state, $mdDialog, AuthService, UserService) {
         $scope.AuthService = AuthService;
         $scope.isAuthenticated = false;
-        $scope.searchQuery = '';
 
         $scope.gotoSignInPage = function () {
             $state.go('signin');
@@ -26,32 +25,21 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
                 $scope.isAuthenticated = value;
 
                 if (value) {
-                    $scope.user = {
-                        username: AuthService.username
-                    }
-                    getUser(AuthService.userId);
+                    getAuthenticatedUser();
                 } else {
                     $scope.user = null;
                 }
             });
 
-        $scope.$watch('searchQuery', function (searchQuery) {
-            if (searchQuery) {
-            }
-        });
-
         $scope.signOut = function () {
             AuthService.signOut();
         };
 
-        var getUser = function (userId) {
-            UserService.getUserById(userId).then(
-                function (response) {
-                    $scope.user = response;
-                },
-                function (error) {
-                    console.log(error);
-                }
-            );
+        var getAuthenticatedUser = function () {
+            $scope.user = {
+                userId: AuthService.userId,
+                username: AuthService.username,
+                imageUri: AuthService.imageUri
+            };
         };
     }]);

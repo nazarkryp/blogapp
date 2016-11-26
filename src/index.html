@@ -18,18 +18,20 @@
 						<a class="logo-text" layout="row" layout-align="end end" ng-click="gotoFeedPage()">Kryptogram</a>
 						<!--<md-divider class="vertical-divider"></md-divider>-->
 					</div>
-					<div layout="row" layout-align="end center" flex="40" style="padding: 0px 0px 0px 0px;">
-						<!--<md-input-container class="md-block" md-no-float flex>
+					<!--<div layout="row" layout-align="end center" flex="40" style="padding-top: 25px;">
+						<md-input-container class="md-block" md-no-float flex>
 							<input class="search-box" type="text" placeholder="Search" ng-model="searchQuery">
-						</md-input-container>-->
-						<search flex="75"></search>
+						</md-input-container>
+					</div>-->
+					<div layout="row" layout-align="end center" flex="40" style="padding: 0px 0px 0px 0px;">
+						<search ng-if="isAuthenticated" flex="75"></search>
 					</div>
 					<div layout="row" layout-align="center start" flex="35" ng-if="isAuthenticated">
 						<md-menu>
 							<md-button aria-label="Open interactions menu" ng-click="$mdOpenMenu($event)">
 								<div layout="row">
-									<span class="navbar-username">{{user.Username}}</span>
-									<img class="navbar-image" ng-src="{{user.ImageUri}}" alt="profile image">
+									<span class="navbar-username">{{user.username}}</span>
+									<img class="navbar-image" ng-src="{{user.imageUri}}" alt="profile image">
 								</div>
 							</md-button>
 							<md-menu-content width="4">

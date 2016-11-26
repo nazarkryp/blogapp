@@ -3,7 +3,7 @@ angular.module('blogapp')
         function ($scope, UserService, AuthService, RELATIONSHIPS) {
             $scope.isLoading = false;
 
-            $scope.currentUserName = AuthService.Username;
+            $scope.currentUserName = AuthService.username;
             $scope.user = null;
 
             var getUser = function (username) {

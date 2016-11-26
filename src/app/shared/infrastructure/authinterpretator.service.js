@@ -12,7 +12,7 @@ angular.module('blogapp')
                     }
                 }
 
-                var session = AuthService.getSessionInfo();
+                var session = AuthService.getSession();
 
                 if (session) {
                     config.headers.Authorization = "Bearer " + session.access_token;
