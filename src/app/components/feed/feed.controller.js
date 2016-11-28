@@ -28,6 +28,7 @@ angular.module('blogapp')
                     function(response) {
                         if (response.Posts) {
                             response.Posts.forEach(function(post) {
+                                post.isCreating = false;
                                 $scope.feed.Posts.push(post);
                             }, this);
                         }
@@ -62,61 +63,6 @@ angular.module('blogapp')
                     $scope.isAuthenticated = value;
                 });
 
-            $scope.newPostCaptionFocusLost = function() {
-                $scope.newPost.value = '';
-            };
-
-            $scope.openMenu = function($mdOpenMenu, ev) {
-                $mdOpenMenu(ev);
-            };
-
-            $scope.viewMoreCommentsClick = function(post) {
-                PostsService.getComments(post.Id).then(
-                    function(response) {
-                        post.Comments = response;
-                    },
-                    function(error) {
-                        $scope.errorMessage = error;
-                    }
-                );
-            };
-
-            $scope.postComment = function(newComment, post, event) {
-                if (event.key === 'Enter') {
-                    if (newComment) {
-                        var comment = {
-                            Text: newComment.Text,
-                        };
-
-                        PostsService.postComment(comment, post.Id).then(
-                            function(response) {
-                                if (!post.Comments) {
-                                    post.Comments = [];
-                                }
-
-                                post.Comments.push(response);
-                            },
-                            function(error) {
-                                $scope.errorMessage = error;
-                            });
-
-                        newComment.Text = null;
-                    }
-                }
-            };
-
-            $scope.like = function(post) {
-                PostsService.like(post.Id).then(
-                    function(response) {
-                        post.LikesCount = response.LikesCount;
-                        post.UserHasLiked = response.UserHasLiked;
-                    },
-                    function(error) {
-                        $scope.errorMessage = error;
-                    }
-                );
-            };
-
             $scope.removePost = function(index) {
                 var post = $scope.feed.Posts[index];
 
@@ -142,12 +88,9 @@ angular.module('blogapp')
                 }).then(
                     function(post) {
                         if (post) {
-                            if (!$stateParams.username) {
-                                $scope.feed.Posts.unshift(post);
-                            }
-                            if ($stateParams.username === AuthService.Username) {
-                                $scope.feed.Posts.unshift(post);
-                            }
+                            post.isCreating = true;
+                            addNewPost(post);
+                            createPost(post);
                         } else {
                             console.log('fuck');
                         }
@@ -156,14 +99,54 @@ angular.module('blogapp')
                     });
             };
 
+            var createPost = function(post) {
+                var promise = null;
+
+                if (!post.isExternal) {
+                    promise = PostsService.createPost(post);
+                } else {
+                    promise = PostsService.createPostFromExternal(post);
+                }
+
+                promise.then(function(response) {
+                    mapPost(post, response);
+                }, function(error) {
+                    console.log(error);
+                });
+            };
+
+            var addNewPost = function(post) {
+                post.Id = 100500;
+                post.Attachment.Id = 100;
+                console.log(post);
+                $scope.feed.Posts.unshift(post);
+                // if (!$stateParams.username) {
+                //     $scope.feed.Posts.unshift(post);
+                // }
+                // if ($stateParams.username === AuthService.Username) {
+                //     $scope.feed.Posts.unshift(post);
+                // }
+            };
+
+            var mapPost = function(post, response) {
+                post.Id = response.Id;
+                post.Attachment.Id = response.Attachment.Id;
+                post.Caption = response.Caption;
+                post.User = response.User;
+                post.CommentsCount = response.CommentsCount;
+                post.Comments = response.Comments;
+                post.LikesCount = response.LikesCount;
+                post.Likes = response.LikesCount;
+            };
+
             $scope.difference = function(postDate) {
                 return DateCalculatorService.getDifference(postDate);
             };
 
             $scope.showPostDetailsDialog = function(ev, post) {
                 $mdDialog.show({
-                    controller: 'PostController',
-                    templateUrl: 'app/components/post/post-details.html',
+                    controller: 'PostDetailsController',
+                    templateUrl: 'app/components/post-details/post-details.html',
                     parent: angular.element(document.body),
                     targetEvent: ev,
                     clickOutsideToClose: true,
@@ -171,6 +154,14 @@ angular.module('blogapp')
                     locals: {
                         post: post
                     }
+                });
+            };
+
+            var showLoadingDialog = function() {
+                $mdDialog.show({
+                    contentElement: '#loadingDialog',
+                    parent: angular.element(document.body),
+                    clickOutsideToClose: false
                 });
             };
 

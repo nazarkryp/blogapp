@@ -29,8 +29,12 @@
                             </md-input-container>
                         </div>
                     </div>
-                    <div style="padding: 10px;" ng-if="preview.Url">
+                    <div style="padding: 10px;" ng-if="preview.Url && !isUploading">
                         <img style="margin: auto; max-width: 100%;width:100%;" alt="Image" ng-src="{{preview.Url}}">
+                    </div>
+                    <div layout="column" layout-align="center center" ng-if="isUploading" style="padding: 10px;">
+                        <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+                        <span style="padding: 10px;">Uploading image</span>
                     </div>
                     <div style="padding: 10px;" flex>
                         <md-input-container class="md-block">

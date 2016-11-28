@@ -8,12 +8,4 @@ angular.module('blogapp')
 
                 return deferred.promise;
             };
-
-            this.post = function(post) {
-                var deferred = $q.defer();
-
-                HttpService.post(ConstService.baseAddress + 'api/posts', post, deferred);
-
-                return deferred.promise;
-            };
         }]);

@@ -1,5 +1,21 @@
 angular.module('blogapp').service('PostsService', ['$q', 'HttpService', 'ConstService',
     function ($q, HttpService, ConstService) {
+        this.createPost = function (post) {
+            var deferred = $q.defer();
+
+            HttpService.post(ConstService.baseAddress + 'api/posts', post, deferred);
+
+            return deferred.promise;
+        };
+
+        this.createPostFromExternal = function (post) {
+            var deferred = $q.defer();
+
+            HttpService.post(ConstService.baseAddress + 'api/posts/external', post, deferred);
+
+            return deferred.promise;
+        };
+
         this.getFeed = function (pageIndex, pageSize) {
             var deferred = $q.defer();
 

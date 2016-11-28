@@ -1,0 +1,75 @@
+<div class="md-padding">
+    <md-card ng-if="post.isCreating">
+        <img ng-src="{{post.Attachment.Url}}" class="md-card-image" alt="Washed Out">
+    </md-card>
+    <md-card ng-if="!post.isCreating">
+        <md-card-header>
+            <md-card-avatar>
+                <img class="post-profile-image" ng-src="{{post.User.ImageUri}}" />
+            </md-card-avatar>
+            <md-card-header-text layout="row" layout-align="space-between center">
+                <a ui-sref="usersfeed({username: post.User.Username})" class="md-title">{{post.User.Username}}</a>
+                <span class="md-subhead">{{difference(post.Created)}}</span>
+            </md-card-header-text>
+        </md-card-header>
+        <img ng-src="{{post.Attachment.Url}}" class="md-card-image" alt="Washed Out">
+        <md-card-content>
+            <div layout="column" flex>
+                <div class="likes">
+                    <a class="md-body-2">{{post.LikesCount}} likes</a>
+                </div>
+                <div ng-class="{'caption': isAuthenticated}">
+                    <a ui-sref="usersfeed({username: post.User.Username})" class="md-body-2">{{post.User.Username}}</a>
+                    <span class="md-body-1">{{post.Caption}}</span>
+                    <br/>
+                    <a class="md-body-1" ng-if="post.CommentsCount > 3 && post.CommentsCount > post.Comments.length">
+                        <span class="show-comments-link" ng-click="viewMoreCommentsClick(post)">view all {{post.CommentsCount}} comments</span>
+                    </a>
+                    <div ng-repeat="comment in post.Comments">
+                        <a class="md-body-2" ui-sref="usersfeed({username: comment.From.Username})">{{comment.From.Username}}</a>
+                        <span class="md-body-1">{{comment.Text}}</span>
+                    </div>
+                </div>
+            </div>
+        </md-card-content>
+        <md-card-actions ng-if="isAuthenticated">
+            <div layout="row">
+                <md-button class="md-icon-button" aria-label="Like" ng-click="like(post)">
+                    <md-icon ng-class="{'liked': post.UserHasLiked}" style="font-size: 30px;">favorite_border</md-icon>
+                </md-button>
+                <div flex>
+                    <md-input-container class="md-block" md-no-float>
+                        <input type="text" placeholder="Add comment" class="comment-box" style="font-size: 17px; font-weight: lighter;" ng-model="newComment.Text"
+                            ng-keydown="postComment(newComment, post, $event)" />
+                    </md-input-container>
+                </div>
+                <md-menu>
+                    <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+                        <md-icon style="font-size: 30px;">more_horiz</md-icon>
+                    </md-button>
+                    <md-menu-content width="4">
+                        <md-menu-item>
+                            <md-button ng-click="ctrl.redial($event)">
+                                <md-icon>file_download</md-icon>
+                                Download
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="ctrl.redial($event)">
+                                <md-icon>link</md-icon>
+                                Copy link
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-divider></md-menu-divider>
+                        <md-menu-item>
+                            <md-button>
+                                <md-icon></md-icon>
+                                Unsubscribe
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+        </md-card-actions>
+    </md-card>
+</div>

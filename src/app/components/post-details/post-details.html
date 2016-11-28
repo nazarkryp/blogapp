@@ -8,7 +8,7 @@
                         <img class="post-profile-image" ng-src="{{post.User.ImageUri}}" />
                         <span class="md-headline" style="margin: 0px 0px 0px 10px;font-weight:lighter;">{{post.User.Username}}</span>
                     </div>
-                    <md-button class="button-bordered">FOLLOWING</md-button>
+                    <md-button class="button-bordered" ng-if="isAuthenticated && currentUserId != post.User.Id">FOLLOWING</md-button>
                 </div>
                 <md-divider></md-divider>
                 <div layout="row" layout-align="space-between center" style="height: 50px;">
