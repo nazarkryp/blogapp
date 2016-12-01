@@ -1,6 +1,8 @@
-angular.module('blogapp').service('DateCalculatorService', ['DATEIDENTIFIERS', function(DATEIDENTIFIERS) {
-    this.getDifference = function(postDate) {
+angular.module('blogapp').filter('difference', ['$filter', function ($filter) {
+    return function (postDate) {
         var currentDate = new Date();
+
+        var msPerSecond = 1000;
         var msPerMinute = 60 * 1000;
         var msPerHour = msPerMinute * 60;
         var msPerDay = msPerHour * 24;
@@ -8,10 +10,12 @@ angular.module('blogapp').service('DateCalculatorService', ['DATEIDENTIFIERS', f
         var msPerMonth = msPerDay * 30;
         var msPerYear = msPerDay * 365;
 
-        var elapsed = currentDate - new Date(postDate);
+        var parsed = Date.parse(postDate);
+        var date = new Date(parsed);
+        var elapsed = currentDate.getTime() - date.getTime();
 
         if (elapsed < msPerMinute) {
-            var difference = Math.round(elapsed / msPerMinute);
+            var difference = Math.round(elapsed / msPerSecond);
 
             if (difference > 1) {
                 return difference + ' seconds ago';
@@ -62,9 +66,9 @@ angular.module('blogapp').service('DateCalculatorService', ['DATEIDENTIFIERS', f
             var difference = Math.round(elapsed / msPerYear);
 
             if (difference > 1) {
-                return difference + ' monts ago';
+                return difference + ' years ago';
             } else {
-                return difference + ' months ago';
+                return difference + ' year ago';
             }
         }
     };

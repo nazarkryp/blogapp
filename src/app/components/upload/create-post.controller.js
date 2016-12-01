@@ -22,10 +22,10 @@ angular.module('blogapp')
             $scope.isExternal = false;
 
             $scope.previewUrl = function() {
-                if ($scope.attachment && $scope.attachment.Url) {
-                    return $scope.attachment.Url;
-                } else if ($scope.external && $scope.external.Url) {
-                    return $scope.external.Url;
+                if ($scope.attachment && $scope.attachment.url) {
+                    return $scope.attachment.url;
+                } else if ($scope.external && $scope.external.url) {
+                    return $scope.external.url;
                 }
             };
 
@@ -33,10 +33,10 @@ angular.module('blogapp')
                 uploadInput.click();
             };
 
-            $scope.$watch('external.Url', function(url) {
+            $scope.$watch('external.url', function(url) {
                 if (url) {
                     $scope.browsed.file = null;
-                    $scope.preview.Url = url;
+                    $scope.preview.url = url;
                     $scope.isExternal = true;
                     $scope.attachment = null;
                 }
@@ -56,8 +56,8 @@ angular.module('blogapp')
                         .then(function(response) {
                             $scope.isUploading = false;
                             $scope.attachment = response;
-                            $scope.preview.Url = $scope.attachment.Url;
-                            $scope.external.Url = null;
+                            $scope.preview.url = $scope.attachment.url;
+                            $scope.external.url = null;
                             $scope.browsed.file = null;
                             $scope.isExternal = false;
                         },
@@ -75,11 +75,11 @@ angular.module('blogapp')
 
             $scope.createPost = function(post) {
                 if (!$scope.isExternal) {
-                    post.Attachment = $scope.attachment;
+                    post.attachment = $scope.attachment;
                     post.isExternal = false;
                 } else {
                     post.Attachment = {
-                        Url: $scope.external.Url
+                        url: $scope.external.url
                     };
 
                     post.isExternal = true;

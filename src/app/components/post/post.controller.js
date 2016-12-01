@@ -1,82 +1,84 @@
 angular.module('blogapp')
-    .controller('PostController', ['$scope', 'PostsService', 'AuthService', 'DateCalculatorService',
-        function($scope, PostsService, AuthService, DateCalculatorService) {
+    .controller('PostController', ['$scope', '$state', 'PostsService', 'AuthService',
+        function ($scope, $state, PostsService, AuthService) {
             $scope.authService = AuthService;
             $scope.isAuthenticated = AuthService.authenticated;
 
             $scope.$watch("authService.authenticated",
-                function(value) {
+                function (value) {
                     $scope.isAuthenticated = value;
                 });
 
-            $scope.like = function(post) {
+            $scope.like = function (post) {
                 if (post.UserHasLiked) {
-                    post.LikesCount--;
+                    post.likesCount--;
                 } else {
-                    post.LikesCount++;
+                    post.likesCount++;
                 }
 
-                post.UserHasLiked = !post.UserHasLiked;
+                post.userHasLiked = !post.userHasLiked;
 
-                PostsService.like(post.Id).then(
-                    function(response) {
-                        post.LikesCount = response.LikesCount;
-                        post.UserHasLiked = response.UserHasLiked;
+                PostsService.like(post.id).then(
+                    function (response) {
+                        post.likesCount = response.likesCount;
+                        post.userHasLiked = response.userHasLiked;
                     },
-                    function(error) {
+                    function (error) {
                         $scope.errorMessage = error;
                     }
                 );
             };
 
-            $scope.postComment = function(newComment, post, event) {
+            $scope.postComment = function (newComment, post, event) {
                 if (event.key === 'Enter') {
                     if (newComment) {
                         var comment = {
-                            Text: newComment.Text,
+                            text: newComment.text,
                         };
 
-                        PostsService.postComment(comment, post.Id).then(
-                            function(response) {
-                                if (!post.Comments) {
-                                    post.Comments = [];
+                        PostsService.postComment(comment, post.id).then(
+                            function (response) {
+                                if (!post.comments) {
+                                    post.comments = [];
                                 }
 
-                                post.Comments.push(response);
+                                post.comments.push(response);
                             },
-                            function(error) {
+                            function (error) {
                                 $scope.errorMessage = error;
                             });
 
-                        newComment.Text = null;
+                        newComment.text = null;
                     }
                 }
             };
 
-            $scope.viewMoreCommentsClick = function(post) {
-                PostsService.getComments(post.Id).then(
-                    function(response) {
-                        post.Comments = response;
+            $scope.viewMoreCommentsClick = function (post) {
+                PostsService.getComments(post.id).then(
+                    function (response) {
+                        post.comments = response;
                     },
-                    function(error) {
+                    function (error) {
                         $scope.errorMessage = error;
                     }
                 );
             };
 
-            $scope.newPostCaptionFocusLost = function() {
+            $scope.newPostCaptionFocusLost = function () {
                 $scope.newPost.value = '';
             };
 
-            $scope.openMenu = function($mdOpenMenu, ev) {
+            $scope.openMenu = function ($mdOpenMenu, ev) {
                 $mdOpenMenu(ev);
             };
 
-            $scope.difference = function(postDate) {
-                return DateCalculatorService.getDifference(postDate);
+            $scope.copyLink = function (post) {
+                $state.go('post', {
+                    postId: post.id
+                });
             };
 
-            var init = function() {
+            var init = function () {
                 $scope.post = $scope.$ctrl.post;
             };
 

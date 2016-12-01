@@ -13,8 +13,8 @@ angular.module('blogapp')
                     function (response) {
                         $scope.user = response;
 
-                        if ($scope.currentUserName && $scope.user.Username && $scope.currentUserName != $scope.user.Username) {
-                            getRelationshipsStatus(response.Id);
+                        if ($scope.currentUserName && $scope.user.username && $scope.currentUserName != $scope.user.username) {
+                            getRelationshipsStatus(response.id);
                         } else {
                             $scope.isLoading = false;
                         }
@@ -31,7 +31,7 @@ angular.module('blogapp')
                     function (response) {
                         $scope.isLoading = false;
 
-                        if (response.IsFollowed) {
+                        if (response.isFollowed) {
                             $scope.actionName = RELATIONSHIPS.Following;
                         } else {
                             $scope.actionName = RELATIONSHIPS.NotFollowing;
@@ -45,11 +45,11 @@ angular.module('blogapp')
             };
 
             $scope.invertRelationshipsWithUser = function () {
-                if ($scope.user.Id) {
-                    UserService.invertRelationshipsWithUser($scope.user.Id).then(
+                if ($scope.user.id) {
+                    UserService.invertRelationshipsWithUser($scope.user.id).then(
                         function (response) {
                             $scope.isLoading = false;
-                            if (response.IsFollowed) {
+                            if (response.isFollowed) {
                                 $scope.actionName = RELATIONSHIPS.Following;
                             } else {
                                 $scope.actionName = RELATIONSHIPS.NotFollowing;

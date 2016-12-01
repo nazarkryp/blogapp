@@ -1,23 +1,23 @@
 <div class="user-info-bar" layout="row" layout-align="center center" ng-if="user">
     <div layout="column" layout-align="center end" flex="20">
-        <img class="user-bar-image" ng-src="{{user.ImageUri}}" alt="profile" />
+        <img class="user-bar-image" ng-src="{{user.imageUri}}" alt="profile" />
     </div>
     <div class="md-padding" layout="column" layout-align="stretch stretch" flex>
         <div layout="row" layout-align="space-between center">
-            <span class="md-display-1" style="font-weight: lighter;">{{user.Username}}</span>
-            <md-button class="button-bordered" ng-click="invertRelationshipsWithUser()" ng-if="currentUserName && user.Username && currentUserName != user.Username && !isLoading">{{actionName}}</md-button>
+            <span class="md-display-1" style="font-weight: lighter;">{{user.username}}</span>
+            <md-button class="button-bordered" ng-click="invertRelationshipsWithUser()" ng-if="currentUserName && user.username && currentUserName != user.username && !isLoading">{{actionName}}</md-button>
         </div>
         <div class="counters" layout="row" layout-align="start end">
             <div flex="20">
-                <span class="md-title">{{user.Counters.Posts}} </span>
+                <span class="md-title">{{user.counters.posts}} </span>
                 <span class="md-subhead">posts </span>
             </div>
             <div flex="20">
-                <span class="md-title">{{user.Counters.Followers}} </span>
+                <span class="md-title">{{user.counters.followers}} </span>
                 <span class="md-subhead">followers </span>
             </div>
             <div flex="20">
-                <span class="md-title">{{user.Counters.Follows}} </span>
+                <span class="md-title">{{user.counters.follows}} </span>
                 <span class="md-subhead">follows</span>
             </div>
         </div>

@@ -6,7 +6,7 @@ angular.module('blogapp')
                 file : null
             };
             $scope.user = {
-                Attachment: {}
+                attachment: {}
             };
 
             $scope.gotoSignInPage = function () {
@@ -15,7 +15,7 @@ angular.module('blogapp')
 
             $scope.signUp = function (user) {
                 if ($scope.attachment) {
-                    user.Attachment = $scope.attachment;
+                    user.attachment = $scope.attachment;
                 }
 
                 showLoadingDialog();

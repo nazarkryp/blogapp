@@ -32,7 +32,7 @@
             <div layout="column" ng-if="!isUploading">
                 <md-button md-colors="{background : 'red'}" ng-click="browse()" flex>Upload profile picture</md-button>
                 <div layout="row" layout-align="center center" style="padding: 5px 5px 5px 10px;">
-                    <img ng-src="{{attachment.Url}}" style="max-width: 100px; max-height: 100px;" />
+                    <img ng-src="{{attachment.url}}" style="max-width: 100px; max-height: 100px;" />
                 </div>
                 <input id="uploadInput" file-model="browsedFile.file" type="file" aria-label class="md-input" ng-hide="true" />
             </div>

@@ -5,20 +5,20 @@
     <div layout="row" layout-align="center center">
         <div style="width:1000px;">
             <md-grid-list md-cols-gt-md="3" md-row-height-gt-md="1:1" layout-align="center center">
-                <md-grid-tile class="user-post" ng-repeat="post in feed.Posts" ng-mouseenter="showDetails(post)" ng-mouseleave="hideDetails(post)"
+                <md-grid-tile class="user-post" ng-repeat="post in feed.posts" ng-mouseenter="showDetails(post)" ng-mouseleave="hideDetails(post)"
                     ng-click="showPostDetailsDialog($event, post)" style="width: 300px; height: 300px;">
                     <div class="post-thumbnail-container" layout="row" layout-align="space-around stretch" ng-if="post.showDetails">
                         <div class="post-labels" layout="row" layout-align="center center">
-                            <span>{{post.LikesCount}}</span>
+                            <span>{{post.likesCount}}</span>
                             <md-icon class="post-labels">favorite</md-icon>
                         </div>
                         <div class="post-labels" layout="row" layout-align="center center">
-                            <span>{{post.CommentsCount}}</span>
+                            <span>{{post.commentsCount}}</span>
                             <md-icon class="post-labels">chat_bubble</md-icon>
                         </div>
                         <div class="post-thumbnail-black" layout="row" layout-align="center center"></div>
                     </div>
-                    <img class="thumbnail" ng-src="{{post.Attachment.Url}}" alt="post.Attachment.Url">
+                    <img class="thumbnail" ng-src="{{post.attachment.url}}" alt="post.attachment.url">
                 </md-grid-tile>
             </md-grid-list>
         </div>
@@ -29,7 +29,7 @@
     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
 </div>
 
-<div class="md-padding" layout="column" layout-align="center center" ng-if="feed.HasMoreItems">
+<div class="md-padding" layout="column" layout-align="center center" ng-if="feed.hasMoreItems">
     <md-button ng-click="loadMorePosts()" ng-if="!isLoadingMorePosts">Load More</md-button>
     <md-progress-circular md-mode="indeterminate" ng-if="isLoadingMorePosts"></md-progress-circular>
 </div>

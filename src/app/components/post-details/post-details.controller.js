@@ -1,24 +1,17 @@
 angular.module('blogapp')
-    .controller('PostDetailsController', ['$scope', 'PostsService', 'AuthService', 'DateCalculatorService', 'post',
-        function ($scope, PostsService, AuthService, DateCalculatorService, post) {
-            $scope.post = post;
-            $scope.isAuthenticated = AuthService.authenticated;
-            $scope.currentuserId = AuthService.userId;
-
-            $scope.maxHeight = window.innerHeight * 75 / 100;
+    .controller('PostDetailsController', ['$scope', '$state', '$stateParams', 'PostsService', 'AuthService',
+        function ($scope, $state, $stateParams, PostsService, AuthService) {
+            $scope.maxHeight = window.innerHeight - 150;
             $scope.maxWidth = window.innerWidth * 75 / 100 - 400;
 
-            $scope.difference = function (postDate) {
-                return DateCalculatorService.getDifference(postDate);
-            };
-
-            $scope.viewMoreCommentsClick = function (post) {
-                PostsService.getComments(post.Id).then(
+            var init = function () {
+                PostsService.getPostById($stateParams.postId).then(
                     function (response) {
-                        post.Comments = response;
+                        $scope.post = response;
                     }, function (error) {
                         console.log(error);
-                    }
-                );
+                    });
             };
+
+            init();
         }]);

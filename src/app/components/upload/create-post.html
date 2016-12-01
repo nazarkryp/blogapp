@@ -25,12 +25,12 @@
                             <md-input-container md-no-float flex>
                                 <label>External resource url</label>
                                 <input type="text" placeholder="http://example.com/image.jpg" class="comment-box text-area" style="font-weight: lighter; border: 1px solid #dbdbdb;"
-                                    ng-model="external.Url" />
+                                    ng-model="external.url" />
                             </md-input-container>
                         </div>
                     </div>
-                    <div style="padding: 10px;" ng-if="preview.Url && !isUploading">
-                        <img style="margin: auto; max-width: 100%;width:100%;" alt="Image" ng-src="{{preview.Url}}">
+                    <div style="padding: 10px;" ng-if="preview.url && !isUploading">
+                        <img style="margin: auto; max-width: 100%;width:100%;" alt="Image" ng-src="{{preview.url}}">
                     </div>
                     <div layout="column" layout-align="center center" ng-if="isUploading" style="padding: 10px;">
                         <md-progress-linear md-mode="indeterminate"></md-progress-linear>
@@ -40,7 +40,7 @@
                         <md-input-container class="md-block">
                             <label>Caption</label>
                             <textarea placeholder="Write description to your image" class="comment-box text-area" style="padding: 3px; border: 1px solid #dbdbdb;"
-                                name="description" rows="3" ng-model="post.Caption"></textarea>
+                                name="description" rows="3" ng-model="post.caption"></textarea>
                         </md-input-container>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
             <md-button ng-click="cancel()">
                 Cancel
             </md-button>
-            <md-button type="submit" md-colors="{background: 'blue'}" ng-if="preview.Url">
+            <md-button type="submit" md-colors="{background: 'blue'}" ng-if="preview.url">
                 Post
             </md-button>
         </md-dialog-actions>

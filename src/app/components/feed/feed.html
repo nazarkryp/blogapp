@@ -4,10 +4,10 @@
 	</div>
 	<div flex="45" ng-if="!isLoading">
 		<h1 layout="row" layout-align="center center">{{errorMessage}}</h1>
-		<div ng-repeat="post in feed.Posts">
+		<div ng-repeat="post in feed.posts">
 			<post post="post"></post>
 		</div>
-		<div layout="column" layout-align="center center" ng-if="feed.HasMoreItems">
+		<div layout="column" layout-align="center center" ng-if="feed.hasMoreItems">
 			<md-button ng-click="loadMorePosts()" ng-if="!isLoadingMorePosts">Load More</md-button>
 			<md-progress-circular md-mode="indeterminate" ng-if="isLoadingMorePosts"></md-progress-circular>
 		</div>

@@ -1,27 +1,26 @@
-<div class="md-padding">
-    <md-card ng-if="post.isCreating">
-        <img ng-src="{{post.attachment.url}}" class="md-card-image" alt="Washed Out">
-    </md-card>
-    <md-card ng-if="!post.isCreating">
-        <md-card-header>
-            <md-card-avatar>
-                <img class="post-profile-image" ng-src="{{post.user.imageUri}}" />
-            </md-card-avatar>
-            <md-card-header-text layout="row" layout-align="space-between center">
-                <a ui-sref="usersfeed({username: post.user.username})" class="md-title">{{post.user.username}}</a>
-                <span class="md-subhead">{{post.created | difference}}</span>
-            </md-card-header-text>
-        </md-card-header>
-        <img ng-src="{{post.attachment.url}}" class="md-card-image" alt="Washed Out">
-        <md-card-content>
-            <div layout="column" flex>
-                <div class="likes">
-                    <a class="md-body-2">{{post.likesCount}} likes</a>
+<md-dialog>
+    <md-dialog-content>
+        <div layout="row">
+            <img ng-src="{{post.attachment.url}}" alt="image" style="max-height: {{maxHeight}}px;max-width: {{maxWidth}}px;">
+            <div layout="column" style="width:350px;padding: 0px 10px 0px 15px;">
+                <div layout="row" layout-align="space-between center" style="height: 75px;">
+                    <div layout="row" layout-align="center center">
+                        <img class="post-profile-image" ng-src="{{post.user.imageUri}}" />
+                        <span class="md-headline" style="margin: 0px 0px 0px 10px;font-weight:lighter;">{{post.user.username}}</span>
+                    </div>
+                    <md-button class="button-bordered" ng-if="isAuthenticated && currentUserId != post.user.id">FOLLOWING</md-button>
                 </div>
-                <div ng-class="{'caption': isAuthenticated}">
-                    <a ui-sref="usersfeed({username: post.user.username})" class="md-body-2">{{post.user.username}}</a>
-                    <span class="md-body-1">{{post.caption}}</span>
-                    <br/>
+                <md-divider></md-divider>
+                <div layout="row" layout-align="space-between center" style="height: 50px;">
+                    <strong>{{post.likesCount}} Likes</strong>
+                    <span>{{post.created | difference}}</span>
+                </div>
+                <div layout="row" layout-align="space-between center" style="min-height: 50px;" ng-if="post.caption">
+                    <p>
+                        <strong>{{post.user.username}}</strong> {{post.caption}}
+                    </p>
+                </div>
+                <div flex>
                     <a class="md-body-1" ng-if="post.commentsCount > 3 && post.commentsCount > post.comments.length">
                         <span class="show-comments-link" ng-click="viewMoreCommentsClick(post)">view all {{post.commentsCount}} comments</span>
                     </a>
@@ -30,21 +29,18 @@
                         <span class="md-body-1">{{comment.text}}</span>
                     </div>
                 </div>
-            </div>
-            <div ng-if="isAuthenticated" style="height: 50px; padding: 0px 0px 10px 0px;">
-                <div layout="row" layout-align="center stretch">
-                    <div layout="row" layout-align="start start" style="padding-top: 15px;">
-                        <md-button aria-label="Like" class="md-icon-button" ng-click="like(post)">
-                            <md-icon ng-class="{'liked': post.userHasLiked}" style="font-size: 30px;">favorite_border</md-icon>
-                        </md-button>
+                <md-divider></md-divider>
+                <div layout="row" layout-align="center stretch" ng-if="isAuthenticated">
+                    <div layout="row" layout-align="start start">
+                        <md-icon class="button-like" ng-class="{'liked': post.userHasLiked}" ng-click="like(post)">favorite_border</md-icon>
                     </div>
-                    <div style="padding: 20px 0px 0px 10px;" flex>
+                    <div style="padding: 25px 0px 0px 10px;" flex>
                         <md-input-container class="md-block" md-no-float>
                             <input type="text" placeholder="Add comment" class="comment-box" ng-model="newComment.text" ng-keydown="postComment(newComment, post, $event)"
                             />
                         </md-input-container>
                     </div>
-                    <div layout="row" layout-align="end center" style="padding-bottom: 5px;">
+                    <div layout="row" layout-align="end center">
                         <md-menu>
                             <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
                                 <md-icon style="font-size: 30px;">more_horiz</md-icon>
@@ -57,7 +53,7 @@
                                     </md-button>
                                 </md-menu-item>
                                 <md-menu-item>
-                                    <md-button ng-click="copyLink(post)">
+                                    <md-button ng-click="ctrl.redial($event)">
                                         <md-icon>link</md-icon>
                                         Copy link
                                     </md-button>
@@ -74,6 +70,6 @@
                     </div>
                 </div>
             </div>
-        </md-card-content>
-    </md-card>
-</div>
+        </div>
+    </md-dialog-content>
+</md-dialog>

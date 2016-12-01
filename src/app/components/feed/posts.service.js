@@ -32,6 +32,14 @@ angular.module('blogapp').service('PostsService', ['$q', 'HttpService', 'ConstSe
             return deferred.promise;
         };
 
+        this.getPostById = function (postId) {
+            var deferred = $q.defer();
+
+            HttpService.get(ConstService.baseAddress + 'api/posts?postId=' + postId, deferred);
+
+            return deferred.promise;
+        };
+
         this.getComments = function (postId) {
             var deferred = $q.defer();
 

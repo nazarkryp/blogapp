@@ -24,7 +24,8 @@ angular.module('blogapp')
                 })
                 .state('post', {
                     url: '/p/:postId',
-                    templateUrl: 'app/components/post/post-details.html'
+                    templateUrl: 'app/components/post-details/post-details.html',
+                    controller: 'PostDetailsController'
                 });
 
             $urlRouterProvider.otherwise('/');
