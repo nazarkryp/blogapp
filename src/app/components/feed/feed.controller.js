@@ -5,8 +5,10 @@ angular.module('blogapp')
             $scope.isAuthenticated = false;
             $scope.isLoading = false;
             $scope.isLoadingMorePosts = false;
-            $scope.newPost = {
-            };
+            $scope.infoMessage = "";
+            $scope.newPost = {};
+
+            $scope.windowCenter = window.innerHeight / 2 - window.innerHeight * 0.25;
 
             $scope.feed = {
                 pageIndex: 0,
@@ -133,6 +135,8 @@ angular.module('blogapp')
             };
 
             var getFeed = function () {
+                $scope.infoMessage = null;
+
                 getFeedPromise($stateParams.username).then(
                     function (response) {
                         if (response.posts) {
@@ -147,10 +151,16 @@ angular.module('blogapp')
 
                         $scope.isLoading = false;
                         $scope.isLoadingMorePosts = false;
+
+                        if ($scope.feed.posts.length === 0) {
+                            $scope.infoMessage = 'Nobody has posted anything yet';
+                        }
                     },
                     function (error) {
                         $scope.isLoading = false;
                         $scope.isLoadingMorePosts = false;
+
+                        $scope.infoMessage = error;                        
                     });
             };
 

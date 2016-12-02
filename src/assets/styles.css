@@ -218,22 +218,32 @@ a:hover {
 }
 
 .authentication-form {
-    padding: 10px;
+    padding-top: 25px;
     width: 400px;
+}
+
+.authentication-container {
+    margin-top: 50px;
+    padding: 50px 0px 0px 0px;
+    width: 700px;
     background-color: white;
     border: 1px solid #dbdbdb;
 }
 
-.authentication-container {
-    padding-top: 50px;
-}
-
 .authentication-form-header {
-    height: 40px;
+    /*height: 40px;*/
+    padding-bottom: 25px;
 }
 
 .authentication-form-content {
     
+}
+
+.authentication-error {
+    width:500px;
+    padding:0px 25px 0px 25px;
+    background-color:#f5f7fa;
+    border:1px solid #c1c9d9;
 }
 
 .authentication-form-actions {
@@ -258,4 +268,10 @@ a:hover {
   height: 50%;
   margin-left:10px;
   margin-right: 5px; 
+}
+
+.feed-info-message {
+    font-size: 34px;
+    font-weight: lighter;
+    /*color: #505050;*/
 }

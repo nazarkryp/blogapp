@@ -1,3 +1,7 @@
+<div layout="column" layout-align="center center" ng-if="!isLoading" style="margin-top: {{windowCenter}}px;" ng-if="infoMessage">
+	<span class="feed-info-message">{{infoMessage}}</span>
+</div>
+
 <div class="md-padding" layout="row" layout-align="center center">
 	<div class="loading-indicator" layout="column" layout-align="end center" ng-if="isLoading">
 		<md-progress-circular md-mode="indeterminate"></md-progress-circular>
