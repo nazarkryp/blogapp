@@ -1,70 +1,75 @@
-<div layout="row" layout-align="center start">
-    <img ng-src="{{post.attachment.url}}" alt="image" style="max-height: {{maxHeight}}px;max-width: {{maxWidth}}px;">
-    <div layout="column" layout-align="stretch stretch" style="width:350px;padding: 0px 10px 0px 15px;background:white;">
-        <div layout="row" layout-align="space-between center" style="height: 75px;">
-            <div layout="row" layout-align="center center">
-                <img class="post-profile-image" ng-src="{{post.user.imageUri}}" />
-                <span class="md-headline" style="margin: 0px 0px 0px 10px;font-weight:lighter;">{{post.user.username}}</span>
-            </div>
-            <md-button class="button-bordered" ng-if="isAuthenticated && currentUserId != post.user.id">FOLLOWING</md-button>
+<div class="md-padding" layout="row" layout-align="center start">
+    <div layout="row">
+        <div>
+            <img ng-model="image" ng-src="{{post.attachment.url}}" alt="image" style="max-height: {{image.maxHeight}}px;max-width: {{image.maxWidth}}px;" element-size>
         </div>
-        <md-divider></md-divider>
-        <div layout="row" layout-align="space-between center" style="height: 50px;">
-            <strong>{{post.likesCount}} Likes</strong>
-            <span>{{post.created | difference}}</span>
-        </div>
-        <div layout="row" layout-align="space-between center" style="min-height: 50px;" ng-if="post.caption">
-            <p>
-                <strong>{{post.user.username}}</strong> {{post.caption}}
-            </p>
-        </div>
-        <div flex>
-            <a class="md-body-1" ng-if="post.commentsCount > 3 && post.commentsCount > post.comments.length">
-                <span class="show-comments-link" ng-click="viewMoreCommentsClick(post)">view all {{post.commentsCount}} comments</span>
-            </a>
-            <div ng-repeat="comment in post.comments">
-                <a class="md-body-2" ui-sref="usersfeed({username: comment.from.username})">{{comment.from.username}}</a>
-                <span class="md-body-1">{{comment.text}}</span>
+        <div layout="column" layout-align="stretch stretch" style="width:350px;padding: 0px 10px 0px 15px;background:white;margin:0px 0px 5px 50px;"
+            md-whiteframe="1">
+            <div layout="row" layout-align="space-between center" style="height: 75px;">
+                <div layout="row" layout-align="center center">
+                    <img class="post-profile-image" ng-src="{{post.user.imageUri}}" />
+                    <span class="md-headline" style="margin: 0px 0px 0px 10px;font-weight:lighter;">{{post.user.username}}</span>
+                </div>
+                <md-button class="button-bordered" ng-click="invertRelationships();" ng-if="isAuthenticated && currentUserId != post.user.id">FOLLOWING</md-button>
             </div>
-        </div>
-        <md-divider></md-divider>
-        <div layout="row" layout-align="center stretch" ng-if="isAuthenticated">
-            <div layout="row" layout-align="start start">
-                <md-icon class="button-like" ng-class="{'liked': post.userHasLiked}" ng-click="like(post)">favorite_border</md-icon>
+            <md-divider></md-divider>
+            <div layout="row" layout-align="space-between center" style="height: 50px;">
+                <strong>{{post.likesCount}} Likes</strong>
+                <span>{{post.created | difference}}</span>
             </div>
-            <div style="padding: 25px 0px 0px 10px;" flex>
-                <md-input-container class="md-block" md-no-float>
-                    <input type="text" placeholder="Add comment" class="comment-box" ng-model="newComment.text" ng-keydown="postComment(newComment, post, $event)"
-                    />
-                </md-input-container>
+            <div layout="row" layout-align="space-between center" style="min-height: 50px;" ng-if="post.caption">
+                <p>
+                    <strong>{{post.user.username}}</strong> {{post.caption}}
+                </p>
             </div>
-            <div layout="row" layout-align="end center">
-                <md-menu>
-                    <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
-                        <md-icon style="font-size: 30px;">more_horiz</md-icon>
-                    </md-button>
-                    <md-menu-content width="4">
-                        <md-menu-item>
-                            <md-button ng-click="ctrl.redial($event)">
-                                <md-icon>file_download</md-icon>
-                                Download
-                            </md-button>
-                        </md-menu-item>
-                        <md-menu-item>
-                            <md-button ng-click="ctrl.redial($event)">
-                                <md-icon>link</md-icon>
-                                Copy link
-                            </md-button>
-                        </md-menu-item>
-                        <md-menu-divider></md-menu-divider>
-                        <md-menu-item>
-                            <md-button>
-                                <md-icon></md-icon>
-                                Unsubscribe
-                            </md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
+            <div flex>
+                <a class="md-body-1" ng-if="post.commentsCount > 3 && post.commentsCount > post.comments.length">
+                    <span class="show-comments-link" ng-click="viewMoreCommentsClick(post)">view all {{post.commentsCount}} comments</span>
+                </a>
+                <div ng-repeat="comment in post.comments">
+                    <a class="md-body-2" ui-sref="usersfeed({username: comment.from.username})">{{comment.from.username}}</a>
+                    <span class="md-body-1">{{comment.text}}</span>
+                </div>
+            </div>
+            <md-divider></md-divider>
+            <div layout="row" layout-align="center stretch" ng-if="isAuthenticated">
+                <div layout="row" layout-align="start start">
+                    <md-icon class="button-like" ng-class="{'liked': post.userHasLiked}" ng-click="like(post)">favorite_border</md-icon>
+                </div>
+                <div style="padding: 25px 0px 0px 10px;" flex>
+                    <md-input-container class="md-block" md-no-float>
+                        <input type="text" placeholder="Add comment" class="comment-box" ng-model="newComment.text" ng-keydown="postComment(newComment, post, $event)"
+                        />
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-align="end center">
+                    <md-menu>
+                        <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+                            <md-icon style="font-size: 30px;">more_horiz</md-icon>
+                        </md-button>
+                        <md-menu-content width="4">
+                            <md-menu-item>
+                                <md-button ng-click="ctrl.redial($event)">
+                                    <md-icon>file_download</md-icon>
+                                    Download
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ng-click="ctrl.redial($event)">
+                                    <md-icon>link</md-icon>
+                                    Copy link
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-divider></md-menu-divider>
+                            <md-menu-item>
+                                <md-button>
+                                    <md-icon></md-icon>
+                                    Unsubscribe
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
             </div>
         </div>
     </div>

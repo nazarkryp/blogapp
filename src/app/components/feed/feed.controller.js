@@ -15,36 +15,6 @@ angular.module('blogapp')
                 hasMoreItems: false
             };
 
-            var getFeedPromise = function () {
-                if (!$stateParams.username) {
-                    return PostsService.getFeed($scope.feed.pageIndex + 1, $scope.feed.pageSize);
-                } else {
-                    return PostsService.getUsersFeed($stateParams.username, $scope.feed.pageIndex + 1, $scope.feed.pageSize);
-                }
-            };
-
-            var getFeed = function () {
-                getFeedPromise($stateParams.username).then(
-                    function (response) {
-                        if (response.posts) {
-                            response.posts.forEach(function (post) {
-                                post.isCreating = false;
-                                $scope.feed.posts.push(post);
-                            }, this);
-                        }
-
-                        $scope.feed.hasMoreItems = response.hasMoreItems;
-                        $scope.feed.pageIndex = response.pageIndex;
-
-                        $scope.isLoading = false;
-                        $scope.isLoadingMorePosts = false;
-                    },
-                    function (error) {
-                        $scope.isLoading = false;
-                        $scope.isLoadingMorePosts = false;
-                    });
-            };
-
             $scope.showDetails = function (post) {
                 post.showDetails = true;
             };
@@ -87,16 +57,26 @@ angular.module('blogapp')
                     fullscreen: '-sm'
                 }).then(
                     function (post) {
-                        if (post) {
-                            post.isCreating = true;
-                            addNewPost(post);
-                            createPost(post);
-                        } else {
-                            console.log('fuck');
-                        }
+                        post.isCreating = true;
+                        addNewPost(post);
+                        createPost(post);
                     },
                     function () {
                     });
+            };
+
+            $scope.showPostDetailsDialog = function (ev, post) {
+                $mdDialog.show({
+                    controller: 'PostDetailsDialogController',
+                    templateUrl: 'app/components/post-details/dialogs/post-details-dialog.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: true,
+                    fullscreen: '-sm',
+                    locals: {
+                        post: post
+                    }
+                });
             };
 
             var createPost = function (post) {
@@ -136,20 +116,6 @@ angular.module('blogapp')
                 post.likes = response.likesCount;
             };
 
-            $scope.showPostDetailsDialog = function (ev, post) {
-                $mdDialog.show({
-                    controller: 'PostDetailsDialogController',
-                    templateUrl: 'app/components/post-details/dialogs/post-details-dialog.html',
-                    parent: angular.element(document.body),
-                    targetEvent: ev,
-                    clickOutsideToClose: true,
-                    fullscreen: '-sm',
-                    locals: {
-                        post: post
-                    }
-                });
-            };
-
             var showLoadingDialog = function () {
                 $mdDialog.show({
                     contentElement: '#loadingDialog',
@@ -158,13 +124,44 @@ angular.module('blogapp')
                 });
             };
 
+            var getFeedPromise = function () {
+                if (!$stateParams.username) {
+                    return PostsService.getFeed($scope.feed.pageIndex + 1, $scope.feed.pageSize);
+                } else {
+                    return PostsService.getUsersFeed($stateParams.username, $scope.feed.pageIndex + 1, $scope.feed.pageSize);
+                }
+            };
+
+            var getFeed = function () {
+                getFeedPromise($stateParams.username).then(
+                    function (response) {
+                        if (response.posts) {
+                            response.posts.forEach(function (post) {
+                                post.isCreating = false;
+                                $scope.feed.posts.push(post);
+                            }, this);
+                        }
+
+                        $scope.feed.hasMoreItems = response.hasMoreItems;
+                        $scope.feed.pageIndex = response.pageIndex;
+
+                        $scope.isLoading = false;
+                        $scope.isLoadingMorePosts = false;
+                    },
+                    function (error) {
+                        $scope.isLoading = false;
+                        $scope.isLoadingMorePosts = false;
+                    });
+            };
+
             var init = function () {
                 $scope.isLoading = true;
-                getFeed();
 
                 if ($stateParams.username) {
                     $scope.username = $stateParams.username;
                 }
+
+                getFeed();
             };
 
             init();
