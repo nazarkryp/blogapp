@@ -11,6 +11,7 @@ md-fab-speed-dial.md-fab-bottom-right {
 }
 
 md-input-container {
+    padding-bottom: 0px;
     margin: 0;
 }
 
@@ -218,13 +219,12 @@ a:hover {
 }
 
 .authentication-form {
-    padding-top: 25px;
     width: 400px;
 }
 
 .authentication-container {
     margin-top: 50px;
-    padding: 50px 0px 0px 0px;
+    padding: 25px 0px 0px 0px;
     width: 700px;
     background-color: white;
     border: 1px solid #dbdbdb;
@@ -275,3 +275,12 @@ a:hover {
     font-weight: lighter;
     /*color: #505050;*/
 }
+
+.feed-content{
+    width:1000px;
+    padding-bottom:50px;
+}
+
+/*.md-whiteframe-z1 {
+    border: none;
+}*/

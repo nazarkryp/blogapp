@@ -10,43 +10,43 @@
         </div>
 
         <form class="authentication-form" name="signUpForm" ng-submit="signUp(user)">
-            <md-input-container class="md-block" md-no-float>
-                <!--<label>Username or Email</label>-->
-                <input class="text-area" name="username" placeholder="Username" ng-model="user.username" required />
-                <div ng-messages="signUp.username.$error">
-                    <ng-message when="required">This field is required.</ng-message>
-                </div>
-            </md-input-container>
-            <md-input-container class="md-block" md-no-float>
-                <!--<label>Password</label>-->
-                <input class="text-area" name="password" type="password" placeholder="Password" ng-model="user.password" required/>
-                <div ng-messages="signUp.password.$error">
-                    <ng-message when="required">Password field is required.</ng-message>
-                </div>
-            </md-input-container>
-            <md-input-container class="md-block" md-no-float>
-                <!--<label>Confirm password</label>-->
-                <input class="text-area" name="confirmpassword" type="password" placeholder="Username" ng-model="user.confirmpassword" required/>
-                <div ng-messages="signUp.confirmpassword.$error">
-                    <ng-message when="required">Password confirm field is required.</ng-message>
-                </div>
-            </md-input-container>
+            <div style="padding:0px 5px 0px 5px;">
+                <md-input-container class="md-block" md-no-float>
+                    <!--<label>Username or Email</label>-->
+                    <input class="text-area" name="username" placeholder="Username" ng-model="user.username" required />
+                    <div ng-messages="signUp.username.$error">
+                        <ng-message when="required">This field is required.</ng-message>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" md-no-float>
+                    <!--<label>Password</label>-->
+                    <input class="text-area" name="password" type="password" placeholder="Password" ng-model="user.password" required/>
+                    <div ng-messages="signUp.password.$error">
+                        <ng-message when="required">Password field is required.</ng-message>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" md-no-float>
+                    <!--<label>Confirm password</label>-->
+                    <input class="text-area" name="confirmpassword" type="password" placeholder="Username" ng-model="user.confirmpassword" required/>
+                    <div ng-messages="signUp.confirmpassword.$error">
+                        <ng-message when="required">Password confirm field is required.</ng-message>
+                    </div>
+                </md-input-container>
+            </div>
             <div layout="column" layout-align="center center" ng-if="isUploading" style="padding:0px 5px 0px 5px;">
                 <md-progress-linear md-mode="indeterminate"></md-progress-linear>
                 <span style="padding: 10px;">Uploading image</span>
             </div>
-            <div layout="column" ng-if="!isUploading">
-                <md-button md-colors="{background : 'red'}" ng-click="browse()" flex>Upload profile picture</md-button>
-                <div layout="row" layout-align="center center" style="padding: 5px 5px 5px 10px;">
+            <div layout="column" layout-align="stretch stretch" ng-if="!isUploading">
+                <md-button md-colors="{background : 'red'}" ng-click="browse()">Upload profile picture</md-button>
+                <div layout="row" layout-align="center center" style="padding: 5px 5px 5px 10px;" ng-if="attachment.url">
                     <img ng-src="{{attachment.url}}" style="max-width: 100px; max-height: 100px;" />
                 </div>
                 <input id="uploadInput" file-model="browsedFile.file" type="file" aria-label class="md-input" ng-hide="true" />
-            </div>
-            <div layout="row" layout-align="stretch">
-                <md-button type="submit" class="md-raised md-primary" md-colors="{background: 'blue'}" flex>Create account</md-button>
-            </div>
-            <div layout="row" layout-align="center center">
-                <md-button ng-click="gotoSignInPage()">Already have an account</md-button>
+                <md-button type="submit" class="md-raised md-primary" md-colors="{background: 'blue'}">Create account</md-button>
+                <div layout="row" layout-align="center center">
+                    <md-button ng-click="gotoSignInPage()">Already have an account</md-button>
+                </div>
             </div>
         </form>
     </div>

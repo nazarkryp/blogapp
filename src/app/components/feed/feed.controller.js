@@ -12,7 +12,7 @@ angular.module('blogapp')
 
             $scope.feed = {
                 pageIndex: 0,
-                pageSize: 5,
+                pageSize: 6,
                 posts: [],
                 hasMoreItems: false
             };

@@ -2,8 +2,9 @@
     <div layout="row" layout-align="center center">
         <user-info username="username"></user-info>
     </div>
+    <!--BC 2587AA 20.10 Львів - Мостиська-->
     <div layout="row" layout-align="center center">
-        <div style="width:1000px;">
+        <div class="feed-content">
             <md-grid-list md-cols-gt-md="3" md-row-height-gt-md="1:1" layout-align="center center">
                 <md-grid-tile class="user-post" ng-repeat="post in feed.posts" ng-mouseenter="showDetails(post)" ng-mouseleave="hideDetails(post)"
                     ng-click="showPostDetailsDialog($event, post)" style="width: 300px; height: 300px;">
