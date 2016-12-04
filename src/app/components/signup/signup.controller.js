@@ -50,7 +50,6 @@ angular.module('blogapp')
                         .then(function (response) {
                             $scope.isUploading = false;
                             $scope.attachment = response;
-                            console.log($scope.attachment);
                             $scope.browsedFile.file = null;
                         },
                         function (error) {

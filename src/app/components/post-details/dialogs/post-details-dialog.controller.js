@@ -5,8 +5,8 @@ angular.module('blogapp')
             $scope.isAuthenticated = AuthService.authenticated;
             $scope.currentuserId = AuthService.userId;
 
-            $scope.maxHeight = window.innerHeight * 75 / 100;
-            $scope.maxWidth = window.innerWidth * 75 / 100 - 400;
+            $scope.maxHeight = window.innerHeight - 150;
+            $scope.maxWidth = window.innerWidth - 350;
 
             $scope.viewMoreCommentsClick = function (post) {
                 PostsService.getComments(post.id).then(
@@ -17,4 +17,61 @@ angular.module('blogapp')
                     }
                 );
             };
+
+            $scope.like = function (post) {
+                if (post.UserHasLiked) {
+                    post.likesCount--;
+                } else {
+                    post.likesCount++;
+                }
+
+                post.userHasLiked = !post.userHasLiked;
+
+                PostsService.like(post.id).then(
+                    function (response) {
+                        post.likesCount = response.likesCount;
+                        post.userHasLiked = response.userHasLiked;
+                    },
+                    function (error) {
+                        $scope.errorMessage = error;
+                    }
+                );
+            };
+
+            $scope.createComment = function (newComment, post, ev) {
+                if (ev.key === 'Enter') {
+                    if (newComment) {
+                        var comment = {
+                            from: {
+                                username: AuthService.username
+                            },
+                            text: newComment.text,
+                        };
+
+                        if (!post.comments) {
+                            post.comments = [];
+                        }
+
+                        post.comments.push(comment);
+                        post.commentsCount++;
+
+                        PostsService.postComment(comment, post.id).then(
+                            function (response) {
+                                mapComment(comment, response);
+                            },
+                            function (error) {
+                                $scope.errorMessage = error;
+                                post.commentsCount--;
+                            });
+
+                        newComment.text = null;
+                    }
+                }
+            };
+
+            function mapComment(comment, response) {
+                comment.id = response.id;
+                comment.from = response.from;
+                comment.text = response.text;
+            }
         }]);

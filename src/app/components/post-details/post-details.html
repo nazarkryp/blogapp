@@ -1,7 +1,12 @@
-<div class="md-padding" layout="row" layout-align="center start">
+<div class="loading-indicator" layout="column" layout-align="end center" ng-if="isLoading">
+    <md-progress-circular md-mode="indeterminate" md-diameter="50"></md-progress-circular>
+</div>
+
+<div class="md-padding" layout="row" layout-align="center start" ng-if="!isLoading" ng-cloak>
     <div layout="row">
         <div>
-            <img ng-model="image" ng-src="{{post.attachment.url}}" alt="image" style="max-height: {{image.maxHeight}}px;max-width: {{image.maxWidth}}px;" element-size>
+            <img ng-model="image" ng-src="{{post.attachment.url}}" alt="image" style="max-height: {{image.maxHeight}}px;max-width: {{image.maxWidth}}px;"
+                element-size>
         </div>
         <div layout="column" layout-align="stretch stretch" style="width:350px;padding: 0px 10px 0px 15px;background:white;margin:0px 0px 5px 50px;"
             md-whiteframe="1">

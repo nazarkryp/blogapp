@@ -33,8 +33,10 @@ angular.module('blogapp')
 
                         if (response.isFollowed) {
                             $scope.actionName = RELATIONSHIPS.Following;
+                            $scope.user.followers++;
                         } else {
                             $scope.actionName = RELATIONSHIPS.NotFollowing;
+                            $scope.user.followers--;
                         }
                     },
                     function (error) {

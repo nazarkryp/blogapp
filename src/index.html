@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html ng-app="blogapp">
 
-<head>
-	<title>Blog Application</title>
+<head ng-controller="TitleController">
+	<title ng-bind="page.title | uppercase"></title>
 	<link href="assets/libs/css/angular-material.min.css" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" />
@@ -23,10 +23,10 @@
 							<input class="search-box" type="text" placeholder="Search" ng-model="searchQuery">
 						</md-input-container>
 					</div>-->
-					<div layout="row" layout-align="end center" flex="40" style="padding: 0px 0px 0px 0px;">
-						<search ng-if="isAuthenticated" flex="75"></search>
+					<div layout="row" layout-align="center center" flex style="padding: 0px 0px 0px 0px;">
+						<search ng-if="isAuthenticated" flex="85"></search>
 					</div>
-					<div layout="row" layout-align="center start" flex="35" ng-if="isAuthenticated">
+					<div layout="row" layout-align="center start" flex="25" ng-if="isAuthenticated">
 						<md-menu>
 							<md-button aria-label="Open interactions menu" ng-click="$mdOpenMenu($event)">
 								<div layout="row">
@@ -99,6 +99,7 @@
 	<script src="app/app.config.js"></script>
 	<script src="app/app.run.js"></script>
 
+	<script src="app/components/title/title.controller.js"></script>
 	<script src="app/components/userinfo/user-info.component.js"></script>
 	<script src="app/components/userinfo/user-info.controller.js"></script>
 
@@ -107,7 +108,7 @@
 
 	<script src="app/components/post-details/dialogs/post-details-dialog.controller.js"></script>
 	<script src="app/components/post-details/post-details.controller.js"></script>
-	
+
 	<script src="app/components/userinfo/user.service.js"></script>
 	<script src="app/components/feed/feed.controller.js"></script>
 	<script src="app/components/feed/posts.service.js"></script>
@@ -127,6 +128,7 @@
 	<script src="app/shared/infrastructure/const.service.js"></script>
 	<script src="app/shared/infrastructure/auth.service.js"></script>
 	<script src="app/shared/infrastructure/authinterpretator.service.js"></script>
+	<script src="app/shared/infrastructure/page.service.js"></script>
 	<script src="app/shared/filters/date.filter.js"></script>
 </body>
 

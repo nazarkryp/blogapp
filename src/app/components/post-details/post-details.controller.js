@@ -4,14 +4,20 @@ angular.module('blogapp')
             $scope.image = {
             };
 
+            $scope.isLoading = false;
+
             var init = function () {
                 $scope.image.maxHeight = window.innerHeight - 180;
                 $scope.image.maxWidth = window.innerWidth * 75 / 100 - 400;
 
+                $scope.isLoading = true;
+
                 PostsService.getPostById($stateParams.postId).then(
                     function (response) {
                         $scope.post = response;
+                        $scope.isLoading = false;
                     }, function (error) {
+                        $scope.isLoading = false;
                         console.log(error);
                     });
             };

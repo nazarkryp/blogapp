@@ -1,6 +1,6 @@
 angular.module('blogapp')
     .config(['$stateProvider', '$urlRouterProvider', '$mdIconProvider', '$httpProvider',
-        function($stateProvider, $urlRouterProvider, $mdIconProvider, $httpProvider) {
+        function ($stateProvider, $urlRouterProvider, $mdIconProvider, $httpProvider) {
             $stateProvider
                 .state('feed', {
                     url: '/',

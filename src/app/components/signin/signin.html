@@ -12,14 +12,14 @@
 		<form class="authentication-form" name="signInForm" ng-submit="signIn(credentials)">
 			<md-input-container class="md-block input-box" md-no-float>
 				<!--<label>Username or Email</label>-->
-				<input class="text-area" name="username" placeholder="Username" ng-model="credentials.username" required />
+				<input class="text-area" name="username" placeholder="Username" ng-model="credentials.username" required style="border: 1px solid #dbdbdb;"/>
 				<div ng-messages="signInForm.username.$error">
 					<ng-message when="required">This field is required.</ng-message>
 				</div>
 			</md-input-container>
 			<md-input-container class="md-block" md-no-float>
 				<!--<label>Password</label>-->
-				<input class="text-area" name="password" type="password" placeholder="Password" ng-model="credentials.password" required/>
+				<input class="text-area" name="password" type="password" placeholder="Password" ng-model="credentials.password" required style="border: 1px solid #dbdbdb;"/>
 				<div ng-messages="signInForm.password.$error">
 					<ng-message when="required">Password field is required.</ng-message>
 				</div>
