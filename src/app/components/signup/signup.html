@@ -12,22 +12,20 @@
         <form class="authentication-form" name="signUpForm" ng-submit="signUp(user)">
             <div style="padding:0px 5px 0px 5px;">
                 <md-input-container class="md-block" md-no-float>
-                    <!--<label>Username or Email</label>-->
                     <input class="text-area" name="username" placeholder="Username" ng-model="user.username" required />
                     <div ng-messages="signUp.username.$error">
                         <ng-message when="required">This field is required.</ng-message>
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block" md-no-float>
-                    <!--<label>Password</label>-->
                     <input class="text-area" name="password" type="password" placeholder="Password" ng-model="user.password" required/>
                     <div ng-messages="signUp.password.$error">
                         <ng-message when="required">Password field is required.</ng-message>
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block" md-no-float>
-                    <!--<label>Confirm password</label>-->
-                    <input class="text-area" name="confirmpassword" type="password" placeholder="Username" ng-model="user.confirmpassword" required/>
+                    <input class="text-area" name="confirmpassword" type="password" placeholder="Confirm password" ng-model="user.confirmpassword"
+                        required/>
                     <div ng-messages="signUp.confirmpassword.$error">
                         <ng-message when="required">Password confirm field is required.</ng-message>
                     </div>

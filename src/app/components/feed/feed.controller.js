@@ -1,6 +1,6 @@
 angular.module('blogapp')
     .controller('FeedController', ['$scope', '$state', '$stateParams', '$mdDialog', '$window', '$timeout', 'PostsService', 'AuthService', 'PageService',
-        function($scope, $state, $stateParams, $mdDialog, $window, $timeout, PostsService, AuthService, PageService) {
+        function ($scope, $state, $stateParams, $mdDialog, $window, $timeout, PostsService, AuthService, PageService) {
             $scope.authService = AuthService;
             $scope.isAuthenticated = false;
             $scope.isLoading = false;
@@ -17,39 +17,39 @@ angular.module('blogapp')
                 hasMoreItems: false
             };
 
-            $scope.showDetails = function(post) {
+            $scope.showDetails = function (post) {
                 post.showDetails = true;
             };
 
-            $scope.hideDetails = function(post) {
+            $scope.hideDetails = function (post) {
                 post.showDetails = false;
             };
 
-            $scope.loadMorePosts = function() {
+            $scope.loadMorePosts = function () {
                 $scope.isLoadingMorePosts = true;
                 getFeed($stateParams.username);
             };
 
             $scope.$watch("authService.authenticated",
-                function(value) {
+                function (value) {
                     $scope.isAuthenticated = value;
                 });
 
-            $scope.removePost = function(index) {
+            $scope.removePost = function (index) {
                 var post = $scope.feed.posts[index];
 
                 if (post.id) {
                     PostsService.remove(post.id).then(
-                        function(response) {
+                        function (response) {
                             $scope.feed.posts.splice(index, 1);
                         },
-                        function(error) {
+                        function (error) {
                             console.log(error);
                         });
                 }
             };
 
-            $scope.showCreatePostDialog = function(ev) {
+            $scope.showCreatePostDialog = function (ev) {
                 $mdDialog.show({
                     controller: 'CreatePostController',
                     templateUrl: 'app/components/upload/create-post.html',
@@ -58,16 +58,16 @@ angular.module('blogapp')
                     clickOutsideToClose: true,
                     fullscreen: '-sm'
                 }).then(
-                    function(post) {
+                    function (post) {
                         post.isCreating = true;
                         addNewPost(post);
                         createPost(post);
                     },
-                    function() {
+                    function () {
                     });
             };
 
-            $scope.showPostDetailsDialog = function(ev, post) {
+            $scope.showPostDetailsDialog = function (ev, post) {
                 $mdDialog.show({
                     controller: 'PostDetailsDialogController',
                     templateUrl: 'app/components/post-details/dialogs/post-details-dialog.html',
@@ -81,7 +81,7 @@ angular.module('blogapp')
                 });
             };
 
-            var createPost = function(post) {
+            var createPost = function (post) {
                 var promise = null;
 
                 if (!post.isExternal) {
@@ -90,7 +90,7 @@ angular.module('blogapp')
                     promise = PostsService.createPostFromExternal(post);
                 }
 
-                promise.then(function(response) {
+                promise.then(function (response) {
                     mapPost(post, response);
                     post.isCreating = false;
 
@@ -99,20 +99,26 @@ angular.module('blogapp')
                     } else {
                         $scope.infoMessage = '';
                     }
-                }, function(error) {
+                }, function (error) {
                     console.log(error);
                 });
             };
 
-            var addNewPost = function(post) {
+            var addNewPost = function (post) {
                 if (!$stateParams.username) {
                     $scope.feed.posts.unshift(post);
                 } else if ($stateParams.username === AuthService.username) {
                     $scope.feed.posts.unshift(post);
                 }
+
+                if ($scope.feed.posts.length === 0) {
+                    $scope.infoMessage = 'Nobody has posted anything yet';
+                } else {
+                    $scope.infoMessage = '';
+                }
             };
 
-            var mapPost = function(post, response) {
+            var mapPost = function (post, response) {
                 post.id = response.id;
                 post.attachment.id = response.attachment.id;
                 post.created = response.created;
@@ -124,7 +130,7 @@ angular.module('blogapp')
                 post.likes = response.likesCount;
             };
 
-            var showLoadingDialog = function() {
+            var showLoadingDialog = function () {
                 $mdDialog.show({
                     contentElement: '#loadingDialog',
                     parent: angular.element(document.body),
@@ -132,7 +138,7 @@ angular.module('blogapp')
                 });
             };
 
-            var getFeedPromise = function() {
+            var getFeedPromise = function () {
                 if (!$stateParams.username) {
                     PageService.title = 'Kryptogram';
                     return PostsService.getFeed($scope.feed.pageIndex + 1, $scope.feed.pageSize);
@@ -142,14 +148,15 @@ angular.module('blogapp')
                 }
             };
 
-            var getFeed = function() {
+            var getFeed = function () {
                 $scope.infoMessage = '';
 
                 getFeedPromise($stateParams.username).then(
-                    function(response) {
+                    function (response) {
                         if (response.posts) {
                             //$scope.feed.posts.concat(response.posts);
-                            Array.prototype.push.apply($scope.feed.posts, response.posts);
+                            //Array.prototype.push.apply($scope.feed.posts, response.posts);
+                            $scope.feed.posts = $scope.feed.posts.concat(response.posts);
                             // response.posts.forEach(function(post) {
                             //     post.isCreating = false;
                             //     $scope.feed.posts.push(post);
@@ -168,7 +175,7 @@ angular.module('blogapp')
                             $scope.infoMessage = '';
                         }
                     },
-                    function(error) {
+                    function (error) {
                         $scope.isLoading = false;
                         $scope.isLoadingMorePosts = false;
 
@@ -176,7 +183,7 @@ angular.module('blogapp')
                     });
             };
 
-            var init = function() {
+            var init = function () {
                 $scope.isLoading = true;
 
                 if ($stateParams.username) {
