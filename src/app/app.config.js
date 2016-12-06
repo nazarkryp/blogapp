@@ -17,6 +17,11 @@ angular.module('blogapp')
                     templateUrl: 'app/components/signin/signin.html',
                     controller: 'SignInController'
                 })
+                .state('users', {
+                    url: '/people',
+                    templateUrl: 'app/components/users/users.html',
+                    controller: 'UsersController'
+                })
                 .state('usersfeed', {
                     url: '/:username',
                     templateUrl: 'app/components/feed/users-feed.html',

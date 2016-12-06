@@ -151,7 +151,7 @@ angular.module('blogapp')
             var getFeed = function () {
                 $scope.infoMessage = '';
 
-                getFeedPromise($stateParams.username).then(
+                getFeedPromise().then(
                     function (response) {
                         if (response.posts) {
                             //$scope.feed.posts.concat(response.posts);

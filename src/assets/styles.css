@@ -192,6 +192,15 @@ a:hover {
     /*position: absolute;*/
 }
 
+.post-profile-thumbnail {
+    height: 65px;
+    width: 65px;
+    border-radius: 90px 90px 90px 90px;
+    object-fit: cover;
+    overflow: hidden;
+    /*position: absolute;*/
+}
+
 .post-thumbnail-container {
     width: 300px;
     height: 300px;
@@ -251,9 +260,12 @@ a:hover {
 }
 
 .button-bordered {
-    font-size: 14px;
-    border: 2px solid rgb(33, 150, 243);
-    color: rgb(33, 150, 243);   
+    font-size: 12px;
+    padding: 5px;
+    border: 1px solid rgb(33, 150, 243);
+    color: rgb(33, 150, 243);
+    min-height: 25px;
+    line-height: 25px;   
 }
 
 .button-like {
@@ -284,3 +296,8 @@ a:hover {
 /*.md-whiteframe-z1 {
     border: none;
 }*/
+
+.navbar-button.md-icon-button.md-button.md-ink-ripple {
+    height: 45px;
+    width: 55px;
+}

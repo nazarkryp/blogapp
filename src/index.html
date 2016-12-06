@@ -26,15 +26,18 @@
 					<div layout="row" layout-align="center center" flex style="padding: 0px 0px 0px 0px;">
 						<search ng-if="isAuthenticated" flex="85"></search>
 					</div>
-					<div layout="row" layout-align="center start" flex="25" ng-if="isAuthenticated">
+					<div layout="row" layout-align="start center" flex="25" ng-if="isAuthenticated">
+						<md-button class="md-icon-button">
+							<md-icon style="font-weight: 2dp;color:black;">person_outline</md-icon>
+						</md-button>
 						<md-menu>
-							<md-button aria-label="Open interactions menu" ng-click="$mdOpenMenu($event)">
-								<div layout="row">
-									<span class="navbar-username">{{user.username}}</span>
+							<md-button class="md-icon-button navbar-button" aria-label="Open interactions menu" ng-click="$mdOpenMenu($event)">
+								<div layout="row" layout-align="center center">
+									<!--<span class="navbar-username">{{user.username}}</span>-->
 									<img class="navbar-image" ng-src="{{user.imageUri}}" alt="profile image">
 								</div>
 							</md-button>
-							<md-menu-content width="4">
+							<md-menu-content width="3">
 								<md-menu-item>
 									<md-button ng-click="gotoProfile()">
 										<md-icon>home</md-icon>
@@ -51,7 +54,7 @@
 							</md-menu-content>
 						</md-menu>
 					</div>
-					<div layout="row" layout-align="start start" flex="35" ng-if="!isAuthenticated">
+					<div layout="row" layout-align="start start" flex="30" ng-if="!isAuthenticated">
 						<md-menu ng-if="isAuthenticated">
 							<md-button aria-label="Open interactions menu" ng-click="$mdOpenMenu($event)">{{username}}</md-button>
 							<md-menu-content width="4">
@@ -121,6 +124,8 @@
 	<script src="app/components/search/search.controller.js"></script>
 	<script src="app/components/search/search.component.js"></script>
 	<script src="app/components/search/search.service.js"></script>
+	<script src="app/components/users/users.controller.js"></script>
+	<script src="app/components/users/users.service.js"></script>
 
 	<script src="app/shared/directives/file-model.directive.js"></script>
 	<script src="app/shared/services/http.service.js"></script>
