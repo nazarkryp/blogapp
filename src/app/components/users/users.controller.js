@@ -30,9 +30,9 @@ angular.module('blogapp').controller('UsersController', ['$scope', '$state', '$s
     var init = function() {
         UsersService.getUsers($scope.group.pageIndex + 1, $scope.group.pageSize).then(
             function(response) {
-                response.items = response.items.filter(function(item) {
-                    return item.id != 5 && item.id != 20 && item.id != 36 && item.id != 41 && item.id != 6;
-                });
+                //response.items = response.items.filter(function(item) {
+                //   return item.id != 5 && item.id != 20 && item.id != 36 && item.id != 41 && item.id != 6;
+                //});
                 $scope.group.users = $scope.group.users.concat(response.items);
                 $scope.group.pageIndex = response.pageIndex;
                 $scope.group.hasMoreItems = response.hasMoreItems;
