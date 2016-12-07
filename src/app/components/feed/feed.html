@@ -6,7 +6,7 @@
 	<div class="loading-indicator" layout="column" layout-align="end center" ng-if="isLoading">
 		<md-progress-circular md-mode="indeterminate" md-diameter="50"></md-progress-circular>
 	</div>
-	<div flex="45" ng-if="!isLoading">
+	<div flex="45" ng-if="!isLoading" style="max-width: 650px;">
 		<h1 layout="row" layout-align="center center">{{errorMessage}}</h1>
 		<div ng-repeat="post in feed.posts">
 			<post post="post"></post>

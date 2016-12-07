@@ -34,7 +34,7 @@ a:hover {
 .footer {
     height: 70px;
     background-color: white;
-    border-top: 1px solid #dbdbdb;
+    border-top: 1px solid #efefef;
 }
 
 .primary-nav {
@@ -53,7 +53,7 @@ a:hover {
 .header-toolbar.md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
     background-color: white;
     color: black;
-    border-bottom: 1px solid #dbdbdb;
+    border-bottom: 1px solid #efefef;
     height: 75px;
     min-height: 75px;
 }
@@ -69,7 +69,7 @@ a:hover {
 }
 
 .input-box.md-input {
-    border: 1px solid #dbdbdb;
+    border: 1px solid #efefef;
 }
 
 .md-toolbar-tools {
@@ -94,7 +94,7 @@ a:hover {
 .caption {
     min-height: 35px;
     padding: 0px 0px 10px 0px;
-    border-bottom: 1px solid #dbdbdb;
+    border-bottom: 1px solid #efefef;
 }
 
 .liked {
@@ -132,7 +132,7 @@ a:hover {
     padding: 0px 10px 0px 10px;
     background-color: white;
     height: 40px;
-    border: 1px solid #dbdbdb;
+    border: 1px solid #efefef;
 }
 
 .profile-info-bar {
@@ -150,7 +150,7 @@ a:hover {
 .user-bar-image {
     width: 150px;
     height: 150px;
-    border: 1px solid #dbdbdb;
+    border: 1px solid #efefef;
     border-radius: 90px 90px 90px 90px;
     object-fit: cover;
     overflow: hidden;
@@ -198,7 +198,7 @@ a:hover {
     border-radius: 90px 90px 90px 90px;
     object-fit: cover;
     overflow: hidden;
-    /*position: absolute;*/
+    cursor: pointer;
 }
 
 .post-thumbnail-container {
@@ -236,7 +236,7 @@ a:hover {
     padding: 25px 0px 0px 0px;
     width: 700px;
     background-color: white;
-    border: 1px solid #dbdbdb;
+    border: 1px solid #efefef;
 }
 
 .authentication-form-header {
@@ -252,7 +252,7 @@ a:hover {
     width:500px;
     padding:0px 25px 0px 25px;
     background-color:#f5f7fa;
-    border:1px solid #c1c9d9;
+    border:1px solid #efefef;
 }
 
 .authentication-form-actions {
@@ -265,7 +265,23 @@ a:hover {
     border: 1px solid rgb(33, 150, 243);
     color: rgb(33, 150, 243);
     min-height: 25px;
-    line-height: 25px;   
+    line-height: 20px;
+    font-weight: normal;
+}
+
+.button-bordered:hover {
+    border: 1px solid #4CAF50;
+    color: #4CAF50; 
+}
+
+.button-bordered.green {
+    border: 1px solid #43A047;
+    color: #43A047;   
+}
+
+.button-bordered.green:hover {
+    border: 1px solid red;
+    color: red;   
 }
 
 .button-like {

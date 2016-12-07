@@ -31,7 +31,7 @@ angular.module('blogapp')
                     function (response) {
                         $scope.isLoading = false;
 
-                        if (response.isFollowed) {
+                        if (response.isFollowedByUser) {
                             $scope.actionName = RELATIONSHIPS.Following;
                             $scope.user.followers++;
                         } else {

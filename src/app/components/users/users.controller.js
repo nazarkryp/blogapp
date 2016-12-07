@@ -15,12 +15,7 @@ angular.module('blogapp').controller('UsersController', ['$scope', '$state', '$s
     $scope.invertRelationshipsWithUser = function(user) {
         UserService.invertRelationshipsWithUser(user.id).then(
             function(response) {
-                $scope.isLoading = false;
-                if (response.isFollowed) {
-                    $scope.actionName = RELATIONSHIPS.Following;
-                } else {
-                    $scope.actionName = RELATIONSHIPS.NotFollowing;
-                }
+                user.relationships = response;
             },
             function(error) {
                 console.log(error);

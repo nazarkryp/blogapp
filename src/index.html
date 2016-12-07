@@ -15,7 +15,7 @@
 			<div class="md-toolbar-tools">
 				<div layout="row" layout-align="center stretch" flex>
 					<div layout="row" layout-align="end center" flex="25">
-						<a class="logo-text" layout="row" layout-align="end end" ng-click="gotoFeedPage()">Kryptogram</a>
+						<a class="logo-text" layout="row" layout-align="end end" ng-click="gotoFeedPage()">blogapp</a>
 						<!--<md-divider class="vertical-divider"></md-divider>-->
 					</div>
 					<!--<div layout="row" layout-align="end center" flex="40" style="padding-top: 25px;">
@@ -24,12 +24,12 @@
 						</md-input-container>
 					</div>-->
 					<div layout="row" layout-align="center center" flex style="padding: 0px 0px 0px 0px;">
-						<search ng-if="isAuthenticated" flex="85"></search>
+						<search ng-if="isAuthenticated" flex="85" style="max-width: 600px;"></search>
 					</div>
 					<div layout="row" layout-align="start center" flex="25" ng-if="isAuthenticated">
-						<md-button class="md-icon-button">
+						<!--<md-button class="md-icon-button">
 							<md-icon style="font-weight: 2dp;color:black;">person_outline</md-icon>
-						</md-button>
+						</md-button>-->
 						<md-menu>
 							<md-button class="md-icon-button navbar-button" aria-label="Open interactions menu" ng-click="$mdOpenMenu($event)">
 								<div layout="row" layout-align="center center">
@@ -135,6 +135,7 @@
 	<script src="app/shared/infrastructure/authinterpretator.service.js"></script>
 	<script src="app/shared/infrastructure/page.service.js"></script>
 	<script src="app/shared/filters/date.filter.js"></script>
+	<script src="app/shared/filters/relationships.filter.js"></script>
 </body>
 
 </html>
