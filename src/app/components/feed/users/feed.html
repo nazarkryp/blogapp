@@ -2,9 +2,16 @@
     <div layout="row" layout-align="center center">
         <user-info username="username"></user-info>
     </div>
-    <!--BC 2587AA 20.10 Львів - Мостиська-->
     <div layout="row" layout-align="center center">
         <div class="feed-content">
+            <div layout="row" layout-align="center center" ng-if="error">
+                <div class="authentication-error" layout="row" layout-align="center center" ng-if="error">
+                    <p class="md-subhead" md-colors="{color: 'blue'}">{{error.error.message}}</p>
+                </div>
+            </div>
+            <!--<div style="height:200px;background:white;border: 1px solid #dbdbdb;">
+                <span class="md-headline"></span>
+            </div>-->
             <md-grid-list md-cols-gt-md="3" md-row-height-gt-md="1:1" layout-align="center center">
                 <md-grid-tile class="user-post" ng-repeat="post in feed.posts" ng-mouseenter="showDetails(post)" ng-mouseleave="hideDetails(post)"
                     ng-click="showPostDetailsDialog($event, post)" style="width: 300px; height: 300px;">

@@ -1,0 +1,30 @@
+<div layout="column" layout-align="center center" style="width: 500px;">
+    <div layout="column" style="background: white;">
+        <div layout="column" style="padding: 0px 0px 25px 0px;">
+            <div layout="row" layout-align="space-between center" style="height: 75px;">
+                <span class="md-subhead" style="font-weight: bold;">Incomming following requests {{group.users.length}}</span>
+            </div>
+            <md-divider></md-divider>
+        </div>
+
+        <div ng-repeat="user in group.users" layout="row">
+            <img class="post-profile-image" ng-src="{{user.imageUri}}" alt="user" ui-sref="usersfeed({username : user.username})">
+            <div layout="column" layout-align="start stretch" flex style="padding-left: 10px;">
+                <div layout="row" layout-align="space-between center">
+                    <span class="md-subhead" style="font-weight: bold;cursor:pointer;" ui-sref="usersfeed({username : user.username})">{{user.username}}</span>
+                    <div layout="row">
+                        <md-button md-colors="{background : 'blue'}" ng-click="accept(user)">
+                            ACCEPT
+                        </md-button>
+                        <md-button md-colors="{background : 'red'}" ng-click="reject(user)">
+                            REJECT
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div layout="column" layout-align="center center" style="padding-top: 25px;" ng-if="group.hasMoreItems">
+            <md-button ng-click="loadMore()">LOAD MORE</md-button>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,7 @@ angular.module('blogapp')
             $stateProvider
                 .state('feed', {
                     url: '/',
-                    templateUrl: 'app/components/feed/feed.html',
+                    templateUrl: 'app/components/feed/self/feed.html',
                     controller: 'FeedController'
                 })
                 .state('signup', {
@@ -24,7 +24,7 @@ angular.module('blogapp')
                 })
                 .state('usersfeed', {
                     url: '/:username',
-                    templateUrl: 'app/components/feed/users-feed.html',
+                    templateUrl: 'app/components/feed/users/feed.html',
                     controller: 'FeedController'
                 })
                 .state('post', {

@@ -279,6 +279,11 @@ a:hover {
     color: #43A047;   
 }
 
+.button-bordered.orange {
+    border: 1px solid orange;
+    color: orange;
+}
+
 .button-bordered.green:hover {
     border: 1px solid red;
     color: red;   

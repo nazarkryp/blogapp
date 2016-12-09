@@ -3,7 +3,7 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
         $scope.AuthService = AuthService;
         $scope.pageService = PageService;
         $scope.page = {
-            title : ''
+            title: ''
         };
 
         $scope.isAuthenticated = false;
@@ -48,6 +48,16 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
 
         $scope.signOut = function () {
             AuthService.signOut();
+        };
+
+        $scope.showRequests = function (ev) {
+            $mdDialog.show({
+                controller: 'UsersController',
+                templateUrl: 'app/components/users/users-dialog.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true
+            });
         };
 
         var getAuthenticatedUser = function () {

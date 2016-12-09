@@ -172,8 +172,7 @@ angular.module('blogapp')
                     function (error) {
                         $scope.isLoading = false;
                         $scope.isLoadingMorePosts = false;
-
-                        $scope.infoMessage = error;
+                        $scope.error = error;
                     });
             };
 
