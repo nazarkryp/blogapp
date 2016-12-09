@@ -140,7 +140,7 @@ angular.module('blogapp')
 
             var getFeedPromise = function () {
                 if (!$stateParams.username) {
-                    PageService.title = 'Kryptogram';
+                    PageService.title = 'photocloud';
                     return PostsService.getFeed($scope.feed.pageIndex + 1, $scope.feed.pageSize);
                 } else {
                     PageService.title = $stateParams.username;
@@ -154,13 +154,7 @@ angular.module('blogapp')
                 getFeedPromise().then(
                     function (response) {
                         if (response.posts) {
-                            //$scope.feed.posts.concat(response.posts);
-                            //Array.prototype.push.apply($scope.feed.posts, response.posts);
                             $scope.feed.posts = $scope.feed.posts.concat(response.posts);
-                            // response.posts.forEach(function(post) {
-                            //     post.isCreating = false;
-                            //     $scope.feed.posts.push(post);
-                            // }, this);
                         }
 
                         $scope.feed.hasMoreItems = response.hasMoreItems;

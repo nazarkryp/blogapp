@@ -1,9 +1,13 @@
-angular.module('blogapp').filter('relationshipStatus', ['$filter', function ($filter) {
-    return function (isFollowedByUser) {
-        if (isFollowedByUser) {
+angular.module('blogapp').filter('relationshipButton', ['$filter', function ($filter) {
+    return function (status) {
+        if (status === 'None') {
+            return 'FOLLOW';
+        } else if (status === 'Followed') {
             return 'FOLLOWING';
+        } else if (status == 'Requested') {
+            return 'REQUESTED';
         }
 
-        return 'FOLLOW';
+        return status;
     };
 }]);
