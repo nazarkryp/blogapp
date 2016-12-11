@@ -31,19 +31,24 @@
 							<md-icon style="font-weight: 2dp;color:black;">person_outline</md-icon>
 						</md-button>-->
 						<md-menu>
-							<md-button class="md-icon-button navbar-button" aria-label="Open interactions menu" ng-click="$mdOpenMenu($event)">
-								<div layout="row" layout-align="center center">
-									<!--<span class="navbar-username">{{user.username}}</span>-->
-									<img class="navbar-image" ng-src="{{user.imageUri}}" alt="profile image">
+							<div style="width:55px;height:50px;">
+								<div layout="row" layout-align="end end" style="width:55px;z-index:10;position:absolute;">
+									<md-icon style="color:red;">brightness_1</md-icon>
 								</div>
-							</md-button>
+								<md-button class="md-icon-button navbar-button" aria-label="Open interactions menu" ng-click="$mdOpenMenu($event)">
+									<div layout="row" layout-align="center center">
+										<img class="navbar-image" ng-src="{{user.imageUri}}" alt="profile image">
+									</div>
+								</md-button>
+							</div>
 							<md-menu-content width="3">
 								<md-menu-item>
 									<md-button ng-click="gotoProfile()">
 										<md-icon>home</md-icon>
-										My Posts
+										My Profile
 									</md-button>
 								</md-menu-item>
+								<md-menu-divider></md-menu-divider>
 								<md-menu-item>
 									<md-button ng-click="showRequests()">
 										<md-icon>explore</md-icon>
