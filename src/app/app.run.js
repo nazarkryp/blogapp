@@ -5,6 +5,11 @@ angular.module('blogapp')
                 function (event, next) {
                     if (AuthService.authenticated) {
                         if (next.name) {
+                            if (!AuthService.isActive) {
+                                $location.path("/settings");
+                                return;
+                            }
+
                             if (next.url === "/signin") {
                                 $location.path("/");
                             } else if (next.url === "/signup") {

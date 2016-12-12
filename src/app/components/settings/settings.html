@@ -1,0 +1,65 @@
+<div layout="row" layout-align="center center" ng-if="isLoading">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
+<div layout="column" layout-align="start center" style="padding-top: 25px;" ng-if="!isLoading">
+    <div layout="row" layout-align="center center" style="cursor: pointer;">
+        <img class="user-bar-image" ng-src="{{settings.imageUri}}" alt="profile" />
+        <div style="position:absolute;padding: 0px 20px 20px 0px;">
+            <md-icon style="font-size: 44px;">add_a_photo</md-icon>
+        </div>
+        <md-tooltip md-direction="left">
+            Click to upload new profile picture
+        </md-tooltip>
+    </div>
+    <div layout="row" layout-align="center center" style="height: 100px;">
+        <span class="md-display-1" style="font-weight: lighter;">{{settings.username}}</span>
+    </div>
+    <div layout="column" style="width: 500px;">
+        <div layout="row" layout-align="space-between center">
+            <div flex="25" style="padding-bottom: 20px;">
+                <span>Username</span>
+            </div>
+            <div flex>
+                <md-input-container class="md-block input-box" md-no-float>
+                    <input class="text-area" name="username" placeholder="New username" ng-model="credentials.username" required style="border: 1px solid #dbdbdb;"
+                    />
+                </md-input-container>
+            </div>
+        </div>
+        <div layout="row" layout-align="space-between center">
+            <div flex="25" style="padding-bottom: 20px;">
+                <span>Password</span>
+            </div>
+            <div flex>
+                <md-input-container class="md-block input-box" md-no-float>
+                    <input class="text-area" name="username" placeholder="New password" ng-model="credentials.username" required style="border: 1px solid #dbdbdb;"
+                    />
+                </md-input-container>
+            </div>
+        </div>
+        <div layout="row" layout-align="space-between center">
+            <div flex="25">
+                <span>Privacy</span>
+            </div>
+            <div style="padding-left: 3px;" flex>
+                <md-checkbox ng-model="settings.isPrivate" aria-label="Is Account Private">
+                    Is account private
+                </md-checkbox>
+            </div>
+        </div>
+        <div layout="row" layout-align="space-between center">
+            <div flex="25">
+                <span>Account</span>
+            </div>
+            <div layout="row" layout-align="start center" flex>
+                <md-button md-colors="{background : 'red'}" ng-click="invertAccountStatus()">{{accountActionName}}</md-button>
+            </div>
+        </div>
+        <div style="padding: 25px 0px 25px 0px;">
+            <md-divider></md-divider>
+        </div>
+        <div layout="row" layout-align="center center" style="padding-bottom: 25px;">
+            <md-button md-colors="{background : 'blue'}" ng-click="saveAccountSettings()">SAVE SETTINGS</md-button>
+        </div>
+    </div>
+</div>

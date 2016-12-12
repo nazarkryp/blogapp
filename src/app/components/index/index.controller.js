@@ -41,13 +41,18 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
 
                 if (value) {
                     getAuthenticatedUser();
+                    getIncommingRequests();
                 } else {
                     $scope.user = null;
                 }
             });
 
-        $scope.signOut = function () {
+        $scope.signOut = function () {            
             AuthService.signOut();
+
+            if ($state.current.name !== 'feed') {
+                $state.go('signin');
+            }
         };
 
         $scope.showRequests = function (ev) {
@@ -60,6 +65,39 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
             });
         };
 
+        $scope.requests = [];
+
+        $scope.acceptRequest = function (index) {
+            var request = $scope.requests[index];
+
+            UserService.responseIncommingRequest(request.id, true).then(
+                function (response) {
+                    $scope.requests.splice(index, 1);
+                }, function (error) {
+                    console.log(error);
+                });
+        };
+
+        $scope.rejectRequest = function (index) {
+            var request = $scope.requests[index];
+
+            UserService.responseIncommingRequest(request.id, false).then(
+                function (response) {
+                    $scope.requests.splice(index, 1);
+                }, function (error) {
+                    console.log(error);
+                });
+        };
+
+        var getIncommingRequests = function () {
+            UserService.getIncommingRequests().then(
+                function (response) {
+                    $scope.requests = response;
+                }, function (error) {
+                    console.log(error);
+                });
+        };
+
         var getAuthenticatedUser = function () {
             $scope.user = {
                 userId: AuthService.userId,
@@ -67,4 +105,6 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
                 imageUri: AuthService.imageUri
             };
         };
+
+        getIncommingRequests();
     }]);

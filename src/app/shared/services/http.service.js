@@ -35,7 +35,7 @@ angular.module("blogapp").service("HttpService", ["$http", function ($http) {
     }
 
     this.put = function (url, data, deferred) {
-        $http.put(url)
+        $http.put(url, data)
             .success(function (response) {
                 deferred.resolve(response);
             })

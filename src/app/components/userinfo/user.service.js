@@ -32,4 +32,20 @@ angular.module('blogapp')
 
                 return deferred.promise;
             };
+
+            this.getIncommingRequests = function () {
+                var deferred = $q.defer();
+
+                HttpService.get(ConstService.baseAddress + 'api/relationships/requests', deferred);
+
+                return deferred.promise;
+            };
+
+            this.responseIncommingRequest = function (userId, accept) {
+                var deferred = $q.defer();
+
+                HttpService.postEmptyModel(ConstService.baseAddress + 'api/relationships/response?userId=' + userId + '&accept=' + accept, deferred);
+
+                return deferred.promise;
+            };
         }]);

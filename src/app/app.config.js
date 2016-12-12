@@ -17,6 +17,11 @@ angular.module('blogapp')
                     templateUrl: 'app/components/signin/signin.html',
                     controller: 'SignInController'
                 })
+                .state('settings', {
+                    url: '/settings',
+                    templateUrl: 'app/components/settings/settings.html',
+                    controller: 'SettingsController'
+                })
                 .state('users', {
                     url: '/people',
                     templateUrl: 'app/components/users/users.html',

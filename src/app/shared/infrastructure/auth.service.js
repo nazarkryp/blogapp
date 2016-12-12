@@ -64,6 +64,12 @@ angular.module('blogapp')
                 return session ? session["imageUri"] : null;
             };
 
+            this.getIsActive = function () {
+                var session = self.getSession();
+
+                return session ? session["isActive"] : null;
+            };
+
             this.signIn = function (session) {
                 var json = angular.toJson(session);
 
@@ -88,4 +94,5 @@ angular.module('blogapp')
             this.userId = self.getUserId();
             this.username = self.getUsername();
             this.imageUri = self.getImageUri();
+            this.isActive = self.getIsActive();
         }]);

@@ -15,7 +15,7 @@
 			<div class="md-toolbar-tools">
 				<div layout="row" layout-align="center stretch" flex>
 					<div layout="row" layout-align="end center" flex="25">
-						<a class="logo-text" layout="row" layout-align="end end" ng-click="gotoFeedPage()">PhotoCloud</a>
+						<a class="logo-text" layout="row" layout-align="end end" ng-click="gotoFeedPage()">photocloud</a>
 						<!--<md-divider class="vertical-divider"></md-divider>-->
 					</div>
 					<!--<div layout="row" layout-align="end center" flex="40" style="padding-top: 25px;">
@@ -27,63 +27,69 @@
 						<search ng-if="isAuthenticated" flex="85" style="max-width: 600px;"></search>
 					</div>
 					<div layout="row" layout-align="start center" flex="25" ng-if="isAuthenticated">
-						<!--<md-button class="md-icon-button">
-							<md-icon style="font-weight: 2dp;color:black;">person_outline</md-icon>
-						</md-button>-->
-						<md-menu>
-							<div style="width:55px;height:50px;">
-								<div layout="row" layout-align="end end" style="width:55px;z-index:10;position:absolute;">
-									<md-icon style="color:red;">brightness_1</md-icon>
-								</div>
+						<div layout="row" layout-align="center end" flex="25">
+							<div ui-sref="users" class="icon material-icons mdl-badge" data-badge="1" style="cursor: pointer;">explore</div>
+						</div>
+						<div layout="row" layout-align="center end" flex="25">
+							<md-menu md-offset="0 35" md-position-mode="target-right target">
+								<div ui-sref="users" class="icon material-icons mdl-badge" data-badge="1" style="cursor: pointer;" ng-click="$mdOpenMenu($event)">person</div>
+								<md-menu-content width="5" md-colors="{background : 'blue'}">
+									<div layout="column" layout-align="center center" ng-if="requests.length == 0">
+										<span>No pending requests</span>
+									</div>
+									<md-content ng-if="requests.length > 0">
+										<div layout="row" layout-align="space-between center" ng-repeat="user in requests">
+											<div style="padding: 10px;">
+												<img ui-sref="usersfeed({username : user.username})" class="post-profile-image" ng-src="{{user.imageUri}}" alt="user.username">
+											</div>
+											<div layout="row" layout-align="start center" flex>
+												<span ui-sref="usersfeed({username : user.username})" class="md-subtitle" style="font-weight: bold;cursor:pointer;">{{user.username}}</span>
+											</div>
+											<div layout="row" layout-align="end center" style="width:110px;">
+												<md-button class="md-icon-button" style="border: 1px solid rgb(33, 150, 243);" ng-click="acceptRequest($index)">
+													<md-icon style="color:rgb(33, 150, 243);">done</md-icon>
+												</md-button>
+												<md-button class="md-icon-button" ng-click="rejectRequest($index)">
+													<md-icon style="color: red;">clear</md-icon>
+												</md-button>
+											</div>
+										</div>
+									</md-content>
+								</md-menu-content>
+							</md-menu>
+						</div>
+						<div flex>
+							<md-menu>
 								<md-button class="md-icon-button navbar-button" aria-label="Open interactions menu" ng-click="$mdOpenMenu($event)">
 									<div layout="row" layout-align="center center">
 										<img class="navbar-image" ng-src="{{user.imageUri}}" alt="profile image">
 									</div>
 								</md-button>
-							</div>
-							<md-menu-content width="3">
-								<md-menu-item>
-									<md-button ng-click="gotoProfile()">
-										<md-icon>home</md-icon>
-										My Profile
-									</md-button>
-								</md-menu-item>
-								<md-menu-divider></md-menu-divider>
-								<md-menu-item>
-									<md-button ng-click="showRequests()">
-										<md-icon>explore</md-icon>
-										Requests <span style="background:red; color:white;border-radius: 25px 25px 25px 25px;padding: 3px 5px 3px 5px;">123</span>
-									</md-button>
-								</md-menu-item>
-								<md-menu-divider></md-menu-divider>
-								<md-menu-item>
-									<md-button ng-click="signOut()">
-										<md-icon>exit_to_app</md-icon>
-										Sign out
-									</md-button>
-								</md-menu-item>
-							</md-menu-content>
-						</md-menu>
+								<md-menu-content width="3">
+									<md-menu-item>
+										<md-button ng-click="gotoProfile()">
+											<md-icon>home</md-icon>
+											My Profile
+										</md-button>
+									</md-menu-item>
+									<md-menu-item>
+										<md-button ui-sref="settings">
+											<md-icon>settings</md-icon>
+											Settings
+										</md-button>
+									</md-menu-item>
+									<md-menu-divider></md-menu-divider>
+									<md-menu-item>
+										<md-button ng-click="signOut()">
+											<md-icon>exit_to_app</md-icon>
+											Sign out
+										</md-button>
+									</md-menu-item>
+								</md-menu-content>
+							</md-menu>
+						</div>
 					</div>
 					<div layout="row" layout-align="start start" flex="30" ng-if="!isAuthenticated">
-						<md-menu ng-if="isAuthenticated">
-							<md-button aria-label="Open interactions menu" ng-click="$mdOpenMenu($event)">{{username}}</md-button>
-							<md-menu-content width="4">
-								<md-menu-item>
-									<md-button>
-										<md-icon>home</md-icon>
-										Profile
-									</md-button>
-								</md-menu-item>
-								<md-menu-divider></md-menu-divider>
-								<md-menu-item>
-									<md-button ng-click="signOut()">
-										<md-icon>exit_to_app</md-icon>
-										Sign out
-									</md-button>
-								</md-menu-item>
-							</md-menu-content>
-						</md-menu>
 						<md-button ng-click="gotoSignUpPage()">Create account</md-button>
 						<md-button class="md-raised" md-colors="{background: 'blue'}" ng-click="gotoSignInPage()">Sign In</md-button>
 					</div>
@@ -139,6 +145,8 @@
 	<script src="app/components/users/users.service.js"></script>
 	<script src="app/components/errors/error.service.js"></script>
 	<script src="app/components/errors/error.controller.js"></script>
+	<script src="app/components/settings/settings.controller.js"></script>
+	<script src="app/components/settings/settings.service.js"></script>
 
 	<script src="app/shared/directives/file-model.directive.js"></script>
 	<script src="app/shared/services/http.service.js"></script>
