@@ -24,14 +24,14 @@
 						</md-input-container>
 					</div>-->
 					<div layout="row" layout-align="center center" flex style="padding: 0px 0px 0px 0px;">
-						<search ng-if="isAuthenticated" flex="85" style="max-width: 600px;"></search>
+						<search ng-if="isAuthenticated && isActive" flex="85" style="max-width: 600px;"></search>
 					</div>
 					<div layout="row" layout-align="start center" flex="25" ng-if="isAuthenticated">
 						<div layout="row" layout-align="center end" flex="25">
-							<div ui-sref="users" class="icon material-icons mdl-badge" data-badge="1" style="cursor: pointer;">explore</div>
+							<div ui-sref="users" class="icon material-icons mdl-badge" data-badge="1" style="cursor: pointer;" ng-if="isAuthenticated && isActive">explore</div>
 						</div>
 						<div layout="row" layout-align="center end" flex="25">
-							<md-menu md-offset="0 35" md-position-mode="target-right target">
+							<md-menu md-offset="0 35" md-position-mode="target-right target" ng-if="isAuthenticated && isActive">
 								<div ui-sref="users" class="icon material-icons mdl-badge" data-badge="1" style="cursor: pointer;" ng-click="$mdOpenMenu($event)">person</div>
 								<md-menu-content width="5" md-colors="{background : 'blue'}">
 									<div layout="column" layout-align="center center" ng-if="requests.length == 0">

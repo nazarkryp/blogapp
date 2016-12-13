@@ -1,35 +1,47 @@
-angular.module('blogapp').controller('SettingsController', ['$scope', 'SettingsService', 'AuthService', function($scope, SettingsService, AuthService) {
+angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 'SettingsService', 'AuthService', function ($scope, $state, SettingsService, AuthService) {
     $scope.settings = {
         username: AuthService.username,
         imageUri: AuthService.imageUri,
         isPrivate: false
     };
 
-    $scope.invertAccountStatus = function() {
+    $scope.invertAccountStatus = function () {
         SettingsService.invertAccountStatus().then(
-            function(response) {
+            function (response) {
                 $scope.accountActionName = response.isActive ? 'DEACTIVATE ACCOUNT' : 'ACTIVATE ACCOUNT';
+
+                AuthService.isActive = response.isActive;
+                AuthService.updateValue('isActive', response.isActive);
             }
         );
     };
 
-    $scope.saveAccountSettings = function() {
+    $scope.saveAccountSettings = function () {
         SettingsService.saveAccountSettings($scope.settings).then(
-            function(response) {
+            function (response) {
             },
-            function(error) {
+            function (error) {
             }
         );
     };
 
-    var init = function() {
+    var init = function () {
+        if (!AuthService.authenticated) {
+            $state.go('signin');
+
+            return;
+        }
+
         $scope.isLoading = true;
 
         SettingsService.getAccountSettings(AuthService.userId).then(
-            function(response) {
+            function (response) {
                 $scope.isLoading = false;
                 $scope.settings = response;
+
                 AuthService.isActive = response.isActive;
+                AuthService.updateValue('isActive', response.isActive);
+                
                 $scope.accountActionName = response.isActive ? 'DEACTIVATE ACCOUNT' : 'ACTIVATE ACCOUNT';
             });
     };

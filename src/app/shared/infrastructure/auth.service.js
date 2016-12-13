@@ -4,6 +4,14 @@ angular.module('blogapp')
             var self = this;
             //this.sessionBackup = {};
 
+            this.updateValue = function (key, value) {
+                var session = self.getSession();
+                session[key] = value;
+                var json = angular.toJson(session);
+                $window.localStorage.clear();
+                $window.localStorage.setItem("session", json);
+            };
+
             this.getSession = function () {
                 var json = $window.localStorage.getItem('session');
 
@@ -67,7 +75,8 @@ angular.module('blogapp')
             this.getIsActive = function () {
                 var session = self.getSession();
 
-                return session ? session["isActive"] : null;
+                var isActive = session ? session["isActive"] : null;
+                return isActive === 'true';
             };
 
             this.signIn = function (session) {

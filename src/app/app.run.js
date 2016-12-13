@@ -1,19 +1,29 @@
 angular.module('blogapp')
-    .run(["$rootScope", "$location", "AuthService",
-        function ($rootScope, $location, AuthService) {
+    .run(["$rootScope", "$state", "AuthService",
+        function ($rootScope, $state, AuthService) {
             $rootScope.$on("$stateChangeStart",
-                function (event, next) {
+                function (event, next, params) {
                     if (AuthService.authenticated) {
                         if (next.name) {
-                            if (!AuthService.isActive) {
-                                $location.path("/settings");
-                                return;
+                            if (!AuthService.getIsActive() && next.url != '/settings') {
+                                $state.go('settings');
+
+                                event.preventDefault();
                             }
 
-                            if (next.url === "/signin") {
-                                $location.path("/");
-                            } else if (next.url === "/signup") {
-                                $location.path("/");
+                            if (next.url === '/signin') {
+                                $state.go('feed');
+                                event.preventDefault();
+                            } else if (next.url === '/signup') {
+                                $state.path('feed');
+                                event.preventDefault();
+                            }
+                        }
+                    } else {
+                        if (next.name) {
+                            if (next.url === '/settings') {
+                                $state.go('signin');
+                                event.preventDefault();
                             }
                         }
                     }

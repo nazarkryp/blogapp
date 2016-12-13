@@ -7,6 +7,7 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
         };
 
         $scope.isAuthenticated = false;
+        $scope.isActive = AuthService.isActive;
 
         $scope.gotoProfile = function () {
             $state.go('usersfeed', { username: AuthService.username });
@@ -41,11 +42,21 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
 
                 if (value) {
                     getAuthenticatedUser();
-                    getIncommingRequests();
+
+                    if ($scope.isActive = AuthService.getIsActive()) {
+                        getIncommingRequests();   
+                    }
                 } else {
                     $scope.user = null;
                 }
             });
+
+         $scope.$watch('AuthService.isActive',
+            function (isActive) {
+                console.log(isActive);
+                $scope.isActive = isActive;
+            });
+
 
         $scope.signOut = function () {            
             AuthService.signOut();
@@ -53,16 +64,6 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
             if ($state.current.name !== 'feed') {
                 $state.go('signin');
             }
-        };
-
-        $scope.showRequests = function (ev) {
-            $mdDialog.show({
-                controller: 'UsersController',
-                templateUrl: 'app/components/users/users-dialog.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true
-            });
         };
 
         $scope.requests = [];
@@ -105,6 +106,4 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
                 imageUri: AuthService.imageUri
             };
         };
-
-        getIncommingRequests();
     }]);
