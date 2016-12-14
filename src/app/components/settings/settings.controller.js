@@ -10,7 +10,7 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
             function (response) {
                 $scope.accountActionName = response.isActive ? 'DEACTIVATE ACCOUNT' : 'ACTIVATE ACCOUNT';
 
-                AuthService.isActive = response.isActive;
+                AuthService.isActive = Boolean(response.isActive);
                 AuthService.updateValue('isActive', response.isActive);
             }
         );
@@ -39,7 +39,7 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
                 $scope.isLoading = false;
                 $scope.settings = response;
 
-                AuthService.isActive = response.isActive;
+                AuthService.isActive = Boolean(response.isActive);
                 AuthService.updateValue('isActive', response.isActive);
                 
                 $scope.accountActionName = response.isActive ? 'DEACTIVATE ACCOUNT' : 'ACTIVATE ACCOUNT';

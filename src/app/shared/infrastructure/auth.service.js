@@ -76,10 +76,13 @@ angular.module('blogapp')
                 var session = self.getSession();
 
                 var isActive = session ? session["isActive"] : null;
-                return isActive === 'true';
+                var result = Boolean(isActive);
+
+                return result;
             };
 
             this.signIn = function (session) {
+                session.isActive = session.isActive === 'true';
                 var json = angular.toJson(session);
 
                 $window.localStorage.setItem("session", json);
@@ -87,6 +90,7 @@ angular.module('blogapp')
                 self.userId = session.userId;
                 self.username = session.userName;
                 self.imageUri = session.imageUri;
+                self.isActive = session.isActive;
                 self.authenticated = true;
             };
 

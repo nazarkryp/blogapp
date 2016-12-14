@@ -53,7 +53,6 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
 
          $scope.$watch('AuthService.isActive',
             function (isActive) {
-                console.log(isActive);
                 $scope.isActive = isActive;
             });
 
