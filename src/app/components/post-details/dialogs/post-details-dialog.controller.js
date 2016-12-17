@@ -2,7 +2,7 @@ angular.module('blogapp')
     .controller('PostDetailsDialogController', ['$scope', 'PostsService', 'AuthService', 'post',
         function ($scope, PostsService, AuthService, post) {
             $scope.post = post;
-            $scope.isAuthenticated = AuthService.authenticated;
+            $scope.isAuthenticated = AuthService.isAuthenticated;
             $scope.currentuserId = AuthService.userId;
 
             $scope.maxHeight = window.innerHeight - 175;

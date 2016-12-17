@@ -1,13 +1,20 @@
 angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$mdDialog', 'AuthService', 'UserService', 'PageService',
     function ($scope, $state, $mdDialog, AuthService, UserService, PageService) {
-        $scope.AuthService = AuthService;
+        $scope.authService = AuthService;
         $scope.pageService = PageService;
-        $scope.page = {
-            title: ''
+
+        $scope.user = {
+            userId: AuthService.userId,
+            username: AuthService.username,
+            imageUri: AuthService.imageUri,
+            isPrivate: AuthService.isPrivate,
+            isActive: AuthService.isActive,
+            isAuthenticated: AuthService.isAuthenticated
         };
 
-        $scope.isAuthenticated = false;
-        $scope.isActive = AuthService.isActive;
+        $scope.page = {
+            title: null
+        };
 
         $scope.gotoProfile = function () {
             $state.go('usersfeed', { username: AuthService.username });
@@ -30,34 +37,63 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
             $mdOpenMenu(ev);
         };
 
-        $scope.$watch('pageService.title', function (value) {
-            if (value) {
-                $scope.page.title = value;
-            }
-        });
+        $scope.$watch('pageService.title',
+            function (title) {
+                if (title) {
+                    $scope.page.title = title;
+                }
+            });
 
-        $scope.$watch('AuthService.authenticated',
-            function (value) {
-                $scope.isAuthenticated = value;
-
-                if (value) {
+        $scope.$watch('authService.isAuthenticated',
+            function (isAuthenticated) {
+                if (isAuthenticated) {
                     getAuthenticatedUser();
 
-                    if ($scope.isActive = AuthService.getIsActive()) {
-                        getIncommingRequests();   
+                    if ($scope.user && $scope.user.isActive && $scope.user.isPrivate) {
+                        getIncommingRequests();
                     }
                 } else {
                     $scope.user = null;
                 }
             });
 
-         $scope.$watch('AuthService.isActive',
+        $scope.$watch('authService.isActive',
             function (isActive) {
-                $scope.isActive = isActive;
+                if (!$scope.user) {
+                    return;
+                }
+
+                $scope.user.isActive = isActive;
+
+                if (isActive && AuthService.getIsPrivate()) {
+                    getIncommingRequests();
+                }
+            });
+
+        $scope.$watch('authService.imageUri',
+            function (imageUri) {
+                if (!$scope.user) {
+                    return;
+                }
+
+                $scope.user.imageUri = imageUri;
+            });
+
+        $scope.$watch('authService.isPrivate',
+            function (isPrivate) {
+                if (!$scope.user) {
+                    return;
+                }
+
+                $scope.user.isPrivate = isPrivate;
+
+                if ($scope.user && AuthService.getIsActive() && isPrivate) {
+                    getIncommingRequests();
+                }
             });
 
 
-        $scope.signOut = function () {            
+        $scope.signOut = function () {
             AuthService.signOut();
 
             if ($state.current.name !== 'feed') {
@@ -90,19 +126,30 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
         };
 
         var getIncommingRequests = function () {
-            UserService.getIncommingRequests().then(
-                function (response) {
-                    $scope.requests = response;
-                }, function (error) {
-                    console.log(error);
-                });
+            if ($scope.isPrivate) {
+                UserService.getIncommingRequests().then(
+                    function (response) {
+                        $scope.requests = response;
+                    }, function (error) {
+                        console.log(error);
+                    });
+            }
         };
 
         var getAuthenticatedUser = function () {
             $scope.user = {
                 userId: AuthService.userId,
                 username: AuthService.username,
-                imageUri: AuthService.imageUri
+                imageUri: AuthService.imageUri,
+                isPrivate: AuthService.isPrivate,
+                isActive: AuthService.isActive,
+                isAuthenticated: AuthService.isAuthenticated
             };
         };
+
+        var init = function () {
+            getAuthenticatedUser();
+        };
+
+        init();
     }]);

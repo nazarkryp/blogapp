@@ -19,6 +19,9 @@ angular.module('blogapp')
                 })
                 .state('settings', {
                     url: '/settings',
+                    params: {
+                        isRedirected : false
+                    },
                     templateUrl: 'app/components/settings/settings.html',
                     controller: 'SettingsController'
                 })

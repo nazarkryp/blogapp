@@ -30,7 +30,7 @@ angular.module('blogapp')
                 getFeed($stateParams.username);
             };
 
-            $scope.$watch("authService.authenticated",
+            $scope.$watch("authService.isAuthenticated",
                 function (value) {
                     $scope.isAuthenticated = value;
                 });
@@ -140,10 +140,12 @@ angular.module('blogapp')
 
             var getFeedPromise = function () {
                 if (!$stateParams.username) {
-                    PageService.title = 'photocloud';
+                    PageService.title = 'PhotoCloud';
+
                     return PostsService.getFeed($scope.feed.pageIndex + 1, $scope.feed.pageSize);
                 } else {
-                    PageService.title = $stateParams.username;
+                    PageService.title = 'PhotoCloud - ' + $stateParams.username;
+                    
                     return PostsService.getUsersFeed($stateParams.username, $scope.feed.pageIndex + 1, $scope.feed.pageSize);
                 }
             };

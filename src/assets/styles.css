@@ -250,9 +250,11 @@ a:hover {
 
 .authentication-error {
     width:500px;
-    padding:0px 25px 0px 25px;
-    background-color:#f5f7fa;
-    border:1px solid #efefef;
+    padding:0px 10px 0px 10px;
+    margin: 0px 0px 25px 0px;
+    background-color:#f44336;
+    /*border:1px solid #efefef;*/
+    color: white;
 }
 
 .authentication-form-actions {
@@ -343,4 +345,8 @@ a:hover {
 .material-icons.mdl-badge[data-badge]::after {
   top: -1em;
   right: -1em;
+}
+
+.md-display-1 {
+    font-weight: lighter;
 }

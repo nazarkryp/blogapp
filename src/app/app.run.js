@@ -3,10 +3,10 @@ angular.module('blogapp')
         function ($rootScope, $state, AuthService) {
             $rootScope.$on("$stateChangeStart",
                 function (event, next, params) {
-                    if (AuthService.authenticated) {
+                    if (AuthService.isAuthenticated) {
                         if (next.name) {
                             if (!AuthService.getIsActive() && next.url != '/settings') {
-                                $state.go('settings');
+                                $state.go('settings', { isRedirected: true });
 
                                 event.preventDefault();
                             }

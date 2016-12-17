@@ -2,12 +2,13 @@ angular.module('blogapp')
     .service("AuthService", ['$window',
         function ($window) {
             var self = this;
-            //this.sessionBackup = {};
 
-            this.updateValue = function (key, value) {
+            this.setValue = function (key, value) {
                 var session = self.getSession();
                 session[key] = value;
+
                 var json = angular.toJson(session);
+
                 $window.localStorage.clear();
                 $window.localStorage.setItem("session", json);
             };
@@ -17,41 +18,17 @@ angular.module('blogapp')
 
                 if (json) {
                     var session = angular.fromJson(json);
-
-                    // if (self.sessionBackup && self.sessionBackup.userId && self.sessionBackup.userId != session.userId) {
-                    //     ErrorsService.showErrorMessage('Current session has been expired');
-
-                    //     return;
-                    // }
-
-                    //self.sessionBackup = session;
-
                     var expires = new Date(session['.expires']);
                     var currentDate = new Date();
 
                     if (currentDate < expires && session['access_token'] && session['userName']) {
                         return session;
-                    } else {
-                        self.userId = null;
-                        self.username = null;
-                        self.imageUri = null;
-                        self.authenticated = false;
                     }
 
                     self.signOut();
                 }
 
                 return null;
-            };
-
-            this.isAuthenticated = function () {
-                var session = self.getSession();
-
-                if (session) {
-                    return true;
-                }
-
-                return false;
             };
 
             this.getUserId = function () {
@@ -75,14 +52,25 @@ angular.module('blogapp')
             this.getIsActive = function () {
                 var session = self.getSession();
 
-                var isActive = session ? session["isActive"] : null;
-                var result = Boolean(isActive);
+                return session ? session["isActive"] : false;
+            };
 
-                return result;
+            this.getIsPrivate = function () {
+                var session = self.getSession();
+
+                return session ? session["isPrivate"] : false;
+            };
+
+            this.getIsAuthenticated = function () {
+                var session = self.getSession();
+
+                return session ? true : false;
             };
 
             this.signIn = function (session) {
                 session.isActive = session.isActive === 'true';
+                session.isPrivate = session.isPrivate  === 'true';
+
                 var json = angular.toJson(session);
 
                 $window.localStorage.setItem("session", json);
@@ -91,21 +79,25 @@ angular.module('blogapp')
                 self.username = session.userName;
                 self.imageUri = session.imageUri;
                 self.isActive = session.isActive;
-                self.authenticated = true;
+                self.isPrivate = session.isPrivate;
+                self.isAuthenticated = true;
             };
 
             this.signOut = function () {
-                $window.localStorage.clear();
-
                 self.userId = null;
                 self.username = null;
                 self.imageUri = null;
-                self.authenticated = false;
+                self.isPrivate = false;
+                self.isActive = false;
+                self.isAuthenticated = false;
+
+                $window.localStorage.clear();
             };
 
-            this.authenticated = self.isAuthenticated();
             this.userId = self.getUserId();
             this.username = self.getUsername();
             this.imageUri = self.getImageUri();
             this.isActive = self.getIsActive();
+            this.isPrivate = self.getIsPrivate();
+            this.isAuthenticated = self.getIsAuthenticated();
         }]);

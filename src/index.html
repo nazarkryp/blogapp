@@ -2,7 +2,8 @@
 <html ng-app="blogapp">
 
 <head ng-controller="TitleController">
-	<title ng-bind="page.title | uppercase"></title>
+	<title ng-bind="page.title"></title>
+	<link rel="icon" href="favicon.ico" />
 	<link href="assets/libs/css/angular-material.min.css" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" />
@@ -16,22 +17,16 @@
 				<div layout="row" layout-align="center stretch" flex>
 					<div layout="row" layout-align="end center" flex="25">
 						<a class="logo-text" layout="row" layout-align="end end" ng-click="gotoFeedPage()">photocloud</a>
-						<!--<md-divider class="vertical-divider"></md-divider>-->
 					</div>
-					<!--<div layout="row" layout-align="end center" flex="40" style="padding-top: 25px;">
-						<md-input-container class="md-block" md-no-float flex>
-							<input class="search-box" type="text" placeholder="Search" ng-model="searchQuery">
-						</md-input-container>
-					</div>-->
 					<div layout="row" layout-align="center center" flex style="padding: 0px 0px 0px 0px;">
-						<search ng-if="isAuthenticated && isActive" flex="85" style="max-width: 600px;"></search>
+						<search ng-if="user.isAuthenticated && user.isActive" flex="85" style="max-width: 600px;"></search>
 					</div>
-					<div layout="row" layout-align="start center" flex="25" ng-if="isAuthenticated">
+					<div layout="row" layout-align="start center" flex="25" ng-if="user.isAuthenticated">
 						<div layout="row" layout-align="center end" flex="25">
-							<div ui-sref="users" class="icon material-icons mdl-badge" data-badge="1" style="cursor: pointer;" ng-if="isAuthenticated && isActive">explore</div>
+							<div ui-sref="users" class="icon material-icons mdl-badge" data-badge="1" style="cursor: pointer;" ng-if="user.isActive">explore</div>
 						</div>
-						<div layout="row" layout-align="center end" flex="25">
-							<md-menu md-offset="0 35" md-position-mode="target-right target" ng-if="isAuthenticated && isActive">
+						<div layout="row" layout-align="center end" flex="25" ng-if="user.isAuthenticated && user.isActive && user.isPrivate">
+							<md-menu md-offset="0 35" md-position-mode="target-right target">
 								<div ui-sref="users" class="icon material-icons mdl-badge" data-badge="1" style="cursor: pointer;" ng-click="$mdOpenMenu($event)">person</div>
 								<md-menu-content width="5" md-colors="{background : 'blue'}">
 									<div layout="column" layout-align="center center" ng-if="requests.length == 0">
@@ -89,7 +84,7 @@
 							</md-menu>
 						</div>
 					</div>
-					<div layout="row" layout-align="start start" flex="30" ng-if="!isAuthenticated">
+					<div layout="row" layout-align="start start" flex="30" ng-if="!user.isAuthenticated">
 						<md-button ng-click="gotoSignUpPage()">Create account</md-button>
 						<md-button class="md-raised" md-colors="{background: 'blue'}" ng-click="gotoSignInPage()">Sign In</md-button>
 					</div>
@@ -157,6 +152,7 @@
 	<script src="app/shared/infrastructure/page.service.js"></script>
 	<script src="app/shared/filters/date.filter.js"></script>
 	<script src="app/shared/filters/relationships.filter.js"></script>
+	<script src="app/shared/filters/status.filters.js"></script>
 </body>
 
 </html>

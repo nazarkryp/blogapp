@@ -2,11 +2,11 @@ angular.module('blogapp')
     .controller('PostController', ['$scope', '$state', 'PostsService', 'AuthService',
         function ($scope, $state, PostsService, AuthService) {
             $scope.authService = AuthService;
-            $scope.isAuthenticated = AuthService.authenticated;
+            $scope.isAuthenticated = AuthService.isAuthenticated;
 
-            $scope.$watch("authService.authenticated",
-                function (value) {
-                    $scope.isAuthenticated = value;
+            $scope.$watch("authService.isAuthenticated",
+                function (isAuthenticated) {
+                    $scope.isAuthenticated = isAuthenticated;
                 });
 
             $scope.like = function (post) {
