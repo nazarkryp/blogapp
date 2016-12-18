@@ -7,6 +7,19 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
         isActive: AuthService.isActive
     };
 
+    $scope.password = {
+        oldPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+    }
+
+    $scope.pendingChanges = {
+        username: false,
+        image: false,
+        isPrivate: false,
+        password: false,
+    };
+
     $scope.settingsBackup = {};
     $scope.pageCenter = window.innerHeight / 2;
 
@@ -38,8 +51,24 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
         $scope.isRedirected = false;
     };
 
-    $scope.settingsChanged = function () {
-        $scope.pendingChanges = !angular.equals($scope.settings, $scope.settingsBackup);
+    $scope.privacyChanged = function () {
+        $scope.pendingChanges.isPrivate = ($scope.settingsBackup.isPrivate !== $scope.settings.isPrivate);
+    };
+
+    $scope.imageChanged = function () {
+        $scope.pendingChanges.image = $scope.settingsBackup.image !== $scope.settings.image;
+    };
+
+    $scope.usernameChanged = function () {
+        $scope.pendingChanges.username = $scope.settingsBackup.username !== $scope.settings.username;
+    };
+
+    $scope.passwordChanged = function () {
+        $scope.pendingChanges.password = (
+            $scope.password.oldPassword !== ''
+            && $scope.password.newPassword !== ''
+            && $scope.password.confirmPassword !== '')
+            && ($scope.pendingChanges.password = $scope.password.newPassword === $scope.password.confirmPassword);
     };
 
     var init = function () {
@@ -50,12 +79,11 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
         }
 
         $scope.isLoading = true;
-        $scope.pendingChanges = false;
 
         SettingsService.getAccountSettings(AuthService.userId).then(
             function (response) {
                 $scope.isLoading = false;
-                
+
                 $scope.settings = response;
                 $scope.settingsBackup = angular.copy(response);
 
@@ -85,7 +113,9 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
         }
 
         $scope.settings = response;
-        $scope.settingsBackup = response;
+        $scope.settingsBackup = angular.copy(response);
+
+
     }
 
     init();

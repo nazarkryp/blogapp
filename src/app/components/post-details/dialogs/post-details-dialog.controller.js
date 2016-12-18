@@ -5,7 +5,7 @@ angular.module('blogapp')
             $scope.isAuthenticated = AuthService.isAuthenticated;
             $scope.currentuserId = AuthService.userId;
 
-            $scope.maxHeight = window.innerHeight - 175;
+            $scope.maxHeight = window.innerHeight - 200;
             $scope.maxWidth = window.innerWidth - 350 - 300;
 
             $scope.viewMoreCommentsClick = function (post) {

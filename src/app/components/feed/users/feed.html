@@ -4,9 +4,13 @@
     </div>
     <div layout="row" layout-align="center center">
         <div class="feed-content">
-            <div layout="row" layout-align="center center" ng-if="error">
-                <div class="authentication-error" layout="row" layout-align="center center" ng-if="error">
-                    <p class="md-subhead" md-colors="{color: 'blue'}">{{error.error.message}}</p>
+            <div style="height: 300px;" layout="row" layout-align="center center" ng-if="error">
+                <div style="height: 200px;width: 750px;border:1px solid #efefef;background:white;" layout="column" layout-align="center center">
+                    <span class="md-subhead" style="font-weight: bold;">{{error}}</span>
+                    <p ng-if="isAuthenticated">Follow <strong>{{username}}</strong> to see all their photos</p>
+                    <p ng-if="!isAuthenticated">Already know <strong>{{username}}</strong>?
+                        <a style="color: rgb(33, 150, 243);" ui-sref="signin()">Sign in</a> to see all their photos
+                    </p>
                 </div>
             </div>
             <!--<div style="height:200px;background:white;border: 1px solid #dbdbdb;">

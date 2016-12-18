@@ -50,27 +50,27 @@
             </div>
 
             <div layout="row">
-                <div md-colors="{background: 'blue' }" style="background:red;width: 2px;"></div>
+                <div md-colors="{background: 'blue' }" style="background:red;width: 2px;" ng-if="pendingChanges.password"></div>
                 <div layout="column" style="padding: 25px 0px 0px 10px;" flex>
                     <div flex>
                         <md-input-container class="md-block">
                             <label>Old Password</label>
-                            <input name="oldPassword" ng-change="settingsChanged()" ng-model="settings.oldpassword" flex/>
+                            <input type="password" ng-change="passwordChanged()" ng-model="password.oldPassword" flex/>
                         </md-input-container>
                     </div>
                     <div flex>
                         <md-input-container class="md-block">
                             <label>New Password</label>
-                            <input name="oldPassword" ng-change="settingsChanged()" ng-model="settings.oldpassword" flex/>
+                            <input type="password" ng-change="passwordChanged()" ng-model="password.newPassword" flex/>
                         </md-input-container>
                     </div>
                     <div flex>
                         <md-input-container class="md-block">
                             <label>Confirm Password</label>
-                            <input name="oldPassword" ng-change="settingsChanged()" ng-model="settings.oldpassword" flex/>
+                            <input type="password" ng-change="passwordChanged()" ng-model="password.confirmPassword" flex/>
                         </md-input-container>
                     </div>
-                    <div layout="column" layout-align="center center">
+                    <div layout="column" layout-align="center center" ng-if="pendingChanges.password">
                         <md-button md-colors="{background: 'blue'}">Update password</md-button>
                     </div>
                 </div>
@@ -84,14 +84,14 @@
                 <md-divider style="margin: 10px 0px 10px 0px;"></md-divider>
             </div>
             <div layout="row">
-                <div md-colors="{background: 'blue' }" style="background:red;width: 2px;"></div>
+                <div md-colors="{background: 'blue' }" style="background:red;width: 2px;" ng-if="pendingChanges.isPrivate"></div>
                 <div layout="column" flex>
                     <div layout="column" style="padding: 25px 0px 0px 10px;" flex>
-                        <md-switch ng-change="settingsChanged()" ng-model="settings.isPrivate" aria-label="Is Private">
-                            Is Private
+                        <md-switch ng-change="privacyChanged()" ng-model="settings.isPrivate" aria-label="Is Private">
+                            Is Private {{pendingChanges.isPrivate}}
                         </md-switch>
                     </div>
-                    <div layout="column" layout-align="center center">
+                    <div layout="column" layout-align="center center" ng-if="pendingChanges.isPrivate">
                         <md-button md-colors="{background: 'blue'}">Save changes</md-button>
                     </div>
                 </div>

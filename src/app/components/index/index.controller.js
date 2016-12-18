@@ -126,7 +126,7 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
         };
 
         var getIncommingRequests = function () {
-            if ($scope.isPrivate) {
+            if ($scope.user.isPrivate) {
                 UserService.getIncommingRequests().then(
                     function (response) {
                         $scope.requests = response;
