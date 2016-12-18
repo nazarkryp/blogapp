@@ -2,7 +2,9 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
     $scope.isRedirected = $stateParams.isRedirected;
     $scope.settings = {
         username: AuthService.username,
+        fullName: AuthService.fullName,
         imageUri: AuthService.imageUri,
+        bio: '',
         isPrivate: AuthService.isPrivate,
         isActive: AuthService.isActive
     };
@@ -32,17 +34,29 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
         );
     };
 
-    $scope.saveAccountSettings = function () {
-        $scope.isSavingChanges = true;
-        SettingsService.saveAccountSettings($scope.settings).then(
+    $scope.savePrivacy = function () {
+        SettingsService.savePrivacy($scope.settings.isPrivate).then(
             function (response) {
-                $scope.isSavingChanges = false;
+                var isPrivate = response.isPrivate;
 
-                updateSettings(response);
-                $scope.settingsChanged();
+                $scope.settings.isPrivate = isPrivate;
+                $scope.settingsBackup.isPrivate = isPrivate;
             },
             function (error) {
-                $scope.isSavingChanges = false;
+                console.log(error);
+            });
+    };
+
+    $scope.updateProfile = function () {
+        var profile = {
+            username: $scope.settings.username,
+            fullName: $scope.settings.fullName
+        };
+
+        SettingsService.updateProfile(profile).then(
+            function (response) {
+            },
+            function (error) {
             }
         );
     };
@@ -84,6 +98,7 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
             function (response) {
                 $scope.isLoading = false;
 
+                updateSettings(response);
                 $scope.settings = response;
                 $scope.settingsBackup = angular.copy(response);
 
@@ -105,6 +120,7 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
         if ($scope.settingsBackup.isPrivate != response.isPrivate) {
             AuthService.isPrivate = response.isPrivate;
             AuthService.setValue('isPrivate', response.isPrivate);
+            $scope.settingsBackup.isPrivate = response.isPrivate;
         }
 
         if ($scope.settingsBackup.isActive != response.isActive) {
@@ -114,8 +130,6 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
 
         $scope.settings = response;
         $scope.settingsBackup = angular.copy(response);
-
-
     }
 
     init();

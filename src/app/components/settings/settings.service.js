@@ -9,10 +9,34 @@ angular.module('blogapp')
                 return deferred.promise;
             };
 
-            this.invertAccountPrivacyStatus = function () {
+            this.savePrivacy = function (isPrivate) {
                 var deferred = $q.defer();
 
-                HttpService.postEmptyModel(ConstService.baseAddress + 'api/account/privacy', deferred);
+                HttpService.postEmptyModel(ConstService.baseAddress + 'api/account/privacy?isPrivate=' + isPrivate, deferred);
+
+                return deferred.promise;
+            };
+
+            this.changePassword = function (password) {
+                var deferred = $q.defer();
+
+                HttpService.post(ConstService.baseAddress + 'api/account/password', password, deferred);
+
+                return deferred.promise;
+            };
+
+            this.changeProfilePicture = function (attachmentId) {
+                var deferred = $q.defer();
+
+                HttpService.post(ConstService.baseAddress + 'api/account/profile/picture?attachmentId=' + attachmentId, deferred);
+
+                return deferred.promise;
+            };
+
+            this.updateProfile = function (profile) {
+                var deferred = $q.defer();
+
+                HttpService.post(ConstService.baseAddress + 'api/account/profile', profile, deferred);
 
                 return deferred.promise;
             };

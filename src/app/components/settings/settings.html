@@ -4,9 +4,6 @@
 
 <div layout="column" layout-align="start center" ng-if="!isLoading" style="margin: 50px 0px 50px 0px;">
     <div layout="column" style="background: white;width:1000px; padding: 25px;" md-whiteframe="1">
-        <!--<div layout="row" layout-align="center center" style="height: 50px;">
-            <span class="md-display-1">Account settings</span>
-        </div>-->
         <div style="margin-top: 10px;">
             <div flex>
                 <div layout="row" layout-align="space-between center" flex>
@@ -28,14 +25,15 @@
                                 Click to upload new profile picture
                             </md-tooltip>
                         </div>
-                        <div style="margin-top: 65px;">
+                        <div layout="column" layout-align="start start" style="margin-top: 50px;">
                             <div layout="row" layout-align="center center" style="margin-left: 15px;">
-                                <span class="md-display-1" style="font-weight: lighter;">Krypiak Nazarii</span>
-                                <!--<md-icon style="margin-left: 10px; cursor: pointer;">mode_edit</md-icon>-->
+                                <span class="md-display-1" style="font-weight: lighter;">{{settings.fullName}}</span>
                             </div>
                             <div layout="row" layout-align="center center" style="margin-left: 5px;color:grey;">
-                                <span class="md-headline" style="font-weight: lighter;">@{{settingsBackup.username}}</span>
-                                <md-icon style="margin-left: 10px; cursor: pointer;">mode_edit</md-icon>
+                                <span class="md-headline" style="font-weight: lighter;">@{{settings.username}}</span>
+                            </div>
+                            <div layout="row" layout-align="center center" style="color:grey;">
+                                <span class="md-subtitle" style="font-weight: lighter;">{{settings.bio}}</span>
                             </div>
                         </div>
                     </div>
@@ -92,7 +90,7 @@
                         </md-switch>
                     </div>
                     <div layout="column" layout-align="center center" ng-if="pendingChanges.isPrivate">
-                        <md-button md-colors="{background: 'blue'}">Save changes</md-button>
+                        <md-button md-colors="{background: 'blue'}" ng-click="savePrivacy()">Save changes</md-button>
                     </div>
                 </div>
             </div>
