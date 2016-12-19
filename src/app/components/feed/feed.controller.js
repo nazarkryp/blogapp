@@ -140,11 +140,11 @@ angular.module('blogapp')
 
             var getFeedPromise = function() {
                 if (!$stateParams.username) {
-                    PageService.title = 'PhotoCloud';
+                    PageService.title = 'Photocloud';
 
                     return PostsService.getFeed($scope.feed.pageIndex + 1, $scope.feed.pageSize);
                 } else {
-                    PageService.title = 'PhotoCloud - ' + $stateParams.username;
+                    PageService.title = 'Photocloud - ' + $stateParams.username;
 
                     return PostsService.getUsersFeed($stateParams.username, $scope.feed.pageIndex + 1, $scope.feed.pageSize);
                 }
@@ -162,7 +162,8 @@ angular.module('blogapp')
                         $scope.feed.hasMoreItems = response.hasMoreItems;
                         $scope.feed.pageIndex = response.pageIndex;
 
-                        $scope.isLoading = false;
+                        //$scope.isLoading = false;
+                        PageService.isLoading = false;
                         $scope.isLoadingMorePosts = false;
 
                         if ($scope.feed.posts.length === 0) {
@@ -172,14 +173,16 @@ angular.module('blogapp')
                         }
                     },
                     function(errorResponse) {
-                        $scope.isLoading = false;
+                        //$scope.isLoading = false;
+                        PageService.isLoading = false;
                         $scope.isLoadingMorePosts = false;
                         $scope.error = errorResponse.error.modelState.accountAccessError[0];
                     });
             };
 
             var init = function() {
-                $scope.isLoading = true;
+                //$scope.isLoading = true;
+                PageService.isLoading = true;
 
                 if ($stateParams.username) {
                     $scope.username = $stateParams.username;

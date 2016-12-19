@@ -92,6 +92,11 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
                 }
             });
 
+        $scope.$watch('pageService.isLoading',
+            function (isLoading) {
+                $scope.isLoading = isLoading;
+            });
+
 
         $scope.signOut = function () {
             AuthService.signOut();

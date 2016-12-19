@@ -4,22 +4,31 @@
 			<span class="md-headline">Login to PhotoCloud</span>
 		</div>
 
-		<div class="authentication-error" ng-if="errorMessage">
-			<p class="md-subhead" md-colors="{color: 'blue'}">Oops! Unable to login</p>
-			<p>{{errorMessage}}</p>
+		<div style="width:500px;margin: 0px 0px 25px 0px;" ng-if="errorMessage">
+			<div md-colors="{background : 'warn'}" style="color:white;padding: 20px 0px 20px 20px;" md-whiteframe="3">
+				<div layout="row" layout-align="space-between center">
+					<span class="md-headline">Oops! Unable to login</span>
+					<!--<md-button class="md-icon-button" ng-click="closeInfo()">
+						<md-icon style="color:white;">clear</md-icon>
+					</md-button>-->
+				</div>
+				<span class="md-subhead">{{errorMessage}}</span>
+			</div>
 		</div>
 
 		<form class="authentication-form" name="signInForm" ng-submit="signIn(credentials)">
 			<md-input-container class="md-block input-box" md-no-float>
 				<!--<label>Username or Email</label>-->
-				<input class="text-area" name="username" placeholder="Username" ng-model="credentials.username" required style="border: 1px solid #dbdbdb;"/>
+				<input class="text-area" name="username" placeholder="Username" ng-model="credentials.username" required style="border: 1px solid #dbdbdb;"
+				/>
 				<div ng-messages="signInForm.username.$error">
 					<ng-message when="required">This field is required.</ng-message>
 				</div>
 			</md-input-container>
 			<md-input-container class="md-block" md-no-float>
 				<!--<label>Password</label>-->
-				<input class="text-area" name="password" type="password" placeholder="Password" ng-model="credentials.password" required style="border: 1px solid #dbdbdb;"/>
+				<input class="text-area" name="password" type="password" placeholder="Password" ng-model="credentials.password" required
+					style="border: 1px solid #dbdbdb;" />
 				<div ng-messages="signInForm.password.$error">
 					<ng-message when="required">Password field is required.</ng-message>
 				</div>

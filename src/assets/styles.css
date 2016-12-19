@@ -350,3 +350,15 @@ a:hover {
 .md-display-1 {
     font-weight: lighter;
 }
+
+.md-progress-linear.md-default-theme .md-container, md-progress-linear .md-container {
+    background-color: transparent;
+}
+
+.md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
+    background-color: rgb(33, 150, 243);
+}
+
+md-input-container.text-block .md-errors-spacer {
+    min-height: 0px !important;
+}

@@ -7,11 +7,7 @@
             <md-divider></md-divider>
         </div>
 
-        <div layout="column" layout-align="end center" ng-if="isLoading">
-            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-        </div>
-
-        <div ng-repeat="user in group.users" layout="row" style="height: 100px;padding-bottom: 10px;" ng-if="!isLoading">
+        <div ng-repeat="user in group.users" layout="row" style="height: 100px;padding-bottom: 10px;">
             <img class="post-profile-thumbnail" ng-src="{{user.imageUri}}" alt="user" ui-sref="usersfeed({username : user.username})">
             <div layout="column" layout-align="space-between stretch" flex style="padding-left: 25px;">
                 <div layout="row" layout-align="space-between start">

@@ -1,20 +1,28 @@
-<div layout="row" layout-align="center center" ng-if="isLoading" style="height: {{pageCenter}}px;">
-    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-</div>
-
-<div layout="column" layout-align="start center" ng-if="!isLoading" style="margin: 50px 0px 50px 0px;">
+<div layout="column" layout-align="start center" style="margin: 50px 0px 50px 0px;">
     <div layout="column" style="background: white;width:1000px; padding: 25px;" md-whiteframe="1">
+        <div style="margin-top: 15px;">
+            <div md-colors="{background : 'warn'}" style="color:white;padding: 20px 0px 20px 20px;" ng-if="isRedirected" md-whiteframe="3">
+                <div layout="row" layout-align="space-between center">
+                    <span class="md-headline">ATTENTION</span>
+                    <md-button class="md-icon-button" ng-click="closeInfo()">
+                        <md-icon style="color:white;">clear</md-icon>
+                    </md-button>
+                </div>
+                <span class="md-subhead">You need to activate your account to discover people and their posts</span>
+            </div>
+        </div>
         <div style="margin-top: 10px;">
             <div flex>
                 <div layout="row" layout-align="space-between center" flex>
                     <span class="md-display-1">Edit Profile</span>
-                    <md-icon style="margin-left: 10px; cursor: pointer;">mode_edit</md-icon>
+                    <!--<md-icon style="margin-left: 10px; cursor: pointer;">mode_edit</md-icon>-->
                 </div>
                 <md-divider style="margin: 10px 0px 10px 0px;"></md-divider>
             </div>
-            <div layout="column">
-                <div layout="row">
-                    <div md-colors="{background: 'blue' }" style="background:red;width: 2px;"></div>
+
+            <div layout="row">
+                <div md-colors="{background: 'blue' }" style="background:red;width: 2px;" ng-if="pendingChanges.profile"></div>
+                <div layout="column" flex>
                     <div layout="row" layout-align="start center" style="padding-left: 10px;">
                         <div layout="row" layout-align="center center" style="cursor: pointer;">
                             <img class="user-bar-image" ng-src="{{settings.imageUri}}" alt="profile" />
@@ -26,15 +34,35 @@
                             </md-tooltip>
                         </div>
                         <div layout="column" layout-align="start start" style="margin-top: 50px;">
-                            <div layout="row" layout-align="center center" style="margin-left: 15px;">
-                                <span class="md-display-1" style="font-weight: lighter;">{{settings.fullName}}</span>
+                            <div style="margin-left: 25px;" flex>
+                                <!--<span class="md-display-1" style="font-weight: lighter;">{{settings.fullName}}</span>-->
+                                <md-input-container class="md-block text-block" md-no-float>
+                                    <input name="editFullNameBox" class="md-display-1" style="font-weight: lighter;border-color: white;" type="text" ng-model="settings.fullName"
+                                        ng-change="profileChanged()" aria-label="Full Name" autocomplete="off" flex>
+                                </md-input-container>
                             </div>
-                            <div layout="row" layout-align="center center" style="margin-left: 5px;color:grey;">
-                                <span class="md-headline" style="font-weight: lighter;">@{{settings.username}}</span>
+                            <div layout="row" layout-align="center center" style="margin-left: 10px;color:grey;">
+                                <!--<span class="md-headline" style="font-weight: lighter;">@{{settings.username}}</span>-->
+                                <span class="md-headline" style="font-weight: lighter;">@</span>
+                                <md-input-container class="md-block text-block" md-no-float>
+                                    <input name="editNameBox" class="md-headline" style="font-weight: lighter;border-color: white;color:grey;" type="text" ng-model="settings.username"
+                                        ng-change="profileChanged()" aria-label="Full Name" autocomplete="off" />
+                                </md-input-container>
                             </div>
-                            <div layout="row" layout-align="center center" style="color:grey;">
-                                <span class="md-subtitle" style="font-weight: lighter;">{{settings.bio}}</span>
+                            <div layout="row" layout-align="center center">
+                                <!--<span class="md-subtitle" style="font-weight: lighter;color:grey;">{{settings.bio}}</span>-->
+                                <md-input-container class="md-block text-block" md-no-float>
+                                    <input name="editBioBox" class="md-subtitle" style="width:500px;font-weight: lighter;border-color: white;color:grey;" type="text"
+                                        ng-model="settings.bio" ng-change="profileChanged()" aria-label="Full Name" autocomplete="off"
+                                        flex/>
                             </div>
+                        </div>
+                    </div>
+                    <div layout="column" layout-align="center center" style="margin-top: 15px;">
+                        <span style="color:red;">{{profileSaveError}}</span>
+                        <div layout="row" layout-align="center center" style="margin-top: 20px;" ng-if="pendingChanges.profile" flex>
+                            <md-button class="md-raised" md-colors="{background : 'blue'}" ng-click="updateProfile()" style="width: 200px;">Save Changes</md-button>
+                            <md-button class="md-raised" ng-click="resetProfileChanges()">Cancel</md-button>
                         </div>
                     </div>
                 </div>
@@ -68,8 +96,12 @@
                             <input type="password" ng-change="passwordChanged()" ng-model="password.confirmPassword" flex/>
                         </md-input-container>
                     </div>
-                    <div layout="column" layout-align="center center" ng-if="pendingChanges.password">
-                        <md-button md-colors="{background: 'blue'}">Update password</md-button>
+                    <div layout="column" layout-align="center center" style="margin-top: 15px;">
+                        <span style="color:red;">{{passwordChangeError}}</span>
+                        <div layout="row" layout-align="center center" style="margin-top: 20px;" ng-if="pendingChanges.password" flex>
+                            <md-button class="md-raised" md-colors="{background: 'blue'}" style="width: 200px;" ng-click="changePassword()">Update password</md-button>
+                            <!--<md-button class="md-raised" ng-click="resetProfileChanges()">Cancel</md-button>-->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,8 +122,23 @@
                         </md-switch>
                     </div>
                     <div layout="column" layout-align="center center" ng-if="pendingChanges.isPrivate">
-                        <md-button md-colors="{background: 'blue'}" ng-click="savePrivacy()">Save changes</md-button>
+                        <md-button class="md-raised" md-colors="{background: 'blue'}" ng-click="savePrivacy()" style="width: 200px;">Save changes</md-button>
                     </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div style="margin-top: 50px;">
+            <div>
+                <span class="md-display-1">Account</span>
+                <md-divider style="margin: 10px 0px 10px 0px;"></md-divider>
+            </div>
+            <div layout="row">
+                <div md-colors="{background: 'red' }" style="background:red;width: 2px;" ng-if="!settings.isActive"></div>
+                <div layout="row" layout-align="center center" style="padding: 25px 0px 0px 10px;" flex>
+                    <md-button class="md-raised" md-colors="{background : '{{settings.isActive | buttonStatusColor}}'}" ng-click="invertAccountStatus()"
+                        style="width: 200px;">{{settings.isActive | accountActionStatus}} account</md-button>
                 </div>
             </div>
         </div>

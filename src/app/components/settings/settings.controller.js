@@ -1,136 +1,180 @@
-angular.module('blogapp').controller('SettingsController', ['$scope', '$state', '$stateParams', 'SettingsService', 'AuthService', function ($scope, $state, $stateParams, SettingsService, AuthService) {
-    $scope.isRedirected = $stateParams.isRedirected;
-    $scope.settings = {
-        username: AuthService.username,
-        fullName: AuthService.fullName,
-        imageUri: AuthService.imageUri,
-        bio: '',
-        isPrivate: AuthService.isPrivate,
-        isActive: AuthService.isActive
-    };
-
-    $scope.password = {
-        oldPassword: '',
-        newPassword: '',
-        confirmPassword: ''
-    }
-
-    $scope.pendingChanges = {
-        username: false,
-        image: false,
-        isPrivate: false,
-        password: false,
-    };
-
-    $scope.settingsBackup = {};
-    $scope.pageCenter = window.innerHeight / 2;
-
-    $scope.invertAccountStatus = function () {
-        SettingsService.invertAccountStatus().then(
-            function (response) {
-                $scope.accountActionName = response.isActive ? 'DEACTIVATE ACCOUNT' : 'ACTIVATE ACCOUNT';
-                AuthService.updateValue('isActive', response.isActive);
-            }
-        );
-    };
-
-    $scope.savePrivacy = function () {
-        SettingsService.savePrivacy($scope.settings.isPrivate).then(
-            function (response) {
-                var isPrivate = response.isPrivate;
-
-                $scope.settings.isPrivate = isPrivate;
-                $scope.settingsBackup.isPrivate = isPrivate;
-            },
-            function (error) {
-                console.log(error);
-            });
-    };
-
-    $scope.updateProfile = function () {
-        var profile = {
-            username: $scope.settings.username,
-            fullName: $scope.settings.fullName
+angular.module('blogapp').controller('SettingsController', ['$scope', '$state', '$stateParams', 'SettingsService', 'AuthService', 'PageService',
+    function ($scope, $state, $stateParams, SettingsService, AuthService, PageService) {
+        $scope.isRedirected = $stateParams.isRedirected;
+        $scope.settings = {
+            username: AuthService.username,
+            fullName: AuthService.fullName,
+            imageUri: AuthService.imageUri,
+            bio: '',
+            isPrivate: AuthService.isPrivate,
+            isActive: AuthService.isActive
         };
 
-        SettingsService.updateProfile(profile).then(
-            function (response) {
-            },
-            function (error) {
+        $scope.password = {
+            oldPassword: '',
+            newPassword: '',
+            confirmPassword: ''
+        }
+
+        $scope.pendingChanges = {
+            profile: false,
+            image: false,
+            isPrivate: false,
+            password: false,
+        };
+
+        $scope.settingsBackup = {};
+        $scope.pageCenter = window.innerHeight / 2;
+
+        $scope.invertAccountStatus = function () {
+            SettingsService.invertAccountStatus().then(
+                function (response) {
+                    $scope.settings.isActive = response.isActive;
+                    $scope.settingsBackup.isActive = response.isActive;
+
+                    AuthService.isActive = response.isActive;
+                    AuthService.setValue('isActive', response.isActive);
+                }
+            );
+        };
+
+        $scope.savePrivacy = function () {
+            SettingsService.savePrivacy($scope.settings.isPrivate).then(
+                function (response) {
+                    if ($scope.settingsBackup.isPrivate != response.isPrivate) {
+                        AuthService.isPrivate = response.isPrivate;
+                        AuthService.setValue('isPrivate', response.isPrivate);
+
+                        $scope.settingsBackup.isPrivate = response.isPrivate;
+                        $scope.settings.isPrivate = response.isPrivate;
+                    }
+
+                    $scope.privacyChanged();
+                },
+                function (error) {
+                    console.log(error);
+                });
+        };
+
+        $scope.updateProfile = function () {
+            var profile = {
+                username: $scope.settings.username,
+                fullName: $scope.settings.fullName,
+                bio: $scope.settings.bio
+            };
+
+            $scope.profileSaveError = '';
+
+            SettingsService.updateProfile(profile).then(
+                function (response) {
+                    $scope.settingsBackup.username = response.username;
+                    $scope.settingsBackup.fullName = response.fullName;
+                    $scope.settingsBackup.bio = response.bio;
+                    $scope.profileChanged();
+                },
+                function (errorResponse) {
+                    $scope.profileSaveError = errorResponse.modelState.error[0];
+                }
+            );
+        };
+
+        $scope.resetProfileChanges = function () {
+            $scope.settings.username = $scope.settingsBackup.username;
+            $scope.settings.fullName = $scope.settingsBackup.fullName;
+            $scope.settings.bio = $scope.settingsBackup.bio;
+            $scope.profileChanged();
+        };
+
+        $scope.changePassword = function () {
+            PageService.isLoading = true;
+
+            $scope.passwordChangeError = '';
+            SettingsService.changePassword($scope.password).then(
+                function (response) {
+                    PageService.isLoading = false;
+                    
+                    $scope.password.oldPassword = '';
+                    $scope.password.newPassword = '';
+                    $scope.password.confirmPassword = '';
+                    $scope.passwordChanged();
+                }, function (errorResponse) {
+                    $scope.passwordChangeError = errorResponse.modelState.error[0];
+                    PageService.isLoading = false;
+                });
+        };
+
+        $scope.closeInfo = function () {
+            $scope.isRedirected = false;
+        };
+
+        $scope.privacyChanged = function () {
+            $scope.pendingChanges.isPrivate = ($scope.settingsBackup.isPrivate !== $scope.settings.isPrivate);
+        };
+
+        $scope.imageChanged = function () {
+            $scope.pendingChanges.image = $scope.settingsBackup.image !== $scope.settings.image;
+        };
+
+        $scope.profileChanged = function () {
+            $scope.pendingChanges.profile = $scope.settingsBackup.username !== $scope.settings.username
+                || $scope.settingsBackup.fullName != $scope.settings.fullName
+                || $scope.settingsBackup.bio != $scope.settings.bio;
+
+            $scope.profileSaveError = '';
+        };
+
+        $scope.passwordChanged = function () {
+            $scope.pendingChanges.password = (
+                $scope.password.oldPassword !== ''
+                && $scope.password.newPassword !== ''
+                && $scope.password.confirmPassword !== ''
+                && $scope.password.newPassword === $scope.password.confirmPassword);
+        };
+
+        var init = function () {
+            if (!AuthService.isAuthenticated) {
+                $state.go('signin');
+
+                return;
             }
-        );
-    };
 
-    $scope.closeInfo = function () {
-        $scope.isRedirected = false;
-    };
+            PageService.isLoading = true;
 
-    $scope.privacyChanged = function () {
-        $scope.pendingChanges.isPrivate = ($scope.settingsBackup.isPrivate !== $scope.settings.isPrivate);
-    };
+            SettingsService.getAccountSettings(AuthService.userId).then(
+                function (response) {
+                    PageService.isLoading = false;
 
-    $scope.imageChanged = function () {
-        $scope.pendingChanges.image = $scope.settingsBackup.image !== $scope.settings.image;
-    };
+                    updateSettings(response);
+                    $scope.settings = response;
+                    $scope.settingsBackup = angular.copy(response);
+                });
+        };
 
-    $scope.usernameChanged = function () {
-        $scope.pendingChanges.username = $scope.settingsBackup.username !== $scope.settings.username;
-    };
+        function updateSettings(response) {
+            if ($scope.settingsBackup.username != response.username) {
+                AuthService.username = response.username;
+                AuthService.setValue('username', response.username);
+            }
 
-    $scope.passwordChanged = function () {
-        $scope.pendingChanges.password = (
-            $scope.password.oldPassword !== ''
-            && $scope.password.newPassword !== ''
-            && $scope.password.confirmPassword !== '')
-            && ($scope.pendingChanges.password = $scope.password.newPassword === $scope.password.confirmPassword);
-    };
+            if ($scope.settingsBackup.imageUri != response.imageUri) {
+                AuthService.imageUri = response.imageUri;
+                AuthService.setValue('imageUri', response.imageUri);
+            }
 
-    var init = function () {
-        if (!AuthService.isAuthenticated) {
-            $state.go('signin');
+            if ($scope.settingsBackup.isPrivate != response.isPrivate) {
+                AuthService.isPrivate = response.isPrivate;
+                AuthService.setValue('isPrivate', response.isPrivate);
+                $scope.settingsBackup.isPrivate = response.isPrivate;
+            }
 
-            return;
+            if ($scope.settingsBackup.isActive != response.isActive) {
+                AuthService.isActive = response.isActive;
+                AuthService.setValue('isActive', response.isActive);
+            }
+
+            $scope.settings = response;
+            $scope.settingsBackup = angular.copy(response);
         }
 
-        $scope.isLoading = true;
-
-        SettingsService.getAccountSettings(AuthService.userId).then(
-            function (response) {
-                $scope.isLoading = false;
-
-                updateSettings(response);
-                $scope.settings = response;
-                $scope.settingsBackup = angular.copy(response);
-
-                $scope.accountActionName = response.isActive ? 'DEACTIVATE ACCOUNT' : 'ACTIVATE ACCOUNT';
-            });
-    };
-
-    function updateSettings(response) {
-        if ($scope.settingsBackup.username != response.username) {
-            AuthService.username = response.username;
-            AuthService.setValue('username', response.username);
-        }
-
-        if ($scope.settingsBackup.imageUri != response.imageUri) {
-            AuthService.imageUri = response.imageUri;
-            AuthService.setValue('imageUri', response.imageUri);
-        }
-
-        if ($scope.settingsBackup.isPrivate != response.isPrivate) {
-            AuthService.isPrivate = response.isPrivate;
-            AuthService.setValue('isPrivate', response.isPrivate);
-            $scope.settingsBackup.isPrivate = response.isPrivate;
-        }
-
-        if ($scope.settingsBackup.isActive != response.isActive) {
-            AuthService.isActive = response.isActive;
-            AuthService.setValue('isActive', response.isActive);
-        }
-
-        $scope.settings = response;
-        $scope.settingsBackup = angular.copy(response);
-    }
-
-    init();
-}]);
+        init();
+    }]);
