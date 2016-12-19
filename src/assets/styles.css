@@ -351,12 +351,22 @@ a:hover {
     font-weight: lighter;
 }
 
+md-progress-linear {
+    height: 2px;
+}
+
 .md-progress-linear.md-default-theme .md-container, md-progress-linear .md-container {
     background-color: transparent;
+    height: 2px;
 }
 
 .md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
     background-color: rgb(33, 150, 243);
+    height: 2px;
+}
+
+md-progress-linear .md-container .md-bar{
+    height: 2px;
 }
 
 md-input-container.text-block .md-errors-spacer {
