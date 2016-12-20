@@ -3,11 +3,7 @@
 </div>
 
 <div class="md-padding" layout="row" layout-align="center center">
-	<div class="loading-indicator" layout="column" layout-align="end center" ng-if="isLoading">
-		<md-progress-circular md-mode="indeterminate" md-diameter="50"></md-progress-circular>
-	</div>
 	<div flex="45" ng-if="!isLoading" style="max-width: 650px;">
-		<h1 layout="row" layout-align="center center">{{errorMessage}}</h1>
 		<div ng-repeat="post in feed.posts">
 			<post post="post"></post>
 		</div>
@@ -23,14 +19,4 @@
 			</md-button>
 		</md-fab-trigger>
 	</md-fab-speed-dial>
-</div>
-
-<div style="visibility: hidden">
-	<div class="md-dialog-container" id="loadingDialog">
-		<md-dialog aria-label="loading-indicator" layout-padding>
-			<div layout="row" layout-align="center center">
-				<md-progress-circular md-mode="indeterminate"></md-progress-circular>
-			</div>
-		</md-dialog>
-	</div>
 </div>

@@ -23,14 +23,14 @@
                 </div>
                 <div ng-class="{'caption': isAuthenticated}">
                     <a ui-sref="usersfeed({username: post.user.username})" class="md-body-2">{{post.user.username}}</a>
-                    <span class="md-body-1">{{post.caption}}</span>
+                    <span class="md-body-1" ng-bind-html="post.caption | content"></span>
                     <br/>
                     <a class="md-body-1" ng-if="post.commentsCount > 3 && post.commentsCount > post.comments.length">
                         <span class="show-comments-link" ng-click="viewMoreCommentsClick(post)">view all {{post.commentsCount}} comments</span>
                     </a>
                     <div ng-repeat="comment in post.comments">
                         <a class="md-body-2" ui-sref="usersfeed({username: comment.from.username})">{{comment.from.username}}</a>
-                        <span class="md-body-1">{{comment.text}}</span>
+                        <span class="md-body-1" ng-bind-html="comment.text | content"></span>
                     </div>
                 </div>
             </div>

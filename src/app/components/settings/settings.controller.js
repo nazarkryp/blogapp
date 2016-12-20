@@ -1,5 +1,5 @@
-angular.module('blogapp').controller('SettingsController', ['$scope', '$state', '$stateParams', 'SettingsService', 'AuthService', 'PageService',
-    function ($scope, $state, $stateParams, SettingsService, AuthService, PageService) {
+angular.module('blogapp').controller('SettingsController', ['$scope', '$state', '$stateParams', '$mdToast', 'SettingsService', 'AuthService', 'PageService',
+    function ($scope, $state, $stateParams, $mdToast, SettingsService, AuthService, PageService) {
         $scope.isRedirected = $stateParams.isRedirected;
         $scope.settings = {
             username: AuthService.username,
@@ -34,6 +34,10 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
 
                     AuthService.isActive = response.isActive;
                     AuthService.setValue('isActive', response.isActive);
+
+                    var message = 'Account has been ' + (response.isActive ? 'activated' : 'deactivated');
+
+                    showToastNotification(message);
                 }
             );
         };
@@ -50,9 +54,8 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
                     }
 
                     $scope.privacyChanged();
-                },
-                function (error) {
-                    console.log(error);
+
+                    showToastNotification('Privacy has been changed!');
                 });
         };
 
@@ -71,9 +74,11 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
                     $scope.settingsBackup.fullName = response.fullName;
                     $scope.settingsBackup.bio = response.bio;
                     $scope.profileChanged();
+
+                    showToastNotification('Profile has been updated!');
                 },
                 function (errorResponse) {
-                    $scope.profileSaveError = errorResponse.modelState.error[0];
+                    $scope.profileSaveError = errorResponse.error.message;
                 }
             );
         };
@@ -92,13 +97,15 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
             SettingsService.changePassword($scope.password).then(
                 function (response) {
                     PageService.isLoading = false;
-                    
+
                     $scope.password.oldPassword = '';
                     $scope.password.newPassword = '';
                     $scope.password.confirmPassword = '';
                     $scope.passwordChanged();
+
+                    showToastNotification('Your password has been updated!');
                 }, function (errorResponse) {
-                    $scope.passwordChangeError = errorResponse.modelState.error[0];
+                    $scope.passwordChangeError = errorResponse.message;
                     PageService.isLoading = false;
                 });
         };
@@ -150,6 +157,15 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
                 });
         };
 
+        function showToastNotification(message) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(message)
+                    .position('top right')
+                    .hideDelay(3000)
+            );
+        };
+
         function updateSettings(response) {
             if ($scope.settingsBackup.username != response.username) {
                 AuthService.username = response.username;
@@ -164,7 +180,6 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
             if ($scope.settingsBackup.isPrivate != response.isPrivate) {
                 AuthService.isPrivate = response.isPrivate;
                 AuthService.setValue('isPrivate', response.isPrivate);
-                $scope.settingsBackup.isPrivate = response.isPrivate;
             }
 
             if ($scope.settingsBackup.isActive != response.isActive) {

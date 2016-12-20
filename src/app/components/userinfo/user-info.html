@@ -5,7 +5,7 @@
     <div class="md-padding" layout="column" layout-align="stretch stretch" flex>
         <div layout="row" layout-align="space-between center">
             <span class="md-display-1" style="font-weight: lighter;">{{user.username}}</span>
-            <md-button class="button-bordered" ng-click="invertRelationshipsWithUser()" ng-if="currentUserName && user.username && currentUserName != user.username && !isLoading">{{relationshipStatus | relationshipButton}}</md-button>
+            <md-button class="button-bordered" ng-click="invertRelationshipsWithUser()" ng-if="currentUserName && user.username && currentUserName != user.username && !isLoading">{{user.relationshipStatus | relationshipButton}}</md-button>
         </div>
         <div class="counters" layout="row" layout-align="start end">
             <div flex="20">

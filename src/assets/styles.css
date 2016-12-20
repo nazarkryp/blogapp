@@ -372,3 +372,15 @@ md-progress-linear .md-container .md-bar{
 md-input-container.text-block .md-errors-spacer {
     min-height: 0px !important;
 }
+
+.hashtag {
+    color: #003569;
+}
+
+.hashtag:visited {
+    color: #003569;
+}
+
+.md-body-2 {
+    font-weight: bold;
+}

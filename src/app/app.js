@@ -1,1 +1,1 @@
-angular.module('blogapp', ['ui.router', 'ngMaterial', 'ngMessages']);
+angular.module('blogapp', ['ui.router', 'ngMaterial', 'ngMessages', 'ngSanitize']);

@@ -3,7 +3,7 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
         $scope.authService = AuthService;
         $scope.pageService = PageService;
 
-        $scope.user = {
+        $scope.currentUser = {
             userId: AuthService.userId,
             username: AuthService.username,
             imageUri: AuthService.imageUri,
@@ -49,21 +49,21 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
                 if (isAuthenticated) {
                     getAuthenticatedUser();
 
-                    if ($scope.user && $scope.user.isActive && $scope.user.isPrivate) {
+                    if ($scope.currentUser && $scope.currentUser.isActive && $scope.currentUser.isPrivate) {
                         getIncommingRequests();
                     }
                 } else {
-                    $scope.user = null;
+                    $scope.currentUser = null;
                 }
             });
 
         $scope.$watch('authService.isActive',
             function (isActive) {
-                if (!$scope.user) {
+                if (!$scope.currentUser) {
                     return;
                 }
 
-                $scope.user.isActive = isActive;
+                $scope.currentUser.isActive = isActive;
 
                 if (isActive && AuthService.getIsPrivate()) {
                     getIncommingRequests();
@@ -72,22 +72,22 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
 
         $scope.$watch('authService.imageUri',
             function (imageUri) {
-                if (!$scope.user) {
+                if (!$scope.currentUser) {
                     return;
                 }
 
-                $scope.user.imageUri = imageUri;
+                $scope.currentUser.imageUri = imageUri;
             });
 
         $scope.$watch('authService.isPrivate',
             function (isPrivate) {
-                if (!$scope.user) {
+                if (!$scope.currentUser) {
                     return;
                 }
 
-                $scope.user.isPrivate = isPrivate;
+                $scope.currentUser.isPrivate = isPrivate;
 
-                if ($scope.user && AuthService.getIsActive() && isPrivate) {
+                if ($scope.currentUser && AuthService.getIsActive() && isPrivate) {
                     getIncommingRequests();
                 }
             });
@@ -131,7 +131,7 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
         };
 
         var getIncommingRequests = function () {
-            if ($scope.user.isPrivate) {
+            if ($scope.currentUser.isPrivate) {
                 UserService.getIncommingRequests().then(
                     function (response) {
                         $scope.requests = response;
@@ -142,7 +142,7 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
         };
 
         var getAuthenticatedUser = function () {
-            $scope.user = {
+            $scope.currentUser = {
                 userId: AuthService.userId,
                 username: AuthService.username,
                 imageUri: AuthService.imageUri,

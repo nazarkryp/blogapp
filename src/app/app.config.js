@@ -33,7 +33,7 @@ angular.module('blogapp')
                 .state('usersfeed', {
                     url: '/:username',
                     templateUrl: 'app/components/feed/users/feed.html',
-                    controller: 'FeedController'
+                    controller: 'UsersFeedController'
                 })
                 .state('post', {
                     url: '/p/:postId',

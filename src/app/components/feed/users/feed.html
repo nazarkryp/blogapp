@@ -1,21 +1,29 @@
 <div layout="column">
-    <div layout="row" layout-align="center center">
-        <user-info username="username"></user-info>
+    <div layout="row" layout-align="center center" ng-if="user">
+        <user-info user="user"></user-info>
+    </div>
+    <div style="height: 300px;" layout="row" layout-align="center center" ng-if="notFound">
+        <div layout="column" layout-align="center center">
+            <span class="md-headline" style="font-weight: bold;">Sorry, this page is not available</span>
+            <p>The link you followed may be broken, or the page may have been removed. Go back to <a ui-sref="feed" style="color: rgb(33, 150, 243);">PhotoCloud</a></p>
+        </div>
     </div>
     <div layout="row" layout-align="center center">
         <div class="feed-content">
-            <div style="height: 300px;" layout="row" layout-align="center center" ng-if="error">
-                <div style="height: 200px;width: 750px;border:1px solid #efefef;background:white;" layout="column" layout-align="center center">
-                    <span class="md-subhead" style="font-weight: bold;">{{error}}</span>
-                    <p ng-if="isAuthenticated">Follow <strong>{{username}}</strong> to see all their photos</p>
-                    <p ng-if="!isAuthenticated">Already know <strong>{{username}}</strong>?
+            <div style="height: 300px;" layout="row" layout-align="center center" ng-if="errorMessage || infoMessage">
+                <div layout="column" layout-align="center center" ng-if="!isLoading && infoMessage" style="margin-top: {{windowCenter}}px;">
+                    <span class="feed-info-message">{{infoMessage}}</span>
+                </div>
+                <div style="height: 200px;width: 750px;border:1px solid #efefef;background:white;" layout="column" layout-align="center center"
+                    ng-if="errorMessage">
+                    <strong>{{errorMessage}}</strong>
+                    <p ng-if="currentUser.isAuthenticated && user.relationshipStatus === 'Requested'">You need to wait until <strong>{{user.username}}</strong> accepts your relationship request</p>
+                    <p ng-if="currentUser.isAuthenticated && user.relationshipStatus !== 'Requested'">Follow <strong>{{user.username}}</strong> to see all their photos</p>
+                    <p ng-if="!currentUser.isAuthenticated">Already know <strong>{{username}}</strong>?
                         <a style="color: rgb(33, 150, 243);" ui-sref="signin()">Sign in</a> to see all their photos
                     </p>
                 </div>
             </div>
-            <!--<div style="height:200px;background:white;border: 1px solid #dbdbdb;">
-                <span class="md-headline"></span>
-            </div>-->
             <md-grid-list md-cols-gt-md="3" md-row-height-gt-md="1:1" layout-align="center center">
                 <md-grid-tile class="user-post" ng-repeat="post in feed.posts" ng-mouseenter="showDetails(post)" ng-mouseleave="hideDetails(post)"
                     ng-click="showPostDetailsDialog($event, post)" style="width: 300px; height: 300px;">
@@ -35,10 +43,6 @@
             </md-grid-list>
         </div>
     </div>
-</div>
-
-<div class="loading-indicator" layout="column" layout-align="end center" ng-if="isLoading">
-    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
 </div>
 
 <div class="md-padding" layout="column" layout-align="center center" ng-if="feed.hasMoreItems">
