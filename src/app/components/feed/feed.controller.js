@@ -16,14 +16,6 @@ angular.module('blogapp')
                 hasMoreItems: false
             };
 
-            $scope.showDetails = function (post) {
-                post.showDetails = true;
-            };
-
-            $scope.hideDetails = function (post) {
-                post.showDetails = false;
-            };
-
             $scope.loadMorePosts = function () {
                 $scope.isLoadingMorePosts = true;
                 getFeed($stateParams.username);

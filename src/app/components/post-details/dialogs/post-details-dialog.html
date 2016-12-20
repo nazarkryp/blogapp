@@ -8,7 +8,6 @@
                         <img class="post-profile-image" ng-src="{{post.user.imageUri}}" />
                         <span class="md-headline" style="margin: 0px 0px 0px 10px;font-weight:lighter;">{{post.user.username}}</span>
                     </div>
-                    <md-button class="button-bordered" ng-if="isAuthenticated && currentUserId != post.user.id">{{maxWidth}}</md-button>
                 </div>
                 <md-divider></md-divider>
                 <div layout="row" layout-align="space-between center" style="height: 50px;">
@@ -32,7 +31,7 @@
                 <md-divider></md-divider>
                 <div layout="row" layout-align="center stretch" ng-if="isAuthenticated">
                     <div layout="row" layout-align="start start">
-                        <md-icon class="button-like" ng-class="{'liked': post.userHasLiked}" ng-click="like(post)">favorite_border</md-icon>
+                        <md-icon class="button-like" ng-class="{'liked': post.userHasLiked}" ng-click="like(post)">favorite</md-icon>
                     </div>
                     <div style="padding: 25px 0px 0px 10px;" flex>
                         <md-input-container class="md-block" md-no-float>

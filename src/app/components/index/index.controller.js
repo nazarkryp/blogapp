@@ -135,6 +135,7 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
                 UserService.getIncommingRequests().then(
                     function (response) {
                         $scope.requests = response;
+                        console.log(response);
                     }, function (error) {
                         console.log(error);
                     });

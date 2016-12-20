@@ -70,6 +70,14 @@ angular.module('blogapp')
                 getFeed();
             };
 
+            $scope.showDetails = function (post) {
+                post.showDetails = true;
+            };
+
+            $scope.hideDetails = function (post) {
+                post.showDetails = false;
+            };
+
             $scope.showPostDetailsDialog = function (ev, post) {
                 $mdDialog.show({
                     controller: 'PostDetailsDialogController',

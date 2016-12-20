@@ -35,10 +35,10 @@
 									<md-content ng-if="requests.length > 0">
 										<div layout="row" layout-align="space-between center" ng-repeat="user in requests">
 											<div style="padding: 10px;">
-												<img ui-sref="usersfeed({username : currentUser.username})" class="post-profile-image" ng-src="{{currentUser.imageUri}}" alt="currentUser.username">
+												<img ui-sref="usersfeed({username : user.username})" class="post-profile-image" ng-src="{{user.imageUri}}" alt="user.username">
 											</div>
 											<div layout="row" layout-align="start center" flex>
-												<span ui-sref="usersfeed({username : currentUser.username})" class="md-subtitle" style="font-weight: bold;cursor:pointer;">{{currentUser.username}}</span>
+												<span ui-sref="usersfeed({username : user.username})" class="md-subtitle" style="font-weight: bold;cursor:pointer;">{{user.username}}</span>
 											</div>
 											<div layout="row" layout-align="end center" style="width:110px;">
 												<md-button class="md-icon-button" style="border: 1px solid rgb(33, 150, 243);" ng-click="acceptRequest($index)">

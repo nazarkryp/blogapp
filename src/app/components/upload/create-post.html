@@ -24,35 +24,36 @@
                         <div style="padding: 10px;" layout="row" layout-align="stretch stretch">
                             <md-input-container md-no-float flex>
                                 <label>External resource url</label>
-                                <input type="text" placeholder="http://example.com/image.jpg" class="comment-box text-area" ng-model="external.url" />
+                                <input type="text" placeholder="http://example.com/image.jpg" class="comment-box text-area" ng-model="external.url" style="background-color: rgb(239, 239, 239);border: 1px solid #efefef;"/>
                             </md-input-container>
                         </div>
-                    </div>
-                    <div style="padding: 10px;" ng-if="preview.url && !isUploading">
-                        <img style="margin: auto; max-width: 100%;width:100%;" alt="Image" ng-src="{{preview.url}}">
                     </div>
                     <div layout="column" layout-align="center center" ng-if="isUploading" style="padding: 10px;">
                         <md-progress-linear md-mode="indeterminate"></md-progress-linear>
                         <span style="padding: 10px;">Uploading image</span>
                     </div>
-                    <div style="padding: 10px;" flex>
-                        <md-input-container class="md-block" md-no-float>
-                            <label>Caption</label>
-                            <textarea placeholder="Write description to your image" class="comment-box text-area" name="description" rows="3" ng-model="post.caption"></textarea>
-                        </md-input-container>
+                    <div layout="row" style="padding: 10px;" ng-if="preview.url">
+                        <div>
+                            <img style="margin: auto; max-width: 300px;width:100%;" alt="Image" ng-src="{{preview.url}}">
+                        </div>
+                        <div layout="column" style="padding: 15px 0px 0px 25px;" flex>
+                            <md-input-container class="md-block" md-no-float flex>
+                                <label>Caption</label>
+                                <textarea placeholder="Write description to your image" class="comment-box text-area" name="description" rows="3" ng-model="post.caption"
+                                    style="background-color: rgb(239, 239, 239);border: 1px solid #efefef;"></textarea>
+                            </md-input-container>
+                            <div layout="row" layout-align="end center">
+                                <md-button aria-label="cancel" ng-click="cancel()">
+                                    Cancel
+                                </md-button>
+                                <md-button type="submit" md-colors="{background: 'blue'}">
+                                    Post
+                                </md-button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </md-dialog-content>
-        <md-dialog-actions>
-            <div layout="row" style="padding: 0px 25px 20px 0px;">
-                <md-button aria-label="cancel" ng-click="cancel()">
-                    Cancel
-                </md-button>
-                <md-button type="submit" md-colors="{background: 'blue'}" ng-if="preview.url">
-                    Post
-                </md-button>
-            </div>
-        </md-dialog-actions>
     </form>
 </md-dialog>

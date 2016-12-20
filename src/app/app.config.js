@@ -20,13 +20,18 @@ angular.module('blogapp')
                 .state('settings', {
                     url: '/settings',
                     params: {
-                        isRedirected : false
+                        isRedirected: false
                     },
                     templateUrl: 'app/components/settings/settings.html',
                     controller: 'SettingsController'
                 })
                 .state('users', {
-                    url: '/people',
+                    url: '/explore',
+                    templateUrl: 'app/components/users/users.html',
+                    controller: 'UsersController'
+                })
+                .state('tags', {
+                    url: '/explore/tags/:tag',
                     templateUrl: 'app/components/users/users.html',
                     controller: 'UsersController'
                 })
