@@ -17,7 +17,7 @@ angular.module('blogapp')
 
             $scope.selectedItemChange = function(selectedItem) {
                 if (selectedItem) {
-                    $state.go('usersfeed', { username: selectedItem.username });
+                    $state.go('userfeed', { username: selectedItem.username });
                     $scope.selectedItem = null;
                 }
             };

@@ -23,7 +23,7 @@ angular.module('blogapp')
             function getUser(username) {
                 UserService.getUserByName(username).then(
                     function (response) {
-                        if ($scope.currentUser.username && response.username && $scope.currentUser.username != response.username) {
+                        if ($scope.currentUser && $scope.currentUser.username != response.username) {
                             getRelationshipsStatus(response);
                         } else {
                             PageService.isLoading = false;

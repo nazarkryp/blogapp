@@ -25,17 +25,17 @@ angular.module('blogapp')
                     templateUrl: 'app/components/settings/settings.html',
                     controller: 'SettingsController'
                 })
-                .state('users', {
-                    url: '/explore',
+                .state('explore.users', {
+                    url: '/explore/people',
                     templateUrl: 'app/components/users/users.html',
                     controller: 'UsersController'
                 })
-                .state('tags', {
+                .state('explore.tags', {
                     url: '/explore/tags/:tag',
                     templateUrl: 'app/components/users/users.html',
                     controller: 'UsersController'
                 })
-                .state('usersfeed', {
+                .state('userfeed', {
                     url: '/:username',
                     templateUrl: 'app/components/feed/users/feed.html',
                     controller: 'UsersFeedController'

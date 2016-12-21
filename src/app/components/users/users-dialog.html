@@ -8,10 +8,10 @@
         </div>
 
         <div ng-repeat="user in group.users" layout="row">
-            <img class="post-profile-image" ng-src="{{user.imageUri}}" alt="user" ui-sref="usersfeed({username : user.username})">
+            <img class="post-profile-image" ng-src="{{user.imageUri}}" alt="user" ui-sref="userfeed({username : user.username})">
             <div layout="column" layout-align="start stretch" flex style="padding-left: 10px;">
                 <div layout="row" layout-align="space-between center">
-                    <span class="md-subhead" style="font-weight: bold;cursor:pointer;" ui-sref="usersfeed({username : user.username})">{{user.username}}</span>
+                    <span class="md-subhead" style="font-weight: bold;cursor:pointer;" ui-sref="userfeed({username : user.username})">{{user.username}}</span>
                     <div layout="row">
                         <md-button md-colors="{background : 'blue'}" ng-click="accept(user)">
                             ACCEPT

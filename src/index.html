@@ -2,7 +2,7 @@
 <html ng-app="blogapp">
 
 <head ng-controller="TitleController">
-	<title ng-bind="page.title"></title>
+	<title ng-bind="pageService.title"></title>
 	<link rel="icon" href="favicon.ico" type="image/x-icon" />
 	<link href="assets/libs/css/angular-material.min.css" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -10,7 +10,7 @@
 	<link href="assets/styles.css" rel="stylesheet" />
 </head>
 
-<body layout="column" ng-controller="IndexController" ng-cloak>
+<body layout="column" ng-controller="IndexController as idxCtrl" ng-cloak>
 	<md-content layout="column">
 		<md-toolbar>
 			<div class="md-toolbar-tools">
@@ -23,7 +23,7 @@
 					</div>
 					<div layout="row" layout-align="start center" flex="25" ng-if="currentUser.isAuthenticated">
 						<div layout="row" layout-align="center end" flex="25">
-							<div ui-sref="users" class="icon material-icons mdl-badge" data-badge="1" style="cursor: pointer;" ng-if="currentUser.isActive">explore</div>
+							<div ui-sref="explore.users" class="icon material-icons mdl-badge" data-badge="1" style="cursor: pointer;" ng-if="currentUser.isActive">explore</div>
 						</div>
 						<div layout="row" layout-align="center end" flex="25" ng-if="currentUser.isAuthenticated && currentUser.isActive && currentUser.isPrivate">
 							<md-menu md-offset="0 35" md-position-mode="target-right target">
@@ -35,10 +35,10 @@
 									<md-content ng-if="requests.length > 0">
 										<div layout="row" layout-align="space-between center" ng-repeat="user in requests">
 											<div style="padding: 10px;">
-												<img ui-sref="usersfeed({username : user.username})" class="post-profile-image" ng-src="{{user.imageUri}}" alt="user.username">
+												<img ui-sref="userfeed({username : user.username})" class="post-profile-image" ng-src="{{user.imageUri}}" alt="user.username">
 											</div>
 											<div layout="row" layout-align="start center" flex>
-												<span ui-sref="usersfeed({username : user.username})" class="md-subtitle" style="font-weight: bold;cursor:pointer;">{{user.username}}</span>
+												<span ui-sref="userfeed({username : user.username})" class="md-subtitle" style="font-weight: bold;cursor:pointer;">{{user.username}}</span>
 											</div>
 											<div layout="row" layout-align="end center" style="width:110px;">
 												<md-button class="md-icon-button" style="border: 1px solid rgb(33, 150, 243);" ng-click="acceptRequest($index)">

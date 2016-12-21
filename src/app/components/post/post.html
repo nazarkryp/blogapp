@@ -8,10 +8,12 @@
     <md-card ng-if="!post.isCreating">
         <md-card-header>
             <md-card-avatar>
-                <img class="post-profile-image" ng-src="{{post.user.imageUri}}" />
+                <a ui-sref="userfeed({username: post.user.username})">
+                    <img class="post-profile-image" ng-src="{{post.user.imageUri}}" />
+                </a>
             </md-card-avatar>
             <md-card-header-text layout="row" layout-align="space-between center">
-                <a ui-sref="usersfeed({username: post.user.username})" class="md-title">{{post.user.username}}</a>
+                <a ui-sref="userfeed({username: post.user.username})" class="md-title">{{post.user.username}}</a>
                 <span class="md-subhead">{{post.created | difference}}</span>
             </md-card-header-text>
         </md-card-header>
@@ -22,14 +24,14 @@
                     <a class="md-body-2">{{post.likesCount}} likes</a>
                 </div>
                 <div ng-class="{'caption': isAuthenticated}">
-                    <a ui-sref="usersfeed({username: post.user.username})" class="md-body-2">{{post.user.username}}</a>
+                    <a ui-sref="userfeed({username: post.user.username})" class="md-body-2">{{post.user.username}}</a>
                     <span class="md-body-1" ng-bind-html="post.caption | content"></span>
                     <br/>
                     <a class="md-body-1" ng-if="post.commentsCount > 3 && post.commentsCount > post.comments.length">
                         <span class="show-comments-link" ng-click="viewMoreCommentsClick(post)">view all {{post.commentsCount}} comments</span>
                     </a>
                     <div ng-repeat="comment in post.comments">
-                        <a class="md-body-2" ui-sref="usersfeed({username: comment.from.username})">{{comment.from.username}}</a>
+                        <a class="md-body-2" ui-sref="userfeed({username: comment.from.username})">{{comment.from.username}}</a>
                         <span class="md-body-1" ng-bind-html="comment.text | content"></span>
                     </div>
                 </div>

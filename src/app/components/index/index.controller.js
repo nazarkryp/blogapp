@@ -12,12 +12,8 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
             isAuthenticated: AuthService.isAuthenticated
         };
 
-        $scope.page = {
-            title: null
-        };
-
         $scope.gotoProfile = function () {
-            $state.go('usersfeed', { username: AuthService.username });
+            $state.go('userfeed', { username: AuthService.username });
         };
 
         $scope.gotoSignInPage = function () {
@@ -36,13 +32,6 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
             originatorEv = ev;
             $mdOpenMenu(ev);
         };
-
-        $scope.$watch('pageService.title',
-            function (title) {
-                if (title) {
-                    $scope.page.title = title;
-                }
-            });
 
         $scope.$watch('authService.isAuthenticated',
             function (isAuthenticated) {
@@ -106,16 +95,12 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
             }
         };
 
-        $scope.requests = [];
-
         $scope.acceptRequest = function (index) {
             var request = $scope.requests[index];
 
             UserService.responseIncommingRequest(request.id, true).then(
                 function (response) {
                     $scope.requests.splice(index, 1);
-                }, function (error) {
-                    console.log(error);
                 });
         };
 
@@ -125,24 +110,19 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
             UserService.responseIncommingRequest(request.id, false).then(
                 function (response) {
                     $scope.requests.splice(index, 1);
-                }, function (error) {
-                    console.log(error);
                 });
         };
 
-        var getIncommingRequests = function () {
+        function getIncommingRequests() {
             if ($scope.currentUser.isPrivate) {
                 UserService.getIncommingRequests().then(
                     function (response) {
                         $scope.requests = response;
-                        console.log(response);
-                    }, function (error) {
-                        console.log(error);
                     });
             }
         };
 
-        var getAuthenticatedUser = function () {
+        function getAuthenticatedUser() {
             $scope.currentUser = {
                 userId: AuthService.userId,
                 username: AuthService.username,
@@ -153,9 +133,5 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
             };
         };
 
-        var init = function () {
-            getAuthenticatedUser();
-        };
-
-        init();
+        getAuthenticatedUser();
     }]);

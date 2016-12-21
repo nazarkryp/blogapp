@@ -32,7 +32,7 @@
                     <span class="show-comments-link" ng-click="viewMoreCommentsClick(post)">view all {{post.commentsCount}} comments</span>
                 </a>
                 <div ng-repeat="comment in post.comments">
-                    <a class="md-body-2" ui-sref="usersfeed({username: comment.from.username})">{{comment.from.username}}</a>
+                    <a class="md-body-2" ui-sref="userfeed({username: comment.from.username})">{{comment.from.username}}</a>
                     <span class="md-body-1">{{comment.text}}</span>
                 </div>
             </div>

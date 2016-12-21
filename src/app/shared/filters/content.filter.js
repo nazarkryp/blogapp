@@ -6,8 +6,6 @@ angular.module('blogapp').filter('content', ['$filter', '$sce',
             }
 
             if (text.includes('#')) {
-                // text = text.replace(/#(\S*)/g, '<a href="/#/explore/tags/$1" target="_blank">#$1</a>');
-
                 text = text.replace(/#(\w+)/g, "<a class='hashtag' href='/#/explore/tags/$1' target='_blank'>$&</a>");
             }
 
