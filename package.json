@@ -11,9 +11,11 @@
   "devDependencies": {
     "del": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-angular-order": "^1.0.1",
     "gulp-angular-templatecache": "^2.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-minify-html": "^1.0.6",
+    "gulp-uglify": "^2.0.0",
     "lodash": "^4.16.5"
   },
   "dependencies": {

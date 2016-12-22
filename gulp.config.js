@@ -4,6 +4,7 @@ module.exports = function () {
 
     var nodeModules = 'node_modules';
     var clientApp = './src/app/';
+    var clientAppAssets = './src/assets/';
 
     var config = {
         build: './build/',
@@ -16,7 +17,7 @@ module.exports = function () {
             }
         },
         htmltemplates: clientApp + '**/*.html',
-        jsfiles : clientApp + '**/*.js'
+        jsfiles : clientAppAssets + '**/*.js'
     };
 
     return config;
