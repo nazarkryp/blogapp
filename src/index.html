@@ -23,7 +23,7 @@
 					</div>
 					<div layout="row" layout-align="start center" flex="25" ng-if="currentUser.isAuthenticated">
 						<div layout="row" layout-align="center end" flex="25">
-							<div ui-sref="explore.users" class="icon material-icons mdl-badge" data-badge="1" style="cursor: pointer;" ng-if="currentUser.isActive">explore</div>
+							<div ui-sref="explore.people" class="icon material-icons mdl-badge" data-badge="1" style="cursor: pointer;" ng-if="currentUser.isActive">explore</div>
 						</div>
 						<div layout="row" layout-align="center end" flex="25" ng-if="currentUser.isAuthenticated && currentUser.isActive && currentUser.isPrivate">
 							<md-menu md-offset="0 35" md-position-mode="target-right target">
@@ -139,11 +139,16 @@
 	<script src="app/components/search/search.component.js"></script>
 	<script src="app/components/search/search.service.js"></script>
 	<script src="app/components/users/users.controller.js"></script>
-	<script src="app/components/users/users.service.js"></script>
 	<script src="app/components/errors/error.service.js"></script>
 	<script src="app/components/errors/error.controller.js"></script>
 	<script src="app/components/settings/settings.controller.js"></script>
 	<script src="app/components/settings/settings.service.js"></script>
+
+	<script src="app/components/explore/explore.controller.js"></script>
+	<script src="app/components/explore/people/explore-people.controller.js"></script>
+	<script src="app/components/explore/people/explore-people.service.js"></script>
+
+	<script src="app/components/explore/tags/explore-tags.controller.js"></script>
 
 	<script src="app/shared/directives/file-model.directive.js"></script>
 	<script src="app/shared/services/http.service.js"></script>

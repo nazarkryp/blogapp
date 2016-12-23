@@ -1,5 +1,5 @@
-angular.module('blogapp').controller('UsersController', ['$scope', '$state', '$stateParams', 'PeopleService', 'UserService', 'AuthService', 'PageService',
-    function ($scope, $state, $stateParams, PeopleService, UserService, AuthService, PageService) {
+angular.module('blogapp').controller('ExploreTagsController', ['$scope', '$state', '$stateParams', 'PostsService', 'AuthService', 'PageService',
+    function ($scope, $state, $stateParams, PostsService, UserService, AuthService, PageService) {
         $scope.currentUserId = AuthService.userId;
         $scope.group = {
             users: [],
@@ -9,20 +9,10 @@ angular.module('blogapp').controller('UsersController', ['$scope', '$state', '$s
         };
 
         $scope.loadMore = function () {
-            getUsers();
+            getPosts();
         };
 
-        $scope.invertRelationshipsWithUser = function (user) {
-            UserService.invertRelationshipsWithUser(user.id).then(
-                function (response) {
-                    user.relationships.outgoingStatus = response;
-                },
-                function (error) {
-                    console.log(error);
-                });
-        };
-
-        function getUsers() {
+        function getPosts() {
             PageService.isLoading = true;
 
             PeopleService.getUsers($scope.group.pageIndex + 1, $scope.group.pageSize).then(
@@ -39,8 +29,9 @@ angular.module('blogapp').controller('UsersController', ['$scope', '$state', '$s
         };
 
         var init = function () {
-            PageService.title = 'Photocloud - Discover People';
-            getUsers();
+            PageService.title = $stateParams.tag + ' • ' + ' Photocloud';
+
+            getPosts();
         };
 
         init();

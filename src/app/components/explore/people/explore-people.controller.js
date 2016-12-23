@@ -1,4 +1,4 @@
-angular.module('blogapp').controller('UsersController', ['$scope', '$state', '$stateParams', 'PeopleService', 'UserService', 'AuthService', 'PageService',
+angular.module('blogapp').controller('ExplorePeopleController', ['$scope', '$state', '$stateParams', 'PeopleService', 'UserService', 'AuthService', 'PageService',
     function ($scope, $state, $stateParams, PeopleService, UserService, AuthService, PageService) {
         $scope.currentUserId = AuthService.userId;
         $scope.group = {

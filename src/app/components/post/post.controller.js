@@ -10,7 +10,7 @@ angular.module('blogapp')
                 });
 
             $scope.like = function (post) {
-                if (post.UserHasLiked) {
+                if (post.userHasLiked) {
                     post.likesCount--;
                 } else {
                     post.likesCount++;

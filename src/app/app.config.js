@@ -25,15 +25,23 @@ angular.module('blogapp')
                     templateUrl: 'app/components/settings/settings.html',
                     controller: 'SettingsController'
                 })
-                .state('explore.users', {
-                    url: '/explore/people',
-                    templateUrl: 'app/components/users/users.html',
-                    controller: 'UsersController'
+                .state('explore', {
+                    abstract: true,
+                    url: '/explore',
+                    templateUrl: 'app/components/explore/explore.html',
+                    controller: 'ExploreController',
+                    controllerAs: 'vm'
+                })
+                .state('explore.people', {
+                    url: '/people',
+                    templateUrl: 'app/components/explore/people/explore.people.html',
+                    controller: 'ExplorePeopleController'
                 })
                 .state('explore.tags', {
-                    url: '/explore/tags/:tag',
-                    templateUrl: 'app/components/users/users.html',
-                    controller: 'UsersController'
+                    url: '/tags/:tag',
+                    templateUrl: 'app/components/explore/tags/explore.tags.html',
+                    controller: 'ExploreTagsController',
+                    controllerAs: 'vm'
                 })
                 .state('userfeed', {
                     url: '/:username',
