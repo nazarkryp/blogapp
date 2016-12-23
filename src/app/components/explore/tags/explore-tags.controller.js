@@ -1,35 +1,36 @@
-angular.module('blogapp').controller('ExploreTagsController', ['$scope', '$state', '$stateParams', 'PostsService', 'AuthService', 'PageService',
-    function ($scope, $state, $stateParams, PostsService, UserService, AuthService, PageService) {
-        $scope.currentUserId = AuthService.userId;
-        $scope.group = {
-            users: [],
+angular.module('blogapp').controller('ExploreTagsController', ['$state', '$stateParams', 'PostsService', 'AuthService', 'PageService',
+    function ($state, $stateParams, PostsService, AuthService, PageService) {
+        var self = this;
+        self.currentUserId = AuthService.userId;
+        self.feed = {
+            items: [],
             hasMoreItems: false,
             pageIndex: 0,
-            pageSize: 5
+            pageSize: 12,
+            totalCount : 0
         };
 
-        $scope.loadMore = function () {
+        self.loadMore = function () {
             getPosts();
         };
 
         function getPosts() {
             PageService.isLoading = true;
 
-            PeopleService.getUsers($scope.group.pageIndex + 1, $scope.group.pageSize).then(
+            PostsService.getPostsByTag(self.tag, self.feed.pageIndex + 1, self.feed.pageSize).then(
+            //PostsService.getUsersFeed('lanafeshchuk', self.feed.pageIndex + 1, self.feed.pageSize).then(
                 function (response) {
-                    $scope.group.users = $scope.group.users.concat(response.items);
-                    $scope.group.pageIndex = response.pageIndex;
-                    $scope.group.hasMoreItems = response.hasMoreItems;
                     PageService.isLoading = false;
+
+                    self.feed = response;
                 }, function (error) {
-                    console.log(error);
                     PageService.isLoading = false;
-                }
-            );
+                });
         };
 
         var init = function () {
             PageService.title = $stateParams.tag + ' • ' + ' Photocloud';
+            self.tag = $stateParams.tag;
 
             getPosts();
         };

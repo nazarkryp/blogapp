@@ -25,7 +25,7 @@
                 </div>
             </div>
             <md-grid-list md-cols-gt-md="3" md-row-height-gt-md="1:1" layout-align="center center">
-                <md-grid-tile class="user-post" ng-repeat="post in feed.posts" ng-mouseenter="showDetails(post)" ng-mouseleave="hideDetails(post)"
+                <md-grid-tile class="user-post" ng-repeat="post in feed.items" ng-mouseenter="showDetails(post)" ng-mouseleave="hideDetails(post)"
                     ng-click="showPostDetailsDialog($event, post)" style="width: 300px; height: 300px;">
                     <div class="post-thumbnail-container" layout="row" layout-align="center stretch" ng-if="post.showDetails">
                         <div class="post-labels" layout="row" layout-align="center center" style="margin-right: 30px;">

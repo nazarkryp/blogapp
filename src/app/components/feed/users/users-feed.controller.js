@@ -4,7 +4,7 @@ angular.module('blogapp')
             $scope.feed = {
                 pageIndex: 0,
                 pageSize: 12,
-                posts: [],
+                items: [],
                 hasMoreItems: false
             };
 
@@ -47,8 +47,8 @@ angular.module('blogapp')
 
                 PostsService.getUsersFeed($stateParams.username, $scope.feed.pageIndex + 1, $scope.feed.pageSize).then(
                     function (response) {
-                        if (response.posts) {
-                            $scope.feed.posts = $scope.feed.posts.concat(response.posts);
+                        if (response.items) {
+                            $scope.feed.items = $scope.feed.items.concat(response.items);
                         }
 
                         $scope.feed.hasMoreItems = response.hasMoreItems;

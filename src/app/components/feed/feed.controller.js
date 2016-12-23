@@ -12,7 +12,7 @@ angular.module('blogapp')
             $scope.feed = {
                 pageIndex: 0,
                 pageSize: 12,
-                posts: [],
+                items: [],
                 hasMoreItems: false
             };
 
@@ -27,12 +27,12 @@ angular.module('blogapp')
                 });
 
             $scope.removePost = function (index) {
-                var post = $scope.feed.posts[index];
+                var post = $scope.feed.items[index];
 
                 if (post.id) {
                     PostsService.remove(post.id).then(
                         function (response) {
-                            $scope.feed.posts.splice(index, 1);
+                            $scope.feed.items.splice(index, 1);
                         },
                         function (error) {
                             console.log(error);
@@ -71,7 +71,7 @@ angular.module('blogapp')
                     mapPost(post, response);
                     post.isCreating = false;
 
-                    if ($scope.feed.posts.length === 0) {
+                    if ($scope.feed.items.length === 0) {
                         $scope.infoMessage = 'Nobody has posted anything yet';
                     } else {
                         $scope.infoMessage = '';
@@ -83,12 +83,12 @@ angular.module('blogapp')
 
             var addNewPost = function (post) {
                 if (!$stateParams.username) {
-                    $scope.feed.posts.unshift(post);
+                    $scope.feed.items.unshift(post);
                 } else if ($stateParams.username === AuthService.username) {
-                    $scope.feed.posts.unshift(post);
+                    $scope.feed.items.unshift(post);
                 }
 
-                if ($scope.feed.posts.length === 0) {
+                if ($scope.feed.items.length === 0) {
                     $scope.infoMessage = 'Nobody has posted anything yet';
                 } else {
                     $scope.infoMessage = '';
@@ -132,8 +132,8 @@ angular.module('blogapp')
 
                 getFeedPromise().then(
                     function (response) {
-                        if (response.posts) {
-                            $scope.feed.posts = $scope.feed.posts.concat(response.posts);
+                        if (response.items) {
+                            $scope.feed.items = $scope.feed.items.concat(response.items);
                         }
 
                         $scope.feed.hasMoreItems = response.hasMoreItems;
@@ -163,7 +163,7 @@ angular.module('blogapp')
             };
 
             function generateInfoMessage() {
-                if ($scope.feed.posts.length === 0) {
+                if ($scope.feed.items.length === 0) {
                     $scope.infoMessage = 'Nobody has posted anything yet';
                 } else {
                     $scope.infoMessage = '';

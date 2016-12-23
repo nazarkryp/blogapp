@@ -1,20 +1,32 @@
-<div ng-repeat="user in group.users" layout="row" style="height: 100px;padding-bottom: 10px;">
-    <img class="post-profile-thumbnail" ng-src="{{user.imageUri}}" alt="user" ui-sref="userfeed({username : user.username})">
-    <div layout="column" layout-align="space-between stretch" flex style="padding-left: 25px;">
-        <div layout="row" layout-align="space-between start">
-            <div layout="column" layout-align="start start">
-                <span class="md-subhead" style="font-weight: bold;cursor:pointer;" ui-sref="userfeed({username : user.username})">{{user.username}}</span>
-                <span class="md-subhead" style="font-weight: lighter;color: #9E9E9E;">Lorem ipsum dolor sit amet consectetur adipiscing elit</span>
-                <a class="md-subhead" ui-sref="userfeed({username : user.username})" style="font-weight: lighter;font-size:14px;color:#64B5F6;">View posts</a>
+<div layout="column" layout-align="center center" style="padding:50px 0px 50px 0px;">
+    <div layout="column" style="width:1500px;">
+        <div layout="column" layout-align="center center">
+            <span class="md-display-1">#{{vm.tag}}</span>
+            <div layout="row" layout-align="center center">
+                <span class="md-title">{{vm.feed.totalCount}}</span>
+                <span class="md-subhead" style="margin-left: 5px;">posts total</span>
             </div>
-            <md-button class="button-bordered" ng-class="{'green' : user.relationships.outgoingStatus === 'Followed', 'orange' : user.relationships.outgoingStatus === 'Requested'}"
-                ng-click="invertRelationshipsWithUser(user)" ng-if="currentUserId != user.id">
-                {{user.relationships.outgoingStatus | relationshipButton}}
-            </md-button>
         </div>
-        <md-divider ng-if="!$last"></md-divider>
+        <div layout="row" style="margin-top:50px;">
+            <div layout="row" layout-align="center start" layout-wrap>
+                <md-card layout="column" ng-repeat="post in vm.feed.items" style="width: 400px;margin: 0px 25px 50px 25px;">
+                    <img ng-src="{{post.attachment.url}}" alt="post.user.username" style="width: 400px;">
+                    <div layout="column" style="padding: 25px;">
+                        <span class="md-headline">@{{post.user.username}}</span>
+                        <span class="md-headline" ng-bind-html="post.caption | content"></span>
+                        <md-divider style="margin-top: 15px;"></md-divider>
+                        <div layout="row" layout-align="start start" style="margin-top: 25px;padding-right:25px;">
+                            <md-icon>favorite</md-icon>
+                            <span>{{post.likesCount}} people liked</span>
+                            <md-icon>chat_bubble</md-icon>
+                            <span>{{post.commentsCount}} comments</span>
+                        </div>
+                    </div>
+                </md-card>
+            </div>
+        </div>
+        <div layout="column" layout-align="center center" style="padding-top: 25px;" ng-if="feed.hasMoreItems">
+            <md-button ng-click="loadMore()">LOAD MORE</md-button>
+        </div>
     </div>
-</div>
-<div layout="column" layout-align="center center" style="padding-top: 25px;" ng-if="group.hasMoreItems">
-    <md-button ng-click="loadMore()">LOAD MORE</md-button>
 </div>

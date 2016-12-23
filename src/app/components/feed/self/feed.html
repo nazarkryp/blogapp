@@ -4,7 +4,7 @@
 
 <div class="md-padding" layout="row" layout-align="center center">
 	<div flex="45" ng-if="!isLoading" style="max-width: 650px;">
-		<div ng-repeat="post in feed.posts">
+		<div ng-repeat="post in feed.items">
 			<post post="post"></post>
 		</div>
 		<div layout="column" layout-align="center center" ng-if="feed.hasMoreItems">

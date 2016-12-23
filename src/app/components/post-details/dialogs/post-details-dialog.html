@@ -16,7 +16,7 @@
                 </div>
                 <div layout="row" layout-align="space-between center" style="min-height: 50px;" ng-if="post.caption">
                     <p>
-                        <strong>{{post.user.username}}</strong> {{post.caption}}
+                        <strong>{{post.user.username}}</strong> <span ng-bind-html="post.caption | content"></span>
                     </p>
                 </div>
                 <div flex>
