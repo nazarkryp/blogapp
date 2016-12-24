@@ -5,9 +5,9 @@
     <div class="md-padding" layout="column" layout-align="stretch stretch" flex>
         <div layout="row" layout-align="space-between center">
             <span class="md-display-1" style="font-weight: lighter;">{{user.username}}</span>
-            <md-button class="button-bordered" ng-class="{'green' : user.relationshipStatus === 'Followed', 'orange' : user.relationships.outgoingStatus === 'Requested'}" ng-click="invertRelationshipsWithUser()" ng-if="currentUserName && user.username && currentUserName != user.username && !isLoading">{{user.relationshipStatus | relationshipButton}}</md-button>
+            <md-button class="button-bordered" ng-class="{'green' : user.relationshipStatus === 'Followed', 'orange' : user.relationships.outgoingStatus === 'Requested'}" ng-click="invertRelationshipsWithUser()" ng-if="user.isActive && currentUserName && user.username && currentUserName != user.username && !isLoading">{{user.relationshipStatus | relationshipButton}}</md-button>
         </div>
-        <div class="counters" layout="row" layout-align="start center">
+        <div class="counters" layout="row" layout-align="start center" ng-if="user.isActive">
             <div flex="20">
                 <span class="md-title">{{user.counters.posts}} </span>
                 <span class="md-subhead">posts </span>

@@ -25,7 +25,7 @@
                     </a>
                     <div ng-repeat="comment in post.comments">
                         <a class="md-body-2" ui-sref="userfeed({username: comment.from.username})">{{comment.from.username}}</a>
-                        <span class="md-body-1">{{comment.text}}</span>
+                        <span class="md-body-1" ng-bind-html="comment.text | content"></span>
                     </div>
                 </div>
                 <md-divider></md-divider>

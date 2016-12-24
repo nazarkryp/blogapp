@@ -5,7 +5,7 @@ angular.module('blogapp').controller('ExplorePeopleController', ['$scope', '$sta
             users: [],
             hasMoreItems: false,
             pageIndex: 0,
-            pageSize: 5
+            pageSize: 10
         };
 
         $scope.loadMore = function () {
