@@ -43,6 +43,12 @@ angular.module('blogapp')
                     controller: 'ExploreTagsController',
                     controllerAs: 'vm'
                 })
+                .state('fullscreen', {
+                    url: '/image/:url',
+                    templateUrl: 'app/components/fullscreen/fullscreen.html',
+                    controller: 'FullScreenController',
+                    controllerAs: 'vm'
+                })
                 .state('userfeed', {
                     url: '/:username',
                     templateUrl: 'app/components/feed/users/feed.html',
