@@ -1,78 +1,56 @@
-<div class="md-padding">
-    <md-card ng-if="vm.post.isCreating">
-        <div layout="row" layout-align="center center">
-            <img ng-src="{{vm.post.attachment.url}}" class="md-card-image" alt="Post" style="filter: blur(5px);">
-            <md-progress-circular class="md-warn" md-mode="indeterminate" style="position: absolute;" md-diameter="50"></md-progress-circular>
+<div class="post">
+    <div class="post-header" layout="row" layout-align="start center">
+        <img class="avatar" ng-src="{{vm.post.user.imageUri}}" alt="avatar">
+        <div class="details" layout="row" layout-align="space-between center" flex>
+            <a class="name" ui-sref="userfeed({username: vm.post.user.username})">{{vm.post.user.username}}</a>
+            <span class="date">{{vm.post.created | difference}}</span>
         </div>
-    </md-card>
-    <md-card ng-if="!vm.post.isCreating">
-        <md-card-header>
-            <md-card-avatar>
-                <a ui-sref="userfeed({username: vm.post.user.username})">
-                    <img class="post-profile-image" ng-src="{{vm.post.user.imageUri}}" />
-                </a>
-            </md-card-avatar>
-            <md-card-header-text layout="row" layout-align="space-between center">
-                <a ui-sref="userfeed({username: vm.post.user.username})" class="md-title">{{vm.post.user.username}}</a>
-                <span class="md-subhead">{{vm.post.created | difference}}</span>
-            </md-card-header-text>
-        </md-card-header>
-        <img ng-src="{{vm.post.attachment.url}}" class="md-card-image" alt="post.attachment.url">
-        <md-card-content>
-            <div layout="column" flex>
-                <div class="likes">
-                    <a class="md-body-2">{{vm.post.likesCount}} likes</a>
-                </div>
-                <div ng-class="{'caption': isAuthenticated}">
-                    <a ui-sref="userfeed({username: vm.post.user.username})" class="md-body-2">{{vm.post.user.username}}</a>
-                    <span class="md-body-1" ng-bind-html="vm.post.caption | content"></span>
-                    <br/>
-                    <a class="md-body-1" ng-if="vm.post.commentsCount > 3 && post.commentsCount > post.comments.length">
-                        <span class="show-comments-link" ng-click="viewMoreCommentsClick(vm.post)">view all {{vm.post.commentsCount}} comments</span>
-                    </a>
-                    <div ng-repeat="comment in vm.post.comments">
-                        <a class="md-body-2" ui-sref="userfeed({username: comment.from.username})">{{comment.from.username}}</a>
-                        <span class="md-body-1" ng-bind-html="comment.text | content"></span>
-                    </div>
-                </div>
-            </div>
-            <div ng-if="isAuthenticated" style="height: 50px; padding: 0px 0px 10px 0px;">
-                <div layout="row" layout-align="center stretch">
-                    <div layout="row" layout-align="start start" style="padding-top: 15px;">
-                        <md-button aria-label="Like" class="md-icon-button" ng-click="like(vm.post)">
-                            <md-icon ng-class="{'liked': vm.post.userHasLiked}" style="font-size: 30px;">favorite</md-icon>
-                        </md-button>
-                    </div>
-                    <div style="padding: 20px 0px 0px 10px;" flex>
-                        <md-input-container class="md-block" md-no-float>
-                            <input type="text" placeholder="Add comment" class="comment-box" ng-model="newComment.text" ng-keydown="postComment(newComment, vm.post, $event)"
-                            />
-                        </md-input-container>
-                    </div>
-                    <div layout="row" layout-align="end center" style="padding-bottom: 5px;">
-                        <md-menu>
-                            <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
-                                <md-icon style="font-size: 30px;">more_horiz</md-icon>
+    </div>
+    <div class="post-content">
+        <img ng-src="{{vm.post.attachment.url}}" alt="post-image">
+    </div>
+    <div class="post-footer">
+        <div class="post-likes">
+            <a class="md-body-2">{{vm.post.likesCount}} likes</a>
+        </div>
+        <post-caption post="vm.post" ng-if="vm.post.caption"></post-caption>
+        <comments post="vm.post" ng-if="vm.post.commentsCount > 0"></comments>
+        <md-divider class="divider-padding"></md-divider>
+        <div layout="row" layout-align="space-between center">
+            <md-button class="md-icon-button" ng-click="vm.like(vm.post)">
+                <md-icon ng-class="{'liked': vm.post.userHasLiked}">favorite</md-icon>
+            </md-button>
+            <md-input-container class="md-block comment-input-container " md-no-float flex>
+                <input class="comment-box" type="text" placeholder="Add a comment" ng-model="vm.newComment.text" ng-keydown="vm.postComment(vm.newComment, vm.post, $event)"/>
+            </md-input-container>
+            <div>
+                <md-menu>
+                    <md-button class="md-icon-button" aria-label="Open phone interactions menu" ng-click="vm.openMenu($mdMenu.open, $event)">
+                        <md-icon>more_horiz</md-icon>
+                    </md-button>
+                    <md-menu-content width="4">
+                        <md-menu-item>
+                            <md-button>
+                                <md-icon>file_download</md-icon>
+                                Download
                             </md-button>
-                            <md-menu-content width="4">
-                                <md-menu-item>
-                                    <md-button>
-                                        <md-icon>file_download</md-icon>
-                                        Download
-                                    </md-button>
-                                </md-menu-item>
-                                <md-menu-divider></md-menu-divider>
-                                <md-menu-item>
-                                    <md-button ui-sref="fullscreen({url : vm.post.attachment.url})" target="_blank">
-                                        <md-icon>star_rate</md-icon>
-                                        Open full size
-                                    </md-button>
-                                </md-menu-item>
-                            </md-menu-content>
-                        </md-menu>
-                    </div>
-                </div>
+                        </md-menu-item>
+                        <md-menu-item ng-click="vm.removeCallback()" ng-if="vm.post.user.id == vm.authService.userId">
+                            <md-button>
+                                <md-icon>clear</md-icon>
+                                Delete
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-divider></md-menu-divider>
+                        <md-menu-item>
+                            <md-button ui-sref="fullscreen({url : vm.post.attachment.url})" target="_blank">
+                                <md-icon>star_rate</md-icon>
+                                Open full size
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
             </div>
-        </md-card-content>
-    </md-card>
+        </div>
+    </div>
 </div>

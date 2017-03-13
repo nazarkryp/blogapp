@@ -1,6 +1,6 @@
 angular.module('blogapp')
-    .controller('PostDetailsDialogController', ['$scope', 'PostsService', 'AuthService', 'post',
-        function ($scope, PostsService, AuthService, post) {
+    .controller('PostDetailsDialogController', ['$scope', 'postsService', 'AuthService', 'post',
+        function ($scope, postsService, AuthService, post) {
             $scope.post = post;
             $scope.isAuthenticated = AuthService.isAuthenticated;
             $scope.currentuserId = AuthService.userId;
@@ -9,7 +9,7 @@ angular.module('blogapp')
             $scope.maxWidth = window.innerWidth - 350 - 300;
 
             $scope.viewMoreCommentsClick = function (post) {
-                PostsService.getComments(post.id).then(
+                postsService.getComments(post.id).then(
                     function (response) {
                         post.comments = response;
                     }, function (error) {
@@ -27,7 +27,7 @@ angular.module('blogapp')
 
                 post.userHasLiked = !post.userHasLiked;
 
-                PostsService.like(post.id).then(
+                postsService.like(post.id).then(
                     function (response) {
                         post.likesCount = response.likesCount;
                         post.userHasLiked = response.userHasLiked;
@@ -55,7 +55,7 @@ angular.module('blogapp')
                         post.comments.push(comment);
                         post.commentsCount++;
 
-                        PostsService.postComment(comment, post.id).then(
+                        postsService.postComment(comment, post.id).then(
                             function (response) {
                                 mapComment(comment, response);
                             },

@@ -3,6 +3,7 @@ angular.module('blogapp').component('post', {
     controller: 'PostController',
     controllerAs: 'vm',
     bindings: {
-        post: '='
+        post: '=',
+        removeCallback: '&'
     }
 });

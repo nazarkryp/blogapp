@@ -1,8 +1,8 @@
-angular.module('blogapp').service('PeopleService', ['$q', 'HttpService', 'ConstService', function ($q, HttpService, ConstService) {
+angular.module('blogapp').service('PeopleService', ['$q', 'httpService', 'constService', function ($q, httpService, constService) {
     this.getUsers = function (pageIndex, pageSize) {
         var deferred = $q.defer();
 
-        HttpService.get(ConstService.baseAddress + 'api/users/people?pageIndex=' + pageIndex + '&pageSize=' + pageSize, deferred);
+        httpService.get(constService.baseAddress + 'api/users/people?pageIndex=' + pageIndex + '&pageSize=' + pageSize, deferred);
 
         return deferred.promise;
     };

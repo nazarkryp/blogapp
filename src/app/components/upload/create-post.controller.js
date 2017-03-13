@@ -1,94 +1,103 @@
-angular.module('blogapp')
-    .controller('CreatePostController', ['$scope', '$mdDialog', 'UploadService', 'PostsService',
-        function($scope, $mdDialog, UploadService, PostsService) {
-            $scope.isUploading = false;
+(function () {
+    'use strict';
 
-            $scope.post = {
-            };
+    angular.module('blogapp')
+        .controller('CreatePostController', CreatePostController);
 
-            $scope.browsed = {
-                file: null
-            };
+    CreatePostController.$inject = ['$scope', '$mdDialog', 'UploadService', 'postsService'];
 
-            $scope.attachment = {
-            };
+    function CreatePostController($scope, $mdDialog, UploadService, postsService) {
+        $scope.isUploading = false;
 
-            $scope.external = {
-            };
+        $scope.post = {
+        };
 
-            $scope.preview = {
-            };
+        $scope.browsed = {
+            file: null
+        };
 
-            $scope.isExternal = false;
+        $scope.attachment = {
+        };
 
-            $scope.previewUrl = function() {
-                if ($scope.attachment && $scope.attachment.url) {
-                    return $scope.attachment.url;
-                } else if ($scope.external && $scope.external.url) {
-                    return $scope.external.url;
-                }
-            };
+        $scope.external = {
+        };
 
-            $scope.browse = function() {
-                uploadInput.click();
-            };
+        $scope.preview = {
+        };
 
-            $scope.$watch('external.url', function(url) {
-                if (url) {
-                    $scope.browsed.file = null;
-                    $scope.preview.url = url;
-                    $scope.isExternal = true;
-                    $scope.attachment = null;
-                }
-            });
+        $scope.isExternal = false;
 
-            $scope.$watch("browsed.file", function(file) {
-                if (file) {
-                    uploadImage(file);
-                }
-            });
+        $scope.previewUrl = function () {
+            if ($scope.attachment && $scope.attachment.url) {
+                return $scope.attachment.url;
+            } else if ($scope.external && $scope.external.url) {
+                return $scope.external.url;
+            }
+        };
 
-            var uploadImage = function(file) {
-                $scope.isUploading = true;
+        $scope.browse = function () {
+            uploadInput.click();
+        };
 
-                if (file) {
-                    UploadService.uploadFile(file)
-                        .then(function(response) {
-                            $scope.isUploading = false;
-                            $scope.attachment = response;
-                            $scope.preview.url = $scope.attachment.url;
-                            $scope.external.url = null;
-                            $scope.browsed.file = null;
-                            $scope.isExternal = false;
-                        },
-                        function(error) {
-                            console.log('ERROR: ' + error);
-                            $scope.isUploading = false;
-                            $scope.browsed.file = null;
-                            $scope.attachment = null;
-                        },
-                        function(notify) {
-                            console.log('Notify: ' + notify);
-                        });
-                }
-            };
+        $scope.$watch('external.url', function (url) {
+            if (url) {
+                $scope.browsed.file = null;
+                $scope.preview.url = url;
+                $scope.isExternal = true;
+                $scope.attachment = null;
+            }
+        });
 
-            $scope.createPost = function(post) {
-                if (!$scope.isExternal) {
-                    post.attachment = $scope.attachment;
-                    post.isExternal = false;
-                } else {
-                    post.Attachment = {
-                        url: $scope.external.url
-                    };
+        $scope.$watch("browsed.file", function (file) {
+            if (file) {
+                uploadImage(file);
+            }
+        });
 
-                    post.isExternal = true;
-                }
+        var uploadImage = function (file) {
+            $scope.isUploading = true;
 
-                $mdDialog.hide(post);
-            };
+            if (file) {
+                UploadService.uploadFile(file)
+                    .then(function (response) {
+                        $scope.isUploading = false;
+                        $scope.attachment = response;
+                        $scope.preview.url = $scope.attachment.url;
+                        $scope.external.url = null;
+                        $scope.browsed.file = null;
+                        $scope.isExternal = false;
+                    },
+                    function (error) {
+                        console.log('ERROR: ' + error);
+                        $scope.isUploading = false;
+                        $scope.browsed.file = null;
+                        $scope.attachment = null;
+                    },
+                    function (notify) {
+                        console.log('Notify: ' + notify);
+                    });
+            }
+        };
 
-            $scope.cancel = function() {
-                $mdDialog.cancel();
-            };
-        }]);
+        $scope.createPost = function (post) {
+            if (!$scope.isExternal) {
+                post.attachment = $scope.attachment;
+                post.isExternal = false;
+            } else {
+                post.Attachment = {
+                    url: $scope.external.url
+                };
+
+                post.isExternal = true;
+            }
+
+            $mdDialog.hide(post);
+        };
+
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+    }
+
+
+})();

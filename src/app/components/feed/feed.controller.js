@@ -1,6 +1,6 @@
 angular.module('blogapp')
-    .controller('FeedController', ['$scope', '$state', '$stateParams', '$mdDialog', '$window', '$timeout', 'PostsService', 'AuthService', 'PageService',
-        function ($scope, $state, $stateParams, $mdDialog, $window, $timeout, PostsService, AuthService, PageService) {
+    .controller('FeedController', ['$scope', '$state', '$stateParams', '$mdDialog', '$window', '$timeout', 'postsService', 'AuthService', 'PageService',
+        function ($scope, $state, $stateParams, $mdDialog, $window, $timeout, postsService, AuthService, PageService) {
             $scope.authService = AuthService;
             $scope.isAuthenticated = false;
             $scope.isLoadingMorePosts = false;
@@ -30,7 +30,7 @@ angular.module('blogapp')
                 var post = $scope.feed.items[index];
 
                 if (post.id) {
-                    PostsService.remove(post.id).then(
+                    postsService.remove(post.id).then(
                         function (response) {
                             $scope.feed.items.splice(index, 1);
                         },
@@ -62,9 +62,9 @@ angular.module('blogapp')
                 var promise = null;
 
                 if (!post.isExternal) {
-                    promise = PostsService.createPost(post);
+                    promise = postsService.createPost(post);
                 } else {
-                    promise = PostsService.createPostFromExternal(post);
+                    promise = postsService.createPostFromExternal(post);
                 }
 
                 promise.then(function (response) {
@@ -119,11 +119,11 @@ angular.module('blogapp')
                 if (!$stateParams.username) {
                     PageService.title = 'Photocloud';
 
-                    return PostsService.getFeed($scope.feed.pageIndex + 1, $scope.feed.pageSize);
+                    return postsService.getFeed($scope.feed.pageIndex + 1, $scope.feed.pageSize);
                 } else {
                     PageService.title = 'Photocloud - ' + $stateParams.username;
 
-                    return PostsService.getUsersFeed($stateParams.username, $scope.feed.pageIndex + 1, $scope.feed.pageSize);
+                    return postsService.getUsersFeed($stateParams.username, $scope.feed.pageIndex + 1, $scope.feed.pageSize);
                 }
             };
 
@@ -147,12 +147,20 @@ angular.module('blogapp')
                     function (errorResponse) {
                         PageService.isLoading = false;
                         $scope.isLoadingMorePosts = false;
-                        
+
                         $scope.errorMessage = errorResponse.error.message;
                     });
             };
 
-            var init = function () {
+            function generateInfoMessage() {
+                if ($scope.feed.items.length === 0) {
+                    $scope.infoMessage = 'Nobody has posted anything yet';
+                } else {
+                    $scope.infoMessage = '';
+                }
+            };
+
+            var onInit = function () {
                 PageService.isLoading = true;
 
                 if ($stateParams.username) {
@@ -162,13 +170,5 @@ angular.module('blogapp')
                 getFeed();
             };
 
-            function generateInfoMessage() {
-                if ($scope.feed.items.length === 0) {
-                    $scope.infoMessage = 'Nobody has posted anything yet';
-                } else {
-                    $scope.infoMessage = '';
-                }
-            }
-
-            init();
+            onInit();
         }]);

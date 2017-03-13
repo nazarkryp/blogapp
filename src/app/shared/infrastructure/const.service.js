@@ -5,6 +5,6 @@ angular.module('blogapp')
         Following: 'Following',
         NotFollowing: 'Follow'
     })
-    .service("ConstService", ["BASE_ADDRESS", function (BASE_ADDRESS) {
+    .service("constService", ["BASE_ADDRESS", function (BASE_ADDRESS) {
         this.baseAddress = BASE_ADDRESS;
     }]);

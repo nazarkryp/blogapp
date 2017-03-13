@@ -1,0 +1,4 @@
+<div class="caption" ng-if="vm.post.caption">
+    <a class="md-body-2" ui-sref="userfeed({username: vm.post.user.username})">{{vm.post.user.username}}</a>
+    <span class="md-body-1" ng-bind-html="vm.post.caption | content"></span>
+</div>

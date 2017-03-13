@@ -1,5 +1,9 @@
 md-content {
-  height: calc(100vh);
+    height: calc(100vh);
+}
+
+body {
+    background: white;
 }
 
 md-fab-speed-dial.md-fab-bottom-right {
@@ -24,7 +28,6 @@ a:link {
     color: black;
     /*font-weight: lighter;*/
 }
-
 
 a:visited {
     text-decoration: none;
@@ -62,9 +65,39 @@ a:hover {
     min-height: 75px;
 }
 
+.comment-input-container {
+    padding: 20px 0px 0px 10px;
+}
+
 .comment-box.md-input {
-    border-style: none;    
+    border-style: none;
     font-weight: lighter;
+}
+
+.caption {
+    padding: 0px 10px 5px 10px;
+}
+
+.comments {
+    padding: 5px 10px 10px 10px;
+}
+
+.link-button {
+    color: #999;
+    padding-bottom: 10px;
+}
+
+.comment {
+    margin-bottom: 10px;
+}
+
+.comment-from {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.comment-text {
+    font-size: 14px;
 }
 
 .search-box.md-input {
@@ -91,21 +124,12 @@ a:hover {
     font-weight: lighter;
 }
 
-.likes {
-    height: 35px;
-}
-
-.caption {
-    min-height: 35px;
-    padding: 0px 0px 10px 0px;
-    border-bottom: 1px solid #efefef;
-}
-
 .liked {
     color: red;
 }
 
 .show-comments-link {
+    padding: 10px;
     color: #999;
 }
 
@@ -113,8 +137,61 @@ a:hover {
     height: 275px;
 }
 
+.posts {
+    margin-top: 25px;
+}
+
 .post {
-    margin-bottom: 50px;
+    margin: 16px 25px 50px 25px;
+    border: 1px solid #efefef;
+    background-color: white;
+}
+
+.post-header {
+    height: 75px;
+    padding: 10px;
+}
+
+.post-comments {
+    padding: 10px;
+}
+
+.post-header>.avatar {
+    height: 45px;
+    width: 45px;
+    border-radius: 90px 90px 90px 90px;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.post-header>.details {
+    padding-left: 10px;
+}
+
+.post-header>.details>.name {
+    font-size: 15px;
+}
+
+.post-header>.details>.date {
+    font-weight: lighter;
+    font-size: 14px;
+}
+
+.post-content {
+    width: 100%;
+}
+
+.post-content img {
+    width: 100%;
+    height: 100%;
+}
+
+.post-footer {
+    padding: 0px 10px 0px 10px;
+}
+
+.divider-padding {
+    margin: 5px 10px 0px 10px;
 }
 
 .post-box {
@@ -177,7 +254,7 @@ a:hover {
 
 .navbar-image {
     height: 35px;
-    width:35px;
+    width: 35px;
     border-radius: 90px 90px 90px 90px;
     object-fit: cover;
     overflow: hidden;
@@ -189,7 +266,7 @@ a:hover {
 
 .post-profile-image {
     height: 40px;
-    width:40px;
+    width: 40px;
     border-radius: 90px 90px 90px 90px;
     object-fit: cover;
     overflow: hidden;
@@ -221,6 +298,11 @@ a:hover {
     z-index: 1;
 }
 
+.post-likes {
+    height: 35px;
+    padding: 15px 10px 0px 10px;
+}
+
 .post-labels {
     z-index: 2;
     color: white;
@@ -248,21 +330,33 @@ a:hover {
     padding-bottom: 25px;
 }
 
-.authentication-form-content {
-    
-}
+.authentication-form-content {}
 
 .authentication-error {
-    width:500px;
-    padding:0px 10px 0px 10px;
+    width: 500px;
+    padding: 0px 10px 0px 10px;
     margin: 0px 0px 25px 0px;
-    background-color:#f44336;
+    background-color: #f44336;
     /*border:1px solid #efefef;*/
     color: white;
 }
 
 .authentication-form-actions {
     height: 75px;
+}
+
+md-autocomplete-wrap {
+    border: 1px solid #efefef;
+    border-radius: 2px;
+    box-shadow: none !important;
+    background-color: rgb(250, 250, 250);
+}
+
+md-virtual-repeat-container.md-autocomplete-suggestions-container {
+    border-style: solid;
+    border-color: #efefef;
+    border-width: 0px 1px 1px 1px;
+    box-shadow: none !important;
 }
 
 .button-bordered {
@@ -277,12 +371,12 @@ a:hover {
 
 .button-bordered:hover {
     border: 1px solid #4CAF50;
-    color: #4CAF50; 
+    color: #4CAF50;
 }
 
 .button-bordered.green {
     border: 1px solid #43A047;
-    color: #43A047;   
+    color: #43A047;
 }
 
 .button-bordered.orange {
@@ -292,7 +386,7 @@ a:hover {
 
 .button-bordered.green:hover {
     border: 1px solid red;
-    color: red;   
+    color: red;
 }
 
 .button-like {
@@ -302,11 +396,11 @@ a:hover {
 }
 
 .vertical-divider {
-  border-right: 3px;
-  border-right-style: solid;
-  height: 50%;
-  margin-left:10px;
-  margin-right: 5px; 
+    border-right: 3px;
+    border-right-style: solid;
+    height: 50%;
+    margin-left: 10px;
+    margin-right: 5px;
 }
 
 .feed-info-message {
@@ -315,10 +409,11 @@ a:hover {
     /*color: #505050;*/
 }
 
-.feed-content{
-    width:1000px;
-    padding-bottom:50px;
+.feed-content {
+    width: 1000px;
+    padding-bottom: 50px;
 }
+
 
 /*.md-whiteframe-z1 {
     border: none;
@@ -329,26 +424,23 @@ a:hover {
     width: 75px;
 }
 
-.material-icons.icon,
-.material-label {
-  font-size: 2em;
-  /*line-height: 1;*/
-  display: block;
-  color: #424242;
-  margin: .5em 0
+.material-icons.icon, .material-label {
+    font-size: 2em;
+    /*line-height: 1;*/
+    display: block;
+    color: #424242;
+    margin: .5em 0
 }
 
-
-.material-icons.mdl-badge[data-badge]::after,
-.material-label.mdl-badge[data-badge]::after{
-  font-size: .3em;
-  /*width: 2em;
+.material-icons.mdl-badge[data-badge]::after, .material-label.mdl-badge[data-badge]::after {
+    font-size: .3em;
+    /*width: 2em;
   height: 2em;*/
 }
 
 .material-icons.mdl-badge[data-badge]::after {
-  top: -1em;
-  right: -1em;
+    top: -1em;
+    right: -1em;
 }
 
 .md-display-1 {
@@ -369,12 +461,17 @@ md-progress-linear {
     height: 2px;
 }
 
-md-progress-linear .md-container .md-bar{
+md-progress-linear .md-container .md-bar {
     height: 2px;
 }
 
 md-input-container.text-block .md-errors-spacer {
     min-height: 0px !important;
+}
+
+md-input-container:not(.md-input-invalid).md-input-focused .md-input.comment-box {
+    border: none;
+    padding: 0px 2px 0px 2px;
 }
 
 .hashtag {

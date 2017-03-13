@@ -1,4 +1,4 @@
-angular.module("blogapp").service("HttpService", ["$http", function ($http) {
+angular.module("blogapp").service("httpService", ["$http", function ($http) {
     this.get = function (url, deferred) {
         $http.get(url)
             .success(function (response) {

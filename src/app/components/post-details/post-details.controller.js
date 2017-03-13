@@ -1,6 +1,6 @@
 angular.module('blogapp')
-    .controller('PostDetailsController', ['$scope', '$state', '$stateParams', 'PostsService', 'AuthService',
-        function ($scope, $state, $stateParams, PostsService, AuthService) {
+    .controller('PostDetailsController', ['$scope', '$state', '$stateParams', 'postsService', 'AuthService',
+        function ($scope, $state, $stateParams, postsService, AuthService) {
             $scope.image = {
             };
 
@@ -12,7 +12,7 @@ angular.module('blogapp')
 
                 $scope.isLoading = true;
 
-                PostsService.getPostById($stateParams.postId).then(
+                postsService.getPostById($stateParams.postId).then(
                     function (response) {
                         $scope.post = response;
                         $scope.isLoading = false;

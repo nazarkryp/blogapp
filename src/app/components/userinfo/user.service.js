@@ -1,10 +1,10 @@
 angular.module('blogapp')
-    .service('UserService', ['$q', 'HttpService', 'ConstService',
-        function ($q, HttpService, ConstService) {
+    .service('UserService', ['$q', 'httpService', 'constService',
+        function ($q, httpService, constService) {
             this.getUserByName = function (username) {
                 var deferred = $q.defer();
 
-                HttpService.get(ConstService.baseAddress + 'api/users?username=' + username, deferred);
+                httpService.get(constService.baseAddress + 'api/users?username=' + username, deferred);
 
                 return deferred.promise;
             };
@@ -12,7 +12,7 @@ angular.module('blogapp')
             this.getUserById = function (userId) {
                 var deferred = $q.defer();
 
-                HttpService.get(ConstService.baseAddress + 'api/users?userId=' + userId, deferred);
+                httpService.get(constService.baseAddress + 'api/users?userId=' + userId, deferred);
 
                 return deferred.promise;
             };
@@ -20,7 +20,7 @@ angular.module('blogapp')
             this.getRelationshipsWithUser = function (userId) {
                 var deferred = $q.defer();
 
-                HttpService.get(ConstService.baseAddress + 'api/relationships?userId=' + userId, deferred);
+                httpService.get(constService.baseAddress + 'api/relationships?userId=' + userId, deferred);
 
                 return deferred.promise;
             };
@@ -28,7 +28,7 @@ angular.module('blogapp')
             this.invertRelationshipsWithUser = function (userId) {
                 var deferred = $q.defer();
 
-                HttpService.postEmptyModel(ConstService.baseAddress + 'api/relationships/invert?userId=' + userId, deferred);
+                httpService.postEmptyModel(constService.baseAddress + 'api/relationships/invert?userId=' + userId, deferred);
 
                 return deferred.promise;
             };
@@ -36,7 +36,7 @@ angular.module('blogapp')
             this.getIncommingRequests = function () {
                 var deferred = $q.defer();
 
-                HttpService.get(ConstService.baseAddress + 'api/relationships/requests', deferred);
+                httpService.get(constService.baseAddress + 'api/relationships/requests', deferred);
 
                 return deferred.promise;
             };
@@ -44,7 +44,7 @@ angular.module('blogapp')
             this.responseIncommingRequest = function (userId, accept) {
                 var deferred = $q.defer();
 
-                HttpService.postEmptyModel(ConstService.baseAddress + 'api/relationships/response?userId=' + userId + '&accept=' + accept, deferred);
+                httpService.postEmptyModel(constService.baseAddress + 'api/relationships/response?userId=' + userId + '&accept=' + accept, deferred);
 
                 return deferred.promise;
             };

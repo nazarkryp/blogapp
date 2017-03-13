@@ -1,10 +1,10 @@
 angular.module('blogapp')
-    .service('SettingsService', ['$q', 'HttpService', 'ConstService',
-        function ($q, HttpService, ConstService) {
+    .service('SettingsService', ['$q', 'httpService', 'constService',
+        function ($q, httpService, constService) {
             this.getAccountSettings = function (userId) {
                 var deferred = $q.defer();
 
-                HttpService.get(ConstService.baseAddress + 'api/users?userId=' + userId, deferred);
+                httpService.get(constService.baseAddress + 'api/users?userId=' + userId, deferred);
 
                 return deferred.promise;
             };
@@ -12,7 +12,7 @@ angular.module('blogapp')
             this.savePrivacy = function (isPrivate) {
                 var deferred = $q.defer();
 
-                HttpService.postEmptyModel(ConstService.baseAddress + 'api/account/privacy?isPrivate=' + isPrivate, deferred);
+                httpService.postEmptyModel(constService.baseAddress + 'api/account/privacy?isPrivate=' + isPrivate, deferred);
 
                 return deferred.promise;
             };
@@ -20,7 +20,7 @@ angular.module('blogapp')
             this.changePassword = function (password) {
                 var deferred = $q.defer();
 
-                HttpService.post(ConstService.baseAddress + 'api/account/password', password, deferred);
+                httpService.post(constService.baseAddress + 'api/account/password', password, deferred);
 
                 return deferred.promise;
             };
@@ -28,7 +28,7 @@ angular.module('blogapp')
             this.changeProfilePicture = function (attachmentId) {
                 var deferred = $q.defer();
 
-                HttpService.post(ConstService.baseAddress + 'api/account/profile/picture?attachmentId=' + attachmentId, deferred);
+                httpService.post(constService.baseAddress + 'api/account/profile/picture?attachmentId=' + attachmentId, deferred);
 
                 return deferred.promise;
             };
@@ -36,7 +36,7 @@ angular.module('blogapp')
             this.updateProfile = function (profile) {
                 var deferred = $q.defer();
 
-                HttpService.post(ConstService.baseAddress + 'api/account/profile', profile, deferred);
+                httpService.post(constService.baseAddress + 'api/account/profile', profile, deferred);
 
                 return deferred.promise;
             };
@@ -44,7 +44,7 @@ angular.module('blogapp')
             this.invertAccountStatus = function () {
                 var deferred = $q.defer();
 
-                HttpService.postEmptyModel(ConstService.baseAddress + 'api/account/status', deferred);
+                httpService.postEmptyModel(constService.baseAddress + 'api/account/status', deferred);
 
                 return deferred.promise;
             };
@@ -52,7 +52,7 @@ angular.module('blogapp')
             this.saveAccountSettings = function (settings) {
                 var deferred = $q.defer();
 
-                HttpService.put(ConstService.baseAddress + 'api/account/settings', settings, deferred);
+                httpService.put(constService.baseAddress + 'api/account/settings', settings, deferred);
 
                 return deferred.promise;
             };

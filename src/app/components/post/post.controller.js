@@ -1,9 +1,9 @@
 (function () {
     angular.module('blogapp').controller('PostController', PostController);
 
-    PostController.$inject = ['$scope', '$state', 'PostsService', 'AuthService'];
+    PostController.$inject = ['$scope', '$state', '$mdDialog', 'postsService', 'commentService', 'AuthService'];
 
-    function PostController($scope, $state, PostsService, AuthService) {
+    function PostController($scope, $state, $mdDialog, postsService, commentService, AuthService) {
         var vm = this;
         vm.authService = AuthService;
         vm.isAuthenticated = AuthService.isAuthenticated;
@@ -17,7 +17,7 @@
 
             post.userHasLiked = !post.userHasLiked;
 
-            PostsService.like(post.id).then(
+            postsService.like(post.id).then(
                 function (response) {
                     post.likesCount = response.likesCount;
                     post.userHasLiked = response.userHasLiked;
@@ -35,7 +35,7 @@
                         text: newComment.text,
                     };
 
-                    PostsService.postComment(comment, post.id).then(
+                    commentService.createComment(comment, post.id).then(
                         function (response) {
                             if (!post.comments) {
                                 post.comments = [];
@@ -53,7 +53,7 @@
         };
 
         vm.viewMoreCommentsClick = function (post) {
-            PostsService.getComments(post.id).then(
+            postsService.getComments(post.id).then(
                 function (response) {
                     post.comments = response;
                 },
@@ -77,7 +77,7 @@
             });
         };
 
-        $scope.$watch("authService.isAuthenticated",
+        $scope.$watch("vm.authService.isAuthenticated",
             function (isAuthenticated) {
                 vm.isAuthenticated = isAuthenticated;
             });

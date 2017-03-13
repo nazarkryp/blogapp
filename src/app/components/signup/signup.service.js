@@ -1,9 +1,9 @@
-angular.module('blogapp').service('SignUpService', ['$q', 'HttpService', 'ConstService',
-    function ($q, HttpService, ConstService) {
+angular.module('blogapp').service('SignUpService', ['$q', 'httpService', 'constService',
+    function ($q, httpService, constService) {
         this.signUp = function (user) {
             var deferred = $q.defer();
 
-            HttpService.post(ConstService.baseAddress + 'api/account/create', user, deferred);
+            httpService.post(constService.baseAddress + 'api/account/create', user, deferred);
 
             return deferred.promise;
         };

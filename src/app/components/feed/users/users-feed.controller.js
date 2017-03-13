@@ -1,6 +1,6 @@
 angular.module('blogapp')
-    .controller('UsersFeedController', ['$scope', '$state', '$stateParams', '$mdDialog', '$window', '$timeout', 'PostsService', 'UserService', 'AuthService', 'PageService',
-        function ($scope, $state, $stateParams, $mdDialog, $window, $timeout, PostsService, UserService, AuthService, PageService) {
+    .controller('UsersFeedController', ['$scope', '$state', '$stateParams', '$mdDialog', '$window', '$timeout', 'postsService', 'UserService', 'AuthService', 'PageService',
+        function ($scope, $state, $stateParams, $mdDialog, $window, $timeout, postsService, UserService, AuthService, PageService) {
             $scope.feed = {
                 pageIndex: 0,
                 pageSize: 12,
@@ -45,7 +45,7 @@ angular.module('blogapp')
             function getFeed() {
                 PageService.isLoading = true;
 
-                PostsService.getUsersFeed($stateParams.username, $scope.feed.pageIndex + 1, $scope.feed.pageSize).then(
+                postsService.getUsersFeed($stateParams.username, $scope.feed.pageIndex + 1, $scope.feed.pageSize).then(
                     function (response) {
                         if (response.items) {
                             $scope.feed.items = $scope.feed.items.concat(response.items);
