@@ -1,11 +1,11 @@
 angular.module('blogapp')
-    .controller('UserInfoController', ['$scope', 'UserService', 'AuthService', 'RELATIONSHIPS',
-        function ($scope, UserService, AuthService, RELATIONSHIPS) {
-            $scope.currentUserName = AuthService.username;
+    .controller('UserInfoController', ['$scope', 'userService', 'authService', 'RELATIONSHIPS',
+        function ($scope, userService, authService, RELATIONSHIPS) {
+            $scope.currentUserName = authService.username;
             $scope.user = $scope.$ctrl.user;
 
             $scope.invertRelationshipsWithUser = function () {
-                UserService.invertRelationshipsWithUser($scope.user.id).then(
+                userService.invertRelationshipsWithUser($scope.user.id).then(
                     function (response) {
                         $scope.user.relationshipStatus = response;
 

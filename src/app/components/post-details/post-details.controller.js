@@ -1,6 +1,6 @@
 angular.module('blogapp')
-    .controller('PostDetailsController', ['$scope', '$state', '$stateParams', 'postsService', 'AuthService',
-        function ($scope, $state, $stateParams, postsService, AuthService) {
+    .controller('PostDetailsController', ['$scope', '$state', '$stateParams', 'postsService', 'authService',
+        function ($scope, $state, $stateParams, postsService, authService) {
             $scope.image = {
             };
 

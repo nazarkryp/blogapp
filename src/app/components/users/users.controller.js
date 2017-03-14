@@ -1,6 +1,6 @@
-angular.module('blogapp').controller('UsersController', ['$scope', '$state', '$stateParams', 'PeopleService', 'UserService', 'AuthService', 'PageService',
-    function ($scope, $state, $stateParams, PeopleService, UserService, AuthService, PageService) {
-        $scope.currentUserId = AuthService.userId;
+angular.module('blogapp').controller('UsersController', ['$scope', '$state', '$stateParams', 'peopleService', 'userService', 'authService', 'pageService',
+    function ($scope, $state, $stateParams, peopleService, userService, authService, pageService) {
+        $scope.currentUserId = authService.userId;
         $scope.group = {
             users: [],
             hasMoreItems: false,
@@ -13,7 +13,7 @@ angular.module('blogapp').controller('UsersController', ['$scope', '$state', '$s
         };
 
         $scope.invertRelationshipsWithUser = function (user) {
-            UserService.invertRelationshipsWithUser(user.id).then(
+            userService.invertRelationshipsWithUser(user.id).then(
                 function (response) {
                     user.relationships.outgoingStatus = response;
                 },
@@ -23,23 +23,23 @@ angular.module('blogapp').controller('UsersController', ['$scope', '$state', '$s
         };
 
         function getUsers() {
-            PageService.isLoading = true;
+            pageService.isLoading = true;
 
-            PeopleService.getUsers($scope.group.pageIndex + 1, $scope.group.pageSize).then(
+            peopleService.getUsers($scope.group.pageIndex + 1, $scope.group.pageSize).then(
                 function (response) {
                     $scope.group.users = $scope.group.users.concat(response.items);
                     $scope.group.pageIndex = response.pageIndex;
                     $scope.group.hasMoreItems = response.hasMoreItems;
-                    PageService.isLoading = false;
+                    pageService.isLoading = false;
                 }, function (error) {
                     console.log(error);
-                    PageService.isLoading = false;
+                    pageService.isLoading = false;
                 }
             );
         };
 
         var init = function () {
-            PageService.title = 'Photocloud - Discover People';
+            pageService.title = 'Photocloud - Discover People';
             getUsers();
         };
 

@@ -1,13 +1,13 @@
-angular.module('blogapp').controller('SettingsController', ['$scope', '$state', '$stateParams', '$mdToast', 'SettingsService', 'AuthService', 'PageService',
-    function ($scope, $state, $stateParams, $mdToast, SettingsService, AuthService, PageService) {
+angular.module('blogapp').controller('SettingsController', ['$scope', '$state', '$stateParams', '$mdToast', 'SettingsService', 'authService', 'pageService',
+    function ($scope, $state, $stateParams, $mdToast, SettingsService, authService, pageService) {
         $scope.isRedirected = $stateParams.isRedirected;
         $scope.settings = {
-            username: AuthService.username,
-            fullName: AuthService.fullName,
-            imageUri: AuthService.imageUri,
+            username: authService.username,
+            fullName: authService.fullName,
+            imageUri: authService.imageUri,
             bio: '',
-            isPrivate: AuthService.isPrivate,
-            isActive: AuthService.isActive
+            isPrivate: authService.isPrivate,
+            isActive: authService.isActive
         };
 
         $scope.password = {
@@ -32,8 +32,8 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
                     $scope.settings.isActive = response.isActive;
                     $scope.settingsBackup.isActive = response.isActive;
 
-                    AuthService.isActive = response.isActive;
-                    AuthService.setValue('isActive', response.isActive);
+                    authService.isActive = response.isActive;
+                    authService.setValue('isActive', response.isActive);
 
                     var message = 'Account has been ' + (response.isActive ? 'activated' : 'deactivated');
 
@@ -46,8 +46,8 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
             SettingsService.savePrivacy($scope.settings.isPrivate).then(
                 function (response) {
                     if ($scope.settingsBackup.isPrivate != response.isPrivate) {
-                        AuthService.isPrivate = response.isPrivate;
-                        AuthService.setValue('isPrivate', response.isPrivate);
+                        authService.isPrivate = response.isPrivate;
+                        authService.setValue('isPrivate', response.isPrivate);
 
                         $scope.settingsBackup.isPrivate = response.isPrivate;
                         $scope.settings.isPrivate = response.isPrivate;
@@ -91,12 +91,12 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
         };
 
         $scope.changePassword = function () {
-            PageService.isLoading = true;
+            pageService.isLoading = true;
 
             $scope.passwordChangeError = '';
             SettingsService.changePassword($scope.password).then(
                 function (response) {
-                    PageService.isLoading = false;
+                    pageService.isLoading = false;
 
                     $scope.password.oldPassword = '';
                     $scope.password.newPassword = '';
@@ -106,7 +106,7 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
                     showToastNotification('Your password has been updated!');
                 }, function (errorResponse) {
                     $scope.passwordChangeError = errorResponse.message;
-                    PageService.isLoading = false;
+                    pageService.isLoading = false;
                 });
         };
 
@@ -139,17 +139,17 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
         };
 
         var init = function () {
-            if (!AuthService.isAuthenticated) {
+            if (!authService.isAuthenticated) {
                 $state.go('signin');
 
                 return;
             }
 
-            PageService.isLoading = true;
+            pageService.isLoading = true;
 
-            SettingsService.getAccountSettings(AuthService.userId).then(
+            SettingsService.getAccountSettings(authService.userId).then(
                 function (response) {
-                    PageService.isLoading = false;
+                    pageService.isLoading = false;
 
                     updateSettings(response);
                     $scope.settings = response;
@@ -168,23 +168,23 @@ angular.module('blogapp').controller('SettingsController', ['$scope', '$state', 
 
         function updateSettings(response) {
             if ($scope.settingsBackup.username != response.username) {
-                AuthService.username = response.username;
-                AuthService.setValue('username', response.username);
+                authService.username = response.username;
+                authService.setValue('username', response.username);
             }
 
             if ($scope.settingsBackup.imageUri != response.imageUri) {
-                AuthService.imageUri = response.imageUri;
-                AuthService.setValue('imageUri', response.imageUri);
+                authService.imageUri = response.imageUri;
+                authService.setValue('imageUri', response.imageUri);
             }
 
             if ($scope.settingsBackup.isPrivate != response.isPrivate) {
-                AuthService.isPrivate = response.isPrivate;
-                AuthService.setValue('isPrivate', response.isPrivate);
+                authService.isPrivate = response.isPrivate;
+                authService.setValue('isPrivate', response.isPrivate);
             }
 
             if ($scope.settingsBackup.isActive != response.isActive) {
-                AuthService.isActive = response.isActive;
-                AuthService.setValue('isActive', response.isActive);
+                authService.isActive = response.isActive;
+                authService.setValue('isActive', response.isActive);
             }
 
             $scope.settings = response;

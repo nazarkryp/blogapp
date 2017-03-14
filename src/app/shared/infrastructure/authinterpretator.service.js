@@ -1,6 +1,6 @@
 angular.module('blogapp')
-    .factory("authInterpretatorService", ["$q", "$location", "AuthService",
-        function ($q, $location, AuthService) {
+    .factory("authInterpretatorService", ["$q", "$location", "authService",
+        function ($q, $location, authService) {
             var service = {};
 
             var request = function (config) {
@@ -12,7 +12,7 @@ angular.module('blogapp')
                     }
                 }
 
-                var session = AuthService.getSession();
+                var session = authService.getSession();
 
                 if (session) {
                     config.headers.Authorization = "Bearer " + session.access_token;
@@ -23,7 +23,7 @@ angular.module('blogapp')
 
             var response = function (response) {
                 if (response.status === 401) {
-                    AuthService.signOut();
+                    authService.signOut();
                     $location.path("/signin");
                 }
 
@@ -32,7 +32,7 @@ angular.module('blogapp')
 
             var responseError = function (rejection) {
                 if (rejection.status === 401) {
-                    AuthService.signOut();
+                    authService.signOut();
                     $location.path("/signin");
                 }
 

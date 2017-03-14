@@ -1,6 +1,6 @@
-angular.module('blogapp').controller('TitleController', ['$rootScope', '$scope', '$state', 'PageService',
-    function ($rootScope, $scope, $state, PageService) {
-        $scope.pageService = PageService;
+angular.module('blogapp').controller('TitleController', ['$rootScope', '$scope', '$state', 'pageService',
+    function ($rootScope, $scope, $state, pageService) {
+        $scope.pageService = pageService;
         $rootScope.$state = $state;
 
         $scope.page = {

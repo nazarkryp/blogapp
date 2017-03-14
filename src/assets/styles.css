@@ -57,7 +57,8 @@ a:hover {
     color: white;
 }
 
-.header-toolbar.md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+.header-toolbar.md-toolbar.md-default-theme:not(.md-menu-toolbar),
+md-toolbar:not(.md-menu-toolbar) {
     background-color: white;
     color: black;
     border-bottom: 1px solid #efefef;
@@ -145,6 +146,7 @@ a:hover {
     margin: 16px 25px 50px 25px;
     border: 1px solid #efefef;
     background-color: white;
+    border-radius: 2px;
 }
 
 .post-header {
@@ -424,7 +426,8 @@ md-virtual-repeat-container.md-autocomplete-suggestions-container {
     width: 75px;
 }
 
-.material-icons.icon, .material-label {
+.material-icons.icon,
+.material-label {
     font-size: 2em;
     /*line-height: 1;*/
     display: block;
@@ -432,7 +435,8 @@ md-virtual-repeat-container.md-autocomplete-suggestions-container {
     margin: .5em 0
 }
 
-.material-icons.mdl-badge[data-badge]::after, .material-label.mdl-badge[data-badge]::after {
+.material-icons.mdl-badge[data-badge]::after,
+.material-label.mdl-badge[data-badge]::after {
     font-size: .3em;
     /*width: 2em;
   height: 2em;*/
@@ -451,12 +455,14 @@ md-progress-linear {
     height: 2px;
 }
 
-.md-progress-linear.md-default-theme .md-container, md-progress-linear .md-container {
+.md-progress-linear.md-default-theme .md-container,
+md-progress-linear .md-container {
     background-color: transparent;
     height: 2px;
 }
 
-.md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
+.md-progress-linear.md-default-theme .md-bar,
+md-progress-linear .md-bar {
     background-color: rgb(33, 150, 243);
     height: 2px;
 }

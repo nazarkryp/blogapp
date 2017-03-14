@@ -1,4 +1,4 @@
-angular.module('blogapp').service('PeopleService', ['$q', 'httpService', 'constService', function ($q, httpService, constService) {
+angular.module('blogapp').service('peopleService', ['$q', 'httpService', 'constService', function ($q, httpService, constService) {
     this.getUsers = function (pageIndex, pageSize) {
         var deferred = $q.defer();
 

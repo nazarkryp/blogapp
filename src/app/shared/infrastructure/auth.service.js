@@ -1,5 +1,5 @@
 angular.module('blogapp')
-    .service("AuthService", ['$window',
+    .service("authService", ['$window',
         function ($window) {
             var self = this;
 

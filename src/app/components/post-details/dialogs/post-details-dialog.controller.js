@@ -1,9 +1,9 @@
 angular.module('blogapp')
-    .controller('PostDetailsDialogController', ['$scope', 'postsService', 'AuthService', 'post',
-        function ($scope, postsService, AuthService, post) {
+    .controller('PostDetailsDialogController', ['$scope', 'postsService', 'authService', 'post',
+        function ($scope, postsService, authService, post) {
             $scope.post = post;
-            $scope.isAuthenticated = AuthService.isAuthenticated;
-            $scope.currentuserId = AuthService.userId;
+            $scope.isAuthenticated = authService.isAuthenticated;
+            $scope.currentuserId = authService.userId;
 
             $scope.maxHeight = window.innerHeight - 200;
             $scope.maxWidth = window.innerWidth - 350 - 300;
@@ -43,7 +43,7 @@ angular.module('blogapp')
                     if (newComment) {
                         var comment = {
                             from: {
-                                username: AuthService.username
+                                username: authService.username
                             },
                             text: newComment.text,
                         };

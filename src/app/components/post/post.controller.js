@@ -1,12 +1,12 @@
 (function () {
     angular.module('blogapp').controller('PostController', PostController);
 
-    PostController.$inject = ['$scope', '$state', '$mdDialog', 'postsService', 'commentService', 'AuthService'];
+    PostController.$inject = ['$scope', '$state', '$mdDialog', 'postsService', 'commentService', 'authService'];
 
-    function PostController($scope, $state, $mdDialog, postsService, commentService, AuthService) {
+    function PostController($scope, $state, $mdDialog, postsService, commentService, authService) {
         var vm = this;
-        vm.authService = AuthService;
-        vm.isAuthenticated = AuthService.isAuthenticated;
+        vm.authService = authService;
+        vm.isAuthenticated = authService.isAuthenticated;
 
         vm.like = function (post) {
             if (post.userHasLiked) {

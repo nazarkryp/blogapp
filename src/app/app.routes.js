@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
 
     angular.module('blogapp')
@@ -11,17 +11,20 @@
             .state('feed', {
                 url: '/',
                 templateUrl: 'app/components/feed/self/feed.html',
-                controller: 'FeedController'
+                controller: 'FeedController',
+                controllerAs: 'vm'
             })
             .state('signup', {
                 url: '/signup',
                 templateUrl: 'app/components/signup/signup.html',
-                controller: 'SignUpController'
+                controller: 'SignUpController',
+                controllerAs: 'vm'
             })
             .state('signin', {
                 url: '/signin',
                 templateUrl: 'app/components/signin/signin.html',
-                controller: 'SignInController'
+                controller: 'SignInController',
+                controllerAs: 'vm'
             })
             .state('settings', {
                 url: '/settings',
@@ -29,7 +32,8 @@
                     isRedirected: false
                 },
                 templateUrl: 'app/components/settings/settings.html',
-                controller: 'SettingsController'
+                controller: 'SettingsController',
+                controllerAs: 'vm'
             })
             .state('explore', {
                 abstract: true,
@@ -41,7 +45,8 @@
             .state('explore.people', {
                 url: '/people',
                 templateUrl: 'app/components/explore/people/explore.people.html',
-                controller: 'ExplorePeopleController'
+                controller: 'ExplorePeopleController',
+                controllerAs: 'vm'
             })
             .state('explore.tags', {
                 url: '/tags/:tag',
@@ -58,12 +63,14 @@
             .state('userfeed', {
                 url: '/:username',
                 templateUrl: 'app/components/feed/users/feed.html',
-                controller: 'UsersFeedController'
+                controller: 'UsersFeedController',
+                controllerAs: 'vm'
             })
             .state('post', {
                 url: '/p/:postId',
                 templateUrl: 'app/components/post-details/post-details.html',
-                controller: 'PostDetailsController'
+                controller: 'PostDetailsController',
+                controllerAs: 'vm'
             });
 
         $urlRouterProvider.otherwise('/');

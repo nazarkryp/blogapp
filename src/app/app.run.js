@@ -4,14 +4,14 @@
     angular.module('blogapp')
         .run(runBlock);
 
-    runBlock.$inject = ["$rootScope", "$state", "AuthService"];
+    runBlock.$inject = ["$rootScope", "$state", "authService"];
 
-    function runBlock($rootScope, $state, AuthService) {
+    function runBlock($rootScope, $state, authService) {
         $rootScope.$on("$stateChangeStart",
             function (event, next, params) {
-                if (AuthService.isAuthenticated) {
+                if (authService.isAuthenticated) {
                     if (next.name) {
-                        if (!AuthService.getIsActive() && next.url != '/settings') {
+                        if (!authService.getIsActive() && next.url != '/settings') {
                             $state.go('settings', { isRedirected: true });
 
                             event.preventDefault();

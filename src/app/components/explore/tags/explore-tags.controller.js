@@ -1,39 +1,43 @@
-angular.module('blogapp').controller('ExploreTagsController', ['$state', '$stateParams', 'postsService', 'AuthService', 'PageService',
-    function ($state, $stateParams, postsService, AuthService, PageService) {
-        var self = this;
-        self.currentUserId = AuthService.userId;
-        self.feed = {
+(function() {
+    'use strict';
+
+    angular.module('blogapp')
+        .controller('ExploreTagsController', ExploreTagsController);
+
+    ExploreTagsController.$inject = ['$state', '$stateParams', 'postsService', 'authService', 'pageService'];
+
+    function ExploreTagsController($state, $stateParams, postsService, authService, pageService) {
+        var vm = this;
+        vm.currentUserId = authService.userId;
+        vm.feed = {
             items: [],
             hasMoreItems: false,
             pageIndex: 0,
             pageSize: 12,
-            totalCount : 0
+            totalCount: 0
         };
 
-        self.loadMore = function () {
-            getPosts();
+        vm.getPosts = function() {
+            pageService.isLoading = true;
+
+            postsService.getPostsByTag(vm.tag, vm.feed.pageIndex + 1, vm.feed.pageSize)
+                .then(
+                    function(response) {
+                        pageService.isLoading = false;
+                        vm.feed = response;
+                    },
+                    function(error) {
+                        pageService.isLoading = false;
+                    });
         };
 
-        function getPosts() {
-            PageService.isLoading = true;
+        var init = function() {
+            pageService.title = $stateParams.tag + ' • ' + ' Photocloud';
+            vm.tag = $stateParams.tag;
 
-            postsService.getPostsByTag(self.tag, self.feed.pageIndex + 1, self.feed.pageSize).then(
-            //postsService.getUsersFeed('lanafeshchuk', self.feed.pageIndex + 1, self.feed.pageSize).then(
-                function (response) {
-                    PageService.isLoading = false;
-
-                    self.feed = response;
-                }, function (error) {
-                    PageService.isLoading = false;
-                });
-        };
-
-        var init = function () {
-            PageService.title = $stateParams.tag + ' • ' + ' Photocloud';
-            self.tag = $stateParams.tag;
-
-            getPosts();
+            vm.getPosts();
         };
 
         init();
-    }]);
+    }
+})();

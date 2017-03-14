@@ -1,19 +1,19 @@
-angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$mdDialog', 'AuthService', 'UserService', 'PageService',
-    function ($scope, $state, $mdDialog, AuthService, UserService, PageService) {
-        $scope.authService = AuthService;
-        $scope.pageService = PageService;
+angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$mdDialog', 'authService', 'userService', 'pageService',
+    function ($scope, $state, $mdDialog, authService, userService, pageService) {
+        $scope.authService = authService;
+        $scope.pageService = pageService;
 
         $scope.currentUser = {
-            userId: AuthService.userId,
-            username: AuthService.username,
-            imageUri: AuthService.imageUri,
-            isPrivate: AuthService.isPrivate,
-            isActive: AuthService.isActive,
-            isAuthenticated: AuthService.isAuthenticated
+            userId: authService.userId,
+            username: authService.username,
+            imageUri: authService.imageUri,
+            isPrivate: authService.isPrivate,
+            isActive: authService.isActive,
+            isAuthenticated: authService.isAuthenticated
         };
 
         $scope.gotoProfile = function () {
-            $state.go('userfeed', { username: AuthService.username });
+            $state.go('userfeed', { username: authService.username });
         };
 
         $scope.gotoSignInPage = function () {
@@ -54,7 +54,7 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
 
                 $scope.currentUser.isActive = isActive;
 
-                if (isActive && AuthService.getIsPrivate()) {
+                if (isActive && authService.getIsPrivate()) {
                     getIncommingRequests();
                 }
             });
@@ -76,7 +76,7 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
 
                 $scope.currentUser.isPrivate = isPrivate;
 
-                if ($scope.currentUser && AuthService.getIsActive() && isPrivate) {
+                if ($scope.currentUser && authService.getIsActive() && isPrivate) {
                     getIncommingRequests();
                 }
             });
@@ -88,7 +88,7 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
 
 
         $scope.signOut = function () {
-            AuthService.signOut();
+            authService.signOut();
 
             if ($state.current.name !== 'feed') {
                 $state.go('signin');
@@ -98,7 +98,7 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
         $scope.acceptRequest = function (index) {
             var request = $scope.requests[index];
 
-            UserService.responseIncommingRequest(request.id, true).then(
+            userService.responseIncommingRequest(request.id, true).then(
                 function (response) {
                     $scope.requests.splice(index, 1);
                 });
@@ -107,7 +107,7 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
         $scope.rejectRequest = function (index) {
             var request = $scope.requests[index];
 
-            UserService.responseIncommingRequest(request.id, false).then(
+            userService.responseIncommingRequest(request.id, false).then(
                 function (response) {
                     $scope.requests.splice(index, 1);
                 });
@@ -115,7 +115,7 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
 
         function getIncommingRequests() {
             if ($scope.currentUser.isPrivate) {
-                UserService.getIncommingRequests().then(
+                userService.getIncommingRequests().then(
                     function (response) {
                         $scope.requests = response;
                     });
@@ -124,12 +124,12 @@ angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$m
 
         function getAuthenticatedUser() {
             $scope.currentUser = {
-                userId: AuthService.userId,
-                username: AuthService.username,
-                imageUri: AuthService.imageUri,
-                isPrivate: AuthService.isPrivate,
-                isActive: AuthService.isActive,
-                isAuthenticated: AuthService.isAuthenticated
+                userId: authService.userId,
+                username: authService.username,
+                imageUri: authService.imageUri,
+                isPrivate: authService.isPrivate,
+                isActive: authService.isActive,
+                isAuthenticated: authService.isAuthenticated
             };
         };
 

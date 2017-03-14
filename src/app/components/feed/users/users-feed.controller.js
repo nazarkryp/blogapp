@@ -1,6 +1,6 @@
 angular.module('blogapp')
-    .controller('UsersFeedController', ['$scope', '$state', '$stateParams', '$mdDialog', '$window', '$timeout', 'postsService', 'UserService', 'AuthService', 'PageService',
-        function ($scope, $state, $stateParams, $mdDialog, $window, $timeout, postsService, UserService, AuthService, PageService) {
+    .controller('UsersFeedController', ['$scope', '$state', '$stateParams', '$mdDialog', '$window', '$timeout', 'postsService', 'userService', 'authService', 'pageService',
+        function ($scope, $state, $stateParams, $mdDialog, $window, $timeout, postsService, userService, authService, pageService) {
             $scope.feed = {
                 pageIndex: 0,
                 pageSize: 12,
@@ -9,9 +9,9 @@ angular.module('blogapp')
             };
 
             function getRelationshipsStatus(user) {
-                UserService.getRelationshipsWithUser(user.id).then(
+                userService.getRelationshipsWithUser(user.id).then(
                     function (response) {
-                        PageService.isLoading = false;
+                        pageService.isLoading = false;
                         $scope.user = user;
                         $scope.user.relationshipStatus = response.outgoingStatus;
 
@@ -21,12 +21,12 @@ angular.module('blogapp')
             }
 
             function getUser(username) {
-                UserService.getUserByName(username).then(
+                userService.getUserByName(username).then(
                     function (response) {
                         if (response.isActive && $scope.currentUser && $scope.currentUser.username != response.username) {
                             getRelationshipsStatus(response);
                         } else {
-                            PageService.isLoading = false;
+                            pageService.isLoading = false;
                             $scope.user = response;
                             getFeed();
                         }
@@ -37,13 +37,13 @@ angular.module('blogapp')
                             $scope.errorMessage = errorResponse;
                         }
 
-                        PageService.isLoading = false;
+                        pageService.isLoading = false;
                     }
                 );
             }
 
             function getFeed() {
-                PageService.isLoading = true;
+                pageService.isLoading = true;
 
                 postsService.getUsersFeed($stateParams.username, $scope.feed.pageIndex + 1, $scope.feed.pageSize).then(
                     function (response) {
@@ -54,11 +54,11 @@ angular.module('blogapp')
                         $scope.feed.hasMoreItems = response.hasMoreItems;
                         $scope.feed.pageIndex = response.pageIndex;
 
-                        PageService.isLoading = false;
+                        pageService.isLoading = false;
                         $scope.isLoadingMorePosts = false;
                     },
                     function (errorResponse) {
-                        PageService.isLoading = false;
+                        pageService.isLoading = false;
                         $scope.isLoadingMorePosts = false;
 
                         $scope.errorMessage = errorResponse.error.message;
@@ -92,8 +92,8 @@ angular.module('blogapp')
             };
 
             var init = function () {
-                PageService.isLoading = true;
-                PageService.title = 'Photocloud - ' + $stateParams.username;
+                pageService.isLoading = true;
+                pageService.title = 'Photocloud - ' + $stateParams.username;
 
                 getUser($stateParams.username);
             };

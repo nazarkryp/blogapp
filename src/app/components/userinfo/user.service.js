@@ -1,5 +1,5 @@
 angular.module('blogapp')
-    .service('UserService', ['$q', 'httpService', 'constService',
+    .service('userService', ['$q', 'httpService', 'constService',
         function ($q, httpService, constService) {
             this.getUserByName = function (username) {
                 var deferred = $q.defer();

@@ -1,7 +1,7 @@
 angular.module('blogapp')
-    .controller('FeedController', ['$scope', '$state', '$stateParams', '$mdDialog', '$window', '$timeout', 'postsService', 'AuthService', 'PageService',
-        function ($scope, $state, $stateParams, $mdDialog, $window, $timeout, postsService, AuthService, PageService) {
-            $scope.authService = AuthService;
+    .controller('FeedController', ['$scope', '$state', '$stateParams', '$mdDialog', '$window', '$timeout', 'postsService', 'authService', 'pageService',
+        function ($scope, $state, $stateParams, $mdDialog, $window, $timeout, postsService, authService, pageService) {
+            $scope.authService = authService;
             $scope.isAuthenticated = false;
             $scope.isLoadingMorePosts = false;
             $scope.infoMessage = '';
@@ -84,7 +84,7 @@ angular.module('blogapp')
             var addNewPost = function (post) {
                 if (!$stateParams.username) {
                     $scope.feed.items.unshift(post);
-                } else if ($stateParams.username === AuthService.username) {
+                } else if ($stateParams.username === authService.username) {
                     $scope.feed.items.unshift(post);
                 }
 
@@ -117,11 +117,11 @@ angular.module('blogapp')
 
             var getFeedPromise = function () {
                 if (!$stateParams.username) {
-                    PageService.title = 'Photocloud';
+                    pageService.title = 'Photocloud';
 
                     return postsService.getFeed($scope.feed.pageIndex + 1, $scope.feed.pageSize);
                 } else {
-                    PageService.title = 'Photocloud - ' + $stateParams.username;
+                    pageService.title = 'Photocloud - ' + $stateParams.username;
 
                     return postsService.getUsersFeed($stateParams.username, $scope.feed.pageIndex + 1, $scope.feed.pageSize);
                 }
@@ -139,13 +139,13 @@ angular.module('blogapp')
                         $scope.feed.hasMoreItems = response.hasMoreItems;
                         $scope.feed.pageIndex = response.pageIndex;
 
-                        PageService.isLoading = false;
+                        pageService.isLoading = false;
                         $scope.isLoadingMorePosts = false;
 
                         generateInfoMessage();
                     },
                     function (errorResponse) {
-                        PageService.isLoading = false;
+                        pageService.isLoading = false;
                         $scope.isLoadingMorePosts = false;
 
                         $scope.errorMessage = errorResponse.error.message;
@@ -161,7 +161,7 @@ angular.module('blogapp')
             };
 
             var onInit = function () {
-                PageService.isLoading = true;
+                pageService.isLoading = true;
 
                 if ($stateParams.username) {
                     $scope.username = $stateParams.username;

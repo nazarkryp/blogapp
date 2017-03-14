@@ -6,7 +6,7 @@
             </div>
             <md-divider></md-divider>
         </div>
-        <div ng-repeat="user in group.users" layout="row" style="height: 100px;padding-bottom: 10px;">
+        <div ng-repeat="user in vm.group.users" layout="row" style="height: 100px;padding-bottom: 10px;">
             <a ui-sref="userfeed({username : user.username})">
                 <img class="post-profile-thumbnail" ng-src="{{user.imageUri}}" alt="user">
             </a>
@@ -21,16 +21,15 @@
                             <a class="md-subhead" ui-sref="userfeed({username : user.username})" style="font-weight: lighter;font-size:14px;color:#64B5F6;">View posts</a>
                         </a>
                     </div>
-                    <md-button class="button-bordered" ng-class="{'green' : user.relationships.outgoingStatus === 'Followed', 'orange' : user.relationships.outgoingStatus === 'Requested'}"
-                        ng-click="invertRelationshipsWithUser(user)" ng-if="currentUserId != user.id">
+                    <md-button class="button-bordered" ng-class="{'green' : user.relationships.outgoingStatus === 'Followed', 'orange' : user.relationships.outgoingStatus === 'Requested'}" ng-click="invertRelationshipsWithUser(user)" ng-if="vm.currentUserId != user.id">
                         {{user.relationships.outgoingStatus | relationshipButton}}
                     </md-button>
                 </div>
                 <md-divider ng-if="!$last"></md-divider>
             </div>
         </div>
-        <div layout="column" layout-align="center center" style="padding-top: 25px;" ng-if="group.hasMoreItems">
-            <md-button ng-click="loadMore()">LOAD MORE</md-button>
+        <div layout="column" layout-align="center center" style="padding-top: 25px;" ng-if="vm.group.hasMoreItems">
+            <md-button ng-click="vm.getUsers()">LOAD MORE</md-button>
         </div>
     </div>
 </div>

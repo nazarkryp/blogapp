@@ -1,47 +1,51 @@
-angular.module('blogapp').controller('ExplorePeopleController', ['$scope', '$state', '$stateParams', 'PeopleService', 'UserService', 'AuthService', 'PageService',
-    function ($scope, $state, $stateParams, PeopleService, UserService, AuthService, PageService) {
-        $scope.currentUserId = AuthService.userId;
-        $scope.group = {
+(function() {
+    'use strict';
+
+    angular.module('blogapp')
+        .controller('ExplorePeopleController', ExplorePeopleController);
+
+    ExplorePeopleController.$inject = ['peopleService', 'userService', 'authService', 'pageService'];
+
+    function ExplorePeopleController(peopleService, userService, authService, pageService) {
+        var vm = this;
+
+        vm.currentUserId = authService.userId;
+        vm.group = {
             users: [],
             hasMoreItems: false,
             pageIndex: 0,
-            pageSize: 10
+            pageSize: 5
         };
 
-        $scope.loadMore = function () {
-            getUsers();
+        vm.invertRelationshipsWithUser = function(user) {
+            userService.invertRelationshipsWithUser(user.id)
+                .then(
+                    function(response) {
+                        user.relationships.outgoingStatus = response;
+                    });
         };
 
-        $scope.invertRelationshipsWithUser = function (user) {
-            UserService.invertRelationshipsWithUser(user.id).then(
-                function (response) {
-                    user.relationships.outgoingStatus = response;
-                },
-                function (error) {
-                    console.log(error);
-                });
+        vm.getUsers = function() {
+            pageService.isLoading = true;
+
+            peopleService.getUsers(vm.group.pageIndex + 1, vm.group.pageSize)
+                .then(
+                    function(response) {
+                        vm.group.users = vm.group.users.concat(response.items);
+                        vm.group.pageIndex = response.pageIndex;
+                        vm.group.hasMoreItems = response.hasMoreItems;
+                        pageService.isLoading = false;
+                    },
+                    function(error) {
+                        pageService.isLoading = false;
+                    }
+                );
         };
 
-        function getUsers() {
-            PageService.isLoading = true;
+        vm.$onInit = function() {
+            vm.getUsers();
 
-            PeopleService.getUsers($scope.group.pageIndex + 1, $scope.group.pageSize).then(
-                function (response) {
-                    $scope.group.users = $scope.group.users.concat(response.items);
-                    $scope.group.pageIndex = response.pageIndex;
-                    $scope.group.hasMoreItems = response.hasMoreItems;
-                    PageService.isLoading = false;
-                }, function (error) {
-                    console.log(error);
-                    PageService.isLoading = false;
-                }
-            );
+            pageService.title = 'Photocloud - Discover People';
         };
-
-        var init = function () {
-            PageService.title = 'Photocloud - Discover People';
-            getUsers();
-        };
-
-        init();
-    }]);
+    }
+})();

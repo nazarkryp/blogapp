@@ -1,17 +1,26 @@
-angular.module('blogapp').controller('ExploreController', ['$state', '$stateParams', function ($state, $stateParams) {
-    var self = this;
+(function() {
+    'use strict';
 
-    self.header = 'EXPLORE';
+    angular.module('blogapp')
+        .controller('ExploreController', ExploreController);
 
-    var init = function () {
-        if ($state.current.name === 'explore.people') {
-            self.header = 'PEOPLE';
-        } else if ($state.current.name === 'explore.tags') {
-            self.header = 'TAGS';
-        } else {
-            self.header = 'Unknown';
-        }
-    };
+    ExploreController.$inject = ['$state', '$stateParams'];
 
-    init();
-}]);
+    function ExploreController($state, $stateParams) {
+        var vm = this;
+
+        vm.header = 'EXPLORE';
+
+        var init = function() {
+            if ($state.current.name === 'explore.people') {
+                vm.header = 'PEOPLE';
+            } else if ($state.current.name === 'explore.tags') {
+                vm.header = 'TAGS';
+            } else {
+                vm.header = 'Unknown';
+            }
+        };
+
+        init();
+    }
+})();
