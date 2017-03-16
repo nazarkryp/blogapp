@@ -1,5 +1,5 @@
 (function () {
-    angular.module('blogapp').controller('PostController', PostController);
+    angular.module('photocloud').controller('PostController', PostController);
 
     PostController.$inject = ['$scope', '$state', '$mdDialog', 'postsService', 'commentService', 'authService'];
 

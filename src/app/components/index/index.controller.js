@@ -1,4 +1,4 @@
-angular.module('blogapp').controller('IndexController', ['$scope', '$state', '$mdDialog', 'authService', 'userService', 'pageService',
+angular.module('photocloud').controller('IndexController', ['$scope', '$state', '$mdDialog', 'authService', 'userService', 'pageService',
     function ($scope, $state, $mdDialog, authService, userService, pageService) {
         $scope.authService = authService;
         $scope.pageService = pageService;

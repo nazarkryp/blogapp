@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('blogapp')
+    angular.module('photocloud')
         .component('comments', {
             templateUrl: 'app/components/comments/comments.html',
             controller: 'CommentsController',

@@ -1,4 +1,4 @@
-angular.module('blogapp').service('ErrorsService', ['$mdDialog', function ($mdDialog) {
+angular.module('photocloud').service('ErrorsService', ['$mdDialog', function ($mdDialog) {
     this.showErrorMessage = function (message) {
         var error = {
             title : 'error title',

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="blogapp">
+<html ng-app="photocloud">
 
 <head ng-controller="TitleController">
     <title ng-bind="pageService.title"></title>
@@ -129,10 +129,11 @@
     <script src="app/components/feed/feed.controller.js"></script>
     <script src="app/components/feed/users/users-feed.controller.js"></script>
     <script src="app/components/feed/posts.service.js"></script>
-    <script src="app/components/signin/signin.controller.js"></script>
-    <script src="app/components/signin/signin.service.js"></script>
-    <script src="app/components/signup/signup.controller.js"></script>
-    <script src="app/components/signup/signup.service.js"></script>
+    
+    <script src="app/components/account/signin/signin.controller.js"></script>
+    <script src="app/components/account/create/create-account.controller.js"></script>
+    <script src="app/components/account/shared/account.service.js"></script>
+
     <script src="app/components/upload/create-post.controller.js"></script>
     <script src="app/components/index/index.controller.js"></script>
     <script src="app/components/search/search.controller.js"></script>

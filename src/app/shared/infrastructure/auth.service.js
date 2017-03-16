@@ -1,4 +1,4 @@
-angular.module('blogapp')
+angular.module('photocloud')
     .service("authService", ['$window',
         function ($window) {
             var self = this;

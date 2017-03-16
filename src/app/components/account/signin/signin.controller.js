@@ -1,6 +1,6 @@
-angular.module('blogapp')
-    .controller('SignInController', ['$scope', '$state', '$mdDialog', 'SignInService', 'authService',
-        function ($scope, $state, $mdDialog, SignInService, authService) {
+angular.module('photocloud')
+    .controller('SignInController', ['$scope', '$state', '$mdDialog', 'accountService', 'authService',
+        function ($scope, $state, $mdDialog, accountService, authService) {
             $scope.isLoading = false;
             $scope.errorMessage = '';
 
@@ -9,7 +9,7 @@ angular.module('blogapp')
                 $scope.isLoading = true;
                 showLoadingDialog();
 
-                SignInService.signIn(credentials).then(
+                accountService.signIn(credentials).then(
                     function (response) {
                         $mdDialog.hide();
                         $scope.isLoading = false;

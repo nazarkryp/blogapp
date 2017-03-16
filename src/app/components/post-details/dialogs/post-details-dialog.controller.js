@@ -1,4 +1,4 @@
-angular.module('blogapp')
+angular.module('photocloud')
     .controller('PostDetailsDialogController', ['$scope', 'postsService', 'authService', 'post',
         function ($scope, postsService, authService, post) {
             $scope.post = post;

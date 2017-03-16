@@ -1,4 +1,4 @@
-angular.module('blogapp')
+angular.module('photocloud')
     .controller('UsersFeedController', ['$scope', '$state', '$stateParams', '$mdDialog', '$window', '$timeout', 'postsService', 'userService', 'authService', 'pageService',
         function ($scope, $state, $stateParams, $mdDialog, $window, $timeout, postsService, userService, authService, pageService) {
             $scope.feed = {

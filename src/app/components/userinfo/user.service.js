@@ -1,4 +1,4 @@
-angular.module('blogapp')
+angular.module('photocloud')
     .service('userService', ['$q', 'httpService', 'constService',
         function ($q, httpService, constService) {
             this.getUserByName = function (username) {

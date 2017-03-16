@@ -1,4 +1,4 @@
-angular.module('blogapp')
+angular.module('photocloud')
     .controller('SearchController', ['$scope', '$state', '$q', 'SearchService',
         function($scope, $state, $q, SearchService) {
             $scope.selectedItem = null;

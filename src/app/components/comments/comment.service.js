@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('blogapp')
+    angular.module('photocloud')
         .service('commentService', commentService);
 
     commentService.$inject = ['$q', 'httpService', 'constService'];

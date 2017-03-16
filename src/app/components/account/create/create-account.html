@@ -1,0 +1,128 @@
+<div class="content" layout="column" layout-align="start center">
+    <div class="container" layout="column" style="width: 50vw;">
+        <div class="title-block">
+            <span class="md-headline">CREATE ACCOUNT</span>
+        </div>
+        <md-divider style="margin: 0px 0px 25px 0px;"></md-divider>
+        <div layout="column">
+            <div class="md-block" style="padding-bottom: 25px;">
+                <p style="color: #757575;">If you already have an account with us, please login at the <a class="link-primary" ui-sref="signin">login page</a>.</p>
+            </div>
+        </div>
+        <div class="step" layout="column" ng-if="vm.step === 1">
+            <div layout="column">
+                <span class="md-title" style="font-weight: lighter;">Your Personal Details</span>
+                <md-divider style="margin: 25px 0px 25px 0px;"></md-divider>
+                <div class="container">
+                    <div class="form-item" layout="row" layout-align="start center">
+                        <div style="padding-right: 25px; text-align: right;" flex="20">
+                            <label aria-required="username">Username</label>
+                        </div>
+                        <md-input-container class="md-block" md-no-float flex>
+                            <input ng-class="{'form-invalid' : vm.account.isUsernameValid == false, 'light' : vm.account.isUsernameValid == true}" type="text"
+                                name="username" placeholder="Username" ng-model="vm.account.username">
+                        </md-input-container>
+                    </div>
+                    <div class="form-item" layout="row" layout-align="start center">
+                        <div style="padding-right: 25px; text-align: right;" flex="20">
+                            <label>E-Mail Address</label>
+                        </div>
+                        <md-input-container class="md-block" md-no-float flex>
+                            <input ng-class="{'form-invalid' : vm.account.isEmailValid == false, 'light' : vm.account.isEmailValid == true}" type="text"
+                                name="email" placeholder="username@example.com" ng-model="vm.account.email">
+                        </md-input-container>
+                    </div>
+                </div>
+            </div>
+            <div layout="column" style="margin-top: 20px;">
+                <span class="md-title" style="font-weight: lighter;">Your password</span>
+                <md-divider class="title-divider"></md-divider>
+                <div class="container">
+                    <div class="form-item" layout="row" layout-align="start center">
+                        <div class="form-item-label" flex="20">
+                            <label>Password</label>
+                        </div>
+                        <md-input-container class="md-block" md-no-float flex>
+                            <input class="light" type="text" placeholder="Password">
+                        </md-input-container>
+                    </div>
+                    <div class="form-item" layout="row" layout-align="start center">
+                        <div class="form-item-label" flex="20">
+                            <label>Confirm password</label>
+                        </div>
+                        <md-input-container class="md-block" md-no-float flex>
+                            <input class="light" type="text" placeholder="Confirm password">
+                        </md-input-container>
+                    </div>
+                </div>
+            </div>
+            <div style="margin: 50px 0px 50px 0px;">
+                <div class="container" layout="row" layout-align="space-between center">
+                    <md-checkbox>I have read and agree to the <a class="link-primary" href="/#/">Privacy Policy</a></md-checkbox>
+                    <div flex="35">
+                        <md-button class="md-raised md-primary fill" ng-click="vm.continue()">{{ vm.isLoading ? 'Loading' : 'Continue' }}</md-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div layout="column" ng-if="vm.step === 2">
+            <div layout="column">
+                <div layout="row">
+                    <span class="md-title" style="font-weight: lighter;">Additional information</span>
+                </div>
+                <md-divider class="title-divider"></md-divider>
+                <div class="container">
+                    <div class="form-item" layout="row" layout-align="start center" flex>
+                        <div class="form-item-label" layout="column" layout-align="start end" flex="20">
+                            <label>Profile picture</label>
+                            <span class="description"> (optional)</span>
+                        </div>
+                        <div layout="row" layout-align="space-between center" flex>
+                            <md-button class="md-raised" ng-disabled="vm.isUploading" ng-click="vm.browseAttachment()">Select profile photo</md-button>
+                            <input id="uploadInput" file-model="browsedFile.file" type="file" aria-label class="md-input" ng-hide="true" />
+                            <img class="avatar-big" ng-src="{{attachment.url}}" alt="avatar" ng-if="attachment.url">
+                            <md-progress-circular class="md-accent" md-mode="indeterminate" ng-if="vm.isUploading"></md-progress-circular>
+                        </div>
+                    </div>
+                    <div class="form-item" layout="row" layout-align="start center">
+                        <div class="form-item-label" layout="column" layout-align="start end" flex="20">
+                            <label>Full Name</label>
+                            <span class="description"> (optional)</span>
+                        </div>
+                        <md-input-container class="md-block" md-no-float flex>
+                            <input class="light" type="text" placeholder="Firstname Lastname">
+                        </md-input-container>
+                    </div>
+                    <div class="form-item" layout="row" layout-align="start center">
+                        <div class="form-item-label" layout="column" layout-align="start end" flex="20">
+                            <label>Bio</label>
+                            <span class="description"> (optional)</span>
+                        </div>
+                        <md-input-container class="md-block" md-no-float flex>
+                            <input class="light" type="text" placeholder="Tell us something about yourself">
+                        </md-input-container>
+                    </div>
+                    <div class="form-item" layout="row" layout-align="start start">
+                        <div class="form-item-label" layout="column" layout-align="start end" flex="20">
+                            <label>Private account</label>
+                            <span class="description"> (optional)</span>
+                        </div>
+                        <div layout="column">
+                            <md-checkbox ng-model="account.isPrivate" aria-label="Private Account"></md-checkbox>
+                            <p class="description">When your account is private, only people you approve can see you photos and videos on PhotoCloud.
+                                The existing followers won't be affected</p>
+                        </div>
+                    </div>
+                    <div style="margin: 50px 0px 50px 0px;">
+                        <div class="container" layout="row" layout-align="space-between center">
+                            <md-button class="md-raised" ng-click="vm.goBack()">Go Back</md-button>
+                            <div flex="35">
+                                <md-button class="md-raised md-primary md-block fill" ng-click="vm.createAccount()">Create Account</md-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

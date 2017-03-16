@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('blogapp')
+    angular.module('photocloud')
         .controller('ExploreController', ExploreController);
 
     ExploreController.$inject = ['$state', '$stateParams'];

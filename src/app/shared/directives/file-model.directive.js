@@ -1,4 +1,4 @@
-angular.module('blogapp')
+angular.module('photocloud')
     .directive("fileModel", ["$parse", function ($parse) {
         return {
             restrict: "A",

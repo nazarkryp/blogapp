@@ -1,4 +1,4 @@
-angular.module('blogapp')
+angular.module('photocloud')
     .controller('PostDetailsController', ['$scope', '$state', '$stateParams', 'postsService', 'authService',
         function ($scope, $state, $stateParams, postsService, authService) {
             $scope.image = {

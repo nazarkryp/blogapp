@@ -19,6 +19,10 @@ md-input-container {
     margin: 0;
 }
 
+.fill {
+    width: 100%;
+}
+
 .md-input-focused {
     color: black;
 }
@@ -26,7 +30,6 @@ md-input-container {
 a:link {
     text-decoration: none;
     color: black;
-    /*font-weight: lighter;*/
 }
 
 a:visited {
@@ -36,6 +39,16 @@ a:visited {
 
 a:hover {
     cursor: pointer;
+}
+
+.link-primary, .link-primary:visited {
+    color: #0088CC;
+    text-decoration: none;
+}
+
+.link-primary:hover {
+    color: #0074d0;
+    text-decoration: none;
 }
 
 .footer {
@@ -57,8 +70,7 @@ a:hover {
     color: white;
 }
 
-.header-toolbar.md-toolbar.md-default-theme:not(.md-menu-toolbar),
-md-toolbar:not(.md-menu-toolbar) {
+.header-toolbar.md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
     background-color: white;
     color: black;
     border-bottom: 1px solid #efefef;
@@ -158,9 +170,17 @@ md-toolbar:not(.md-menu-toolbar) {
     padding: 10px;
 }
 
-.post-header>.avatar {
+.avatar {
     height: 45px;
     width: 45px;
+    border-radius: 90px 90px 90px 90px;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.avatar-big {
+    height: 85px;
+    width: 85px;
     border-radius: 90px 90px 90px 90px;
     object-fit: cover;
     overflow: hidden;
@@ -194,6 +214,10 @@ md-toolbar:not(.md-menu-toolbar) {
 
 .divider-padding {
     margin: 5px 10px 0px 10px;
+}
+
+.title-divider {
+    margin: 25px 0px 25px 0px;
 }
 
 .post-box {
@@ -351,7 +375,7 @@ md-autocomplete-wrap {
     border: 1px solid #efefef;
     border-radius: 2px;
     box-shadow: none !important;
-    background-color: rgb(250, 250, 250);
+    background-color: #fafafa;
 }
 
 md-virtual-repeat-container.md-autocomplete-suggestions-container {
@@ -397,6 +421,23 @@ md-virtual-repeat-container.md-autocomplete-suggestions-container {
     border-style: none;
 }
 
+.md-button.md-primary.md-raised {
+    background-color: #2196f3;
+    color: white;
+}
+
+.md-button.md-primary.md-raised:not([disabled]):hover {
+    background-color: #0074d0;
+}
+
+md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
+    background-color: #0074d0;
+}
+
+md-checkbox {
+    margin-bottom: 0px;
+}
+
 .vertical-divider {
     border-right: 3px;
     border-right-style: solid;
@@ -426,8 +467,7 @@ md-virtual-repeat-container.md-autocomplete-suggestions-container {
     width: 75px;
 }
 
-.material-icons.icon,
-.material-label {
+.material-icons.icon, .material-label {
     font-size: 2em;
     /*line-height: 1;*/
     display: block;
@@ -435,11 +475,14 @@ md-virtual-repeat-container.md-autocomplete-suggestions-container {
     margin: .5em 0
 }
 
-.material-icons.mdl-badge[data-badge]::after,
-.material-label.mdl-badge[data-badge]::after {
+.material-icons.mdl-badge[data-badge]::after, .material-label.mdl-badge[data-badge]::after {
     font-size: .3em;
     /*width: 2em;
   height: 2em;*/
+}
+
+#uploadInput {
+    display: none;
 }
 
 .material-icons.mdl-badge[data-badge]::after {
@@ -455,20 +498,66 @@ md-progress-linear {
     height: 2px;
 }
 
-.md-progress-linear.md-default-theme .md-container,
-md-progress-linear .md-container {
+.md-progress-linear.md-default-theme .md-container, md-progress-linear .md-container {
     background-color: transparent;
     height: 2px;
 }
 
-.md-progress-linear.md-default-theme .md-bar,
-md-progress-linear .md-bar {
+.md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
     background-color: rgb(33, 150, 243);
     height: 2px;
 }
 
 md-progress-linear .md-container .md-bar {
     height: 2px;
+}
+
+.md-input.light {
+    background-color: white;
+    height: 40px;
+    padding: 0px 10px 0px 10px;
+    border-radius: 2px;
+    font-size: 17px;
+    font-weight: lighter;
+}
+
+.md-input.light {
+    background-color: white;
+    border: 1px solid #d8d8d8;
+    height: 40px;
+    padding: 0px 10px 0px 10px;
+    border-radius: 2px;
+    font-size: 17px;
+    font-weight: lighter;
+}
+
+.md-input.form-invalid {
+    background-color: white;
+    border: 1px solid red;
+    height: 40px;
+    padding: 0px 10px 0px 10px;
+    border-radius: 2px;
+    font-size: 17px;
+    font-weight: lighter;
+}
+
+md-input-container:not(.md-input-invalid).md-input-focused .md-input.light {
+    border: 1px solid #2196f3;
+    padding: 0px 10px 0px 10px;
+}
+
+md-input-container:not(.md-input-invalid).md-input-focused .md-input.form-invalid {
+    border: 1px solid red;
+    padding: 0px 10px 0px 10px;
+}
+
+md-input-container:not(.md-input-invalid).md-input-focused .md-input.search-bar {
+    border: none;
+    padding: 0px 10px 0px 10px;
+}
+
+md-input-container .md-errors-spacer {
+    min-height: 0px !important;
 }
 
 md-input-container.text-block .md-errors-spacer {
@@ -478,6 +567,24 @@ md-input-container.text-block .md-errors-spacer {
 md-input-container:not(.md-input-invalid).md-input-focused .md-input.comment-box {
     border: none;
     padding: 0px 2px 0px 2px;
+}
+
+.title-block {
+    padding: 0px 0px 25px 0px;
+}
+
+.content {
+    min-height: calc(100vh - 147px);
+    padding-top: 50px;
+}
+
+.form-item {
+    padding-bottom: 25px;
+}
+
+.form-item-label {
+    padding-right: 25px;
+    text-align: right;
 }
 
 .hashtag {
@@ -498,4 +605,14 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input.comment-box
 
 .md-headline {
     font-weight: lighter;
+}
+
+.description {
+    font-size: 14px;
+    font-weight: 400;
+    color: #808080;
+}
+
+.step {
+    
 }

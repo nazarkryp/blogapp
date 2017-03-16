@@ -1,5 +1,5 @@
 (function () {
     'use strict';
 
-    angular.module('blogapp', ['ui.router', 'ngMaterial', 'ngMessages', 'ngSanitize']);
+    angular.module('photocloud', ['ui.router', 'ngMaterial', 'ngMessages', 'ngSanitize']);
 })();

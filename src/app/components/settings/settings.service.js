@@ -1,4 +1,4 @@
-angular.module('blogapp')
+angular.module('photocloud')
     .service('SettingsService', ['$q', 'httpService', 'constService',
         function ($q, httpService, constService) {
             this.getAccountSettings = function (userId) {

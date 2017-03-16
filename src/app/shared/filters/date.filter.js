@@ -1,4 +1,4 @@
-angular.module('blogapp').filter('difference', ['$filter', function ($filter) {
+angular.module('photocloud').filter('difference', ['$filter', function ($filter) {
     return function (postDate) {
         var currentDate = new Date();
 

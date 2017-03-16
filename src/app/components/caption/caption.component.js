@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('blogapp')
+    angular.module('photocloud')
         .component('postCaption', {
             templateUrl: 'app/components/caption/caption.html',
             controllerAs: 'vm',

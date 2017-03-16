@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('blogapp')
+    angular.module('photocloud')
         .controller('ExplorePeopleController', ExplorePeopleController);
 
     ExplorePeopleController.$inject = ['peopleService', 'userService', 'authService', 'pageService'];

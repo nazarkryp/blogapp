@@ -1,4 +1,4 @@
-angular.module('blogapp').controller('SettingsController', ['$scope', '$state', '$stateParams', '$mdToast', 'SettingsService', 'authService', 'pageService',
+angular.module('photocloud').controller('SettingsController', ['$scope', '$state', '$stateParams', '$mdToast', 'SettingsService', 'authService', 'pageService',
     function ($scope, $state, $stateParams, $mdToast, SettingsService, authService, pageService) {
         $scope.isRedirected = $stateParams.isRedirected;
         $scope.settings = {

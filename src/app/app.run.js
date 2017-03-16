@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('blogapp')
+    angular.module('photocloud')
         .run(runBlock);
 
     runBlock.$inject = ["$rootScope", "$state", "authService"];

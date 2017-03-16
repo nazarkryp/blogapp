@@ -1,4 +1,4 @@
-angular.module('blogapp').controller('TitleController', ['$rootScope', '$scope', '$state', 'pageService',
+angular.module('photocloud').controller('TitleController', ['$rootScope', '$scope', '$state', 'pageService',
     function ($rootScope, $scope, $state, pageService) {
         $scope.pageService = pageService;
         $rootScope.$state = $state;

@@ -1,4 +1,4 @@
-angular.module('blogapp').filter('relationshipButton', ['$filter', function ($filter) {
+angular.module('photocloud').filter('relationshipButton', ['$filter', function ($filter) {
     return function (status) {
         if (status === 'None') {
             return 'FOLLOW';

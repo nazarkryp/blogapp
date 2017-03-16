@@ -1,4 +1,4 @@
-angular.module('blogapp')
+angular.module('photocloud')
     .service('pageService', function () {
         this.title = 'Photocloud';
         this.isLoading = false;

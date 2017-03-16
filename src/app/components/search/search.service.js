@@ -1,4 +1,4 @@
-angular.module('blogapp')
+angular.module('photocloud')
     .service('SearchService', ['$q', 'httpService', 'constService',
         function ($q, httpService, constService) {
             this.search = function (searchQuery) {

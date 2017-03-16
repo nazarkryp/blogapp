@@ -1,12 +1,12 @@
 (function () {
     'use strict';
 
-    angular.module('blogapp')
+    angular.module('photocloud')
         .controller('CreatePostController', CreatePostController);
 
-    CreatePostController.$inject = ['$scope', '$mdDialog', 'UploadService', 'postsService'];
+    CreatePostController.$inject = ['$scope', '$mdDialog', 'uploadService', 'postsService'];
 
-    function CreatePostController($scope, $mdDialog, UploadService, postsService) {
+    function CreatePostController($scope, $mdDialog, uploadService, postsService) {
         $scope.isUploading = false;
 
         $scope.post = {
@@ -58,7 +58,7 @@
             $scope.isUploading = true;
 
             if (file) {
-                UploadService.uploadFile(file)
+                uploadService.uploadFile(file)
                     .then(function (response) {
                         $scope.isUploading = false;
                         $scope.attachment = response;

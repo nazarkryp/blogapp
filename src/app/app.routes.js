@@ -1,7 +1,7 @@
-(function() {
+(function () {
     'use strict';
 
-    angular.module('blogapp')
+    angular.module('photocloud')
         .config(stateConfig);
 
     stateConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$mdIconProvider', '$httpProvider'];
@@ -16,13 +16,13 @@
             })
             .state('signup', {
                 url: '/signup',
-                templateUrl: 'app/components/signup/signup.html',
-                controller: 'SignUpController',
+                templateUrl: 'app/components/account/create/create-account.html',
+                controller: 'CreateAccountController',
                 controllerAs: 'vm'
             })
             .state('signin', {
                 url: '/signin',
-                templateUrl: 'app/components/signin/signin.html',
+                templateUrl: 'app/components/account/signin/signin.html',
                 controller: 'SignInController',
                 controllerAs: 'vm'
             })

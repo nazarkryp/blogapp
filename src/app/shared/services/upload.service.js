@@ -1,5 +1,5 @@
-angular.module('blogapp')
-    .service('UploadService', ['$q', '$http', 'httpService', 'constService',
+angular.module('photocloud')
+    .service('uploadService', ['$q', '$http', 'httpService', 'constService',
         function($q, $http, httpService, constService) {
             this.uploadFile = function(file) {
                 var deferred = $q.defer();

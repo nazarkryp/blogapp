@@ -1,4 +1,4 @@
-angular.module('blogapp').service('postsService', ['$q', 'httpService', 'constService',
+angular.module('photocloud').service('postsService', ['$q', 'httpService', 'constService',
     function ($q, httpService, constService) {
         this.createPost = function (post) {
             var deferred = $q.defer();

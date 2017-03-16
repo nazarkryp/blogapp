@@ -1,4 +1,4 @@
-angular.module('blogapp')
+angular.module('photocloud')
     .factory("authInterpretatorService", ["$q", "$location", "authService",
         function ($q, $location, authService) {
             var service = {};

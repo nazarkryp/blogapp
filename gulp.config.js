@@ -11,7 +11,7 @@ module.exports = function () {
         templateCache: {
             file: 'templates.js',
             options: {
-                module: 'blogapp',
+                module: 'photocloud',
                 root: 'app/',
                 standAlone: false
             }

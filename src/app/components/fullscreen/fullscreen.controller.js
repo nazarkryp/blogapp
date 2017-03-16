@@ -1,4 +1,4 @@
-angular.module('blogapp').controller('FullScreenController', ['$stateParams', FullScreen]);
+angular.module('photocloud').controller('FullScreenController', ['$stateParams', FullScreen]);
 
 function FullScreen($stateParams) {
     var self = this;

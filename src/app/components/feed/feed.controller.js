@@ -1,4 +1,4 @@
-angular.module('blogapp')
+angular.module('photocloud')
     .controller('FeedController', ['$scope', '$state', '$stateParams', '$mdDialog', '$window', '$timeout', 'postsService', 'authService', 'pageService',
         function ($scope, $state, $stateParams, $mdDialog, $window, $timeout, postsService, authService, pageService) {
             $scope.authService = authService;

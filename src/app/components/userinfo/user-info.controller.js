@@ -1,4 +1,4 @@
-angular.module('blogapp')
+angular.module('photocloud')
     .controller('UserInfoController', ['$scope', 'userService', 'authService', 'RELATIONSHIPS',
         function ($scope, userService, authService, RELATIONSHIPS) {
             $scope.currentUserName = authService.username;

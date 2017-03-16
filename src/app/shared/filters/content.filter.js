@@ -1,4 +1,4 @@
-angular.module('blogapp').filter('content', ['$filter', '$sce',
+angular.module('photocloud').filter('content', ['$filter', '$sce',
     function ($filter, $sce) {
         return function (text, target, type) {
             if (!text) {

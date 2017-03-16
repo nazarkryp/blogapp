@@ -1,4 +1,4 @@
-angular.module('blogapp').controller('UsersController', ['$scope', '$state', '$stateParams', 'peopleService', 'userService', 'authService', 'pageService',
+angular.module('photocloud').controller('UsersController', ['$scope', '$state', '$stateParams', 'peopleService', 'userService', 'authService', 'pageService',
     function ($scope, $state, $stateParams, peopleService, userService, authService, pageService) {
         $scope.currentUserId = authService.userId;
         $scope.group = {
