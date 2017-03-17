@@ -41,7 +41,8 @@ a:hover {
     cursor: pointer;
 }
 
-.link-primary, .link-primary:visited {
+.link-primary,
+.link-primary:visited {
     color: #0088CC;
     text-decoration: none;
 }
@@ -70,7 +71,8 @@ a:hover {
     color: white;
 }
 
-.header-toolbar.md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+.header-toolbar.md-toolbar.md-default-theme:not(.md-menu-toolbar),
+md-toolbar:not(.md-menu-toolbar) {
     background-color: white;
     color: black;
     border-bottom: 1px solid #efefef;
@@ -430,7 +432,8 @@ md-virtual-repeat-container.md-autocomplete-suggestions-container {
     background-color: #0074d0;
 }
 
-md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
+md-checkbox.md-default-theme.md-checked .md-icon,
+md-checkbox.md-checked .md-icon {
     background-color: #0074d0;
 }
 
@@ -467,7 +470,8 @@ md-checkbox {
     width: 75px;
 }
 
-.material-icons.icon, .material-label {
+.material-icons.icon,
+.material-label {
     font-size: 2em;
     /*line-height: 1;*/
     display: block;
@@ -475,7 +479,8 @@ md-checkbox {
     margin: .5em 0
 }
 
-.material-icons.mdl-badge[data-badge]::after, .material-label.mdl-badge[data-badge]::after {
+.material-icons.mdl-badge[data-badge]::after,
+.material-label.mdl-badge[data-badge]::after {
     font-size: .3em;
     /*width: 2em;
   height: 2em;*/
@@ -498,12 +503,14 @@ md-progress-linear {
     height: 2px;
 }
 
-.md-progress-linear.md-default-theme .md-container, md-progress-linear .md-container {
+.md-progress-linear.md-default-theme .md-container,
+md-progress-linear .md-container {
     background-color: transparent;
     height: 2px;
 }
 
-.md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
+.md-progress-linear.md-default-theme .md-bar,
+md-progress-linear .md-bar {
     background-color: rgb(33, 150, 243);
     height: 2px;
 }
@@ -556,7 +563,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input.search-bar 
     padding: 0px 10px 0px 10px;
 }
 
-md-input-container .md-errors-spacer {
+.form-item>md-input-container .md-errors-spacer {
     min-height: 0px !important;
 }
 
@@ -613,6 +620,4 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input.comment-box
     color: #808080;
 }
 
-.step {
-    
-}
+.step {}

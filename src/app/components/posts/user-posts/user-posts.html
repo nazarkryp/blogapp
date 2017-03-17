@@ -1,8 +1,8 @@
 <div layout="column">
-    <div layout="row" layout-align="center center" ng-if="user">
-        <user-info user="user"></user-info>
+    <div layout="row" layout-align="center center" ng-if="vm.user">
+        <user-info user="vm.user"></user-info>
     </div>
-    <div style="height: 300px;" layout="row" layout-align="center center" ng-if="notFound">
+    <div style="height: 300px;" layout="row" layout-align="center center" ng-if="vm.notFound">
         <div layout="column" layout-align="center center">
             <span class="md-headline" style="font-weight: bold;">Sorry, this page is not available</span>
             <p>The link you followed may be broken, or the page may have been removed. Go back to <a ui-sref="feed" style="color: rgb(33, 150, 243);">PhotoCloud</a></p>
@@ -11,22 +11,20 @@
     <div layout="row" layout-align="center center">
         <div class="feed-content">
             <div style="height: 300px;" layout="row" layout-align="center center" ng-if="errorMessage || infoMessage">
-                <div layout="column" layout-align="center center" ng-if="!isLoading && infoMessage" style="margin-top: {{windowCenter}}px;">
-                    <span class="feed-info-message">{{infoMessage}}</span>
+                <div layout="column" layout-align="center center" ng-if="!vm.isLoading && vm.infoMessage" style="margin-top: {{vm.windowCenter}}px;">
+                    <span class="feed-info-message">{{vm.infoMessage}}</span>
                 </div>
-                <div style="height: 200px;width: 750px;border:1px solid #efefef;background:white;" layout="column" layout-align="center center"
-                    ng-if="errorMessage">
-                    <strong>{{errorMessage}}</strong>
-                    <p ng-if="currentUser.isAuthenticated && user.relationshipStatus === 'Requested'">You need to wait until <strong>{{user.username}}</strong> accepts your relationship request</p>
-                    <p ng-if="currentUser.isAuthenticated && user.relationshipStatus !== 'Requested'">Follow <strong>{{user.username}}</strong> to see all their photos</p>
-                    <p ng-if="!currentUser.isAuthenticated">Already know <strong>{{username}}</strong>?
+                <div style="height: 200px;width: 750px;border:1px solid #efefef;background:white;" layout="column" layout-align="center center" ng-if="vm.errorMessage">
+                    <strong>{{vm.errorMessage}}</strong>
+                    <p ng-if="vm.currentUser.isAuthenticated && vm.user.relationshipStatus === 'Requested'">You need to wait until <strong>{{vm.user.username}}</strong> accepts your relationship request</p>
+                    <p ng-if="vm.currentUser.isAuthenticated && vm.user.relationshipStatus !== 'Requested'">Follow <strong>{{vm.user.username}}</strong> to see all their photos</p>
+                    <p ng-if="!vm.currentUser.isAuthenticated">Already know <strong>{{vm.username}}</strong>?
                         <a style="color: rgb(33, 150, 243);" ui-sref="signin()">Sign in</a> to see all their photos
                     </p>
                 </div>
             </div>
             <md-grid-list md-cols-gt-md="3" md-row-height-gt-md="1:1" layout-align="center center">
-                <md-grid-tile class="user-post" ng-repeat="post in feed.items" ng-mouseenter="showDetails(post)" ng-mouseleave="hideDetails(post)"
-                    ng-click="showPostDetailsDialog($event, post)" style="width: 300px; height: 300px;">
+                <md-grid-tile class="user-post" ng-repeat="post in vm.feed.items" ng-mouseenter="vm.showDetails(post)" ng-mouseleave="vm.hideDetails(post)" ng-click="vm.showPostDetailsDialog($event, post)" style="width: 300px; height: 300px;">
                     <div class="post-thumbnail-container" layout="row" layout-align="center stretch" ng-if="post.showDetails">
                         <div class="post-labels" layout="row" layout-align="center center" style="margin-right: 30px;">
                             <span>{{post.likesCount}}</span>
@@ -45,12 +43,12 @@
     </div>
 </div>
 
-<div class="md-padding" layout="column" layout-align="center center" ng-if="feed.hasMoreItems">
-    <md-button ng-click="loadMorePosts()" ng-if="!isLoadingMorePosts">Load More</md-button>
-    <md-progress-circular md-mode="indeterminate" ng-if="isLoadingMorePosts"></md-progress-circular>
+<div class="md-padding" layout="column" layout-align="center center" ng-if="vm.feed.hasMoreItems">
+    <md-button ng-click="vm.loadMorePosts()" ng-if="!vm.isLoadingMorePosts">Load More</md-button>
+    <md-progress-circular md-mode="indeterminate" ng-if="vm.isLoadingMorePosts"></md-progress-circular>
 </div>
 
-<md-fab-speed-dial class="md-fab-bottom-right" ng-click="showCreatePostDialog($event)" ng-if="isAuthenticated">
+<md-fab-speed-dial class="md-fab-bottom-right" ng-click="vm.showCreatePostDialog($event)" ng-if="vm.isAuthenticated">
     <md-fab-trigger>
         <md-button aria-label="create post" class="md-fab" md-colors="{background: 'blue'}">
             <md-icon>add_to_photos</md-icon>

@@ -19,8 +19,7 @@
                             <label aria-required="username">Username</label>
                         </div>
                         <md-input-container class="md-block" md-no-float flex>
-                            <input ng-class="{'form-invalid' : vm.account.isUsernameValid == false, 'light' : vm.account.isUsernameValid == true}" type="text"
-                                name="username" placeholder="Username" ng-model="vm.account.username">
+                            <input ng-class="{'form-invalid' : vm.account.isUsernameValid == false, 'light' : vm.account.isUsernameValid == true}" type="text" name="username" placeholder="Username" ng-model="vm.account.username">
                         </md-input-container>
                     </div>
                     <div class="form-item" layout="row" layout-align="start center">
@@ -28,8 +27,7 @@
                             <label>E-Mail Address</label>
                         </div>
                         <md-input-container class="md-block" md-no-float flex>
-                            <input ng-class="{'form-invalid' : vm.account.isEmailValid == false, 'light' : vm.account.isEmailValid == true}" type="text"
-                                name="email" placeholder="username@example.com" ng-model="vm.account.email">
+                            <input ng-class="{'form-invalid' : vm.account.isEmailValid == false, 'light' : vm.account.isEmailValid == true}" type="text" name="email" placeholder="username@example.com" ng-model="vm.account.email">
                         </md-input-container>
                     </div>
                 </div>
@@ -43,7 +41,7 @@
                             <label>Password</label>
                         </div>
                         <md-input-container class="md-block" md-no-float flex>
-                            <input class="light" type="text" placeholder="Password">
+                            <input ng-class="{'form-invalid' : vm.account.isPasswordValid == false, 'light' : vm.account.isPasswordValid == true}" type="password" placeholder="Password" ng-model="vm.account.password">
                         </md-input-container>
                     </div>
                     <div class="form-item" layout="row" layout-align="start center">
@@ -51,14 +49,14 @@
                             <label>Confirm password</label>
                         </div>
                         <md-input-container class="md-block" md-no-float flex>
-                            <input class="light" type="text" placeholder="Confirm password">
+                            <input ng-class="{'form-invalid' : vm.account.isConfirmPasswordValid == false, 'light' : vm.account.isConfirmPasswordValid == true}" type="password" placeholder="Confirm password" ng-model="vm.account.confirmPassword">
                         </md-input-container>
                     </div>
                 </div>
             </div>
             <div style="margin: 50px 0px 50px 0px;">
                 <div class="container" layout="row" layout-align="space-between center">
-                    <md-checkbox>I have read and agree to the <a class="link-primary" href="/#/">Privacy Policy</a></md-checkbox>
+                    <md-checkbox ng-model="vm.account.privacyPolicyChecked">I have read and agree to the <a class="link-primary" href="/#/">Privacy Policy</a></md-checkbox>
                     <div flex="35">
                         <md-button class="md-raised md-primary fill" ng-click="vm.continue()">{{ vm.isLoading ? 'Loading' : 'Continue' }}</md-button>
                     </div>
@@ -109,8 +107,7 @@
                         </div>
                         <div layout="column">
                             <md-checkbox ng-model="account.isPrivate" aria-label="Private Account"></md-checkbox>
-                            <p class="description">When your account is private, only people you approve can see you photos and videos on PhotoCloud.
-                                The existing followers won't be affected</p>
+                            <p class="description">When your account is private, only people you approve can see you photos and videos on PhotoCloud. The existing followers won't be affected</p>
                         </div>
                     </div>
                     <div style="margin: 50px 0px 50px 0px;">

@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
 
     angular.module('photocloud')
@@ -9,9 +9,9 @@
     function CommentsController(commentService) {
         var vm = this;
 
-        vm.getComments = function (post) {
+        vm.getComments = function(post) {
             commentService.getComments(post.id).then(
-                function (response) {
+                function(response) {
                     vm.post.comments = response;
                 });
         }

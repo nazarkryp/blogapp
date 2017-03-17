@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
 
     angular.module('photocloud')
@@ -10,7 +10,7 @@
         $stateProvider
             .state('feed', {
                 url: '/',
-                templateUrl: 'app/components/feed/self/feed.html',
+                templateUrl: 'app/components/posts/feed/posts.html',
                 controller: 'FeedController',
                 controllerAs: 'vm'
             })
@@ -60,10 +60,14 @@
                 controller: 'FullScreenController',
                 controllerAs: 'vm'
             })
+            // .state('404', {
+            //     url: '/404',
+            //     templateUrl: 'app/components/404/404.html'
+            // })
             .state('userfeed', {
                 url: '/:username',
-                templateUrl: 'app/components/feed/users/feed.html',
-                controller: 'UsersFeedController',
+                templateUrl: 'app/components/posts/user-posts/user-posts.html',
+                controller: 'UserFeedController',
                 controllerAs: 'vm'
             })
             .state('post', {

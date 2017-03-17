@@ -1,5 +1,5 @@
 angular.module('photocloud').component('post', {
-    templateUrl: 'app/components/post/post.html',
+    templateUrl: 'app/components/posts/post/post.html',
     controller: 'PostController',
     controllerAs: 'vm',
     bindings: {

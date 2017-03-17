@@ -1,3 +1,14 @@
-angular.module('photocloud').controller('ErrorController', ['$scope', 'error', function ($scope, error) {
-    $scope.error = error;
-}]);
+(function() {
+    'use strict';
+
+    angular.module('photocloud')
+        .controller('ErrorController', ErrorController);
+
+    ErrorController.$inject = ['error'];
+
+    function ErrorController(error) {
+        var vm = this;
+
+        vm.error = error;
+    }
+})();
