@@ -1,7 +1,7 @@
 <md-dialog>
     <md-dialog-content>
         <div layout="row">
-            <img ng-src="{{post.attachment.url}}" alt="image" style="max-height: {{maxHeight}}px;max-width: {{maxWidth}}px;">
+            <img ng-src="{{post.attachments[0].url}}" alt="image" style="max-height: {{maxHeight}}px;max-width: {{maxWidth}}px;">
             <div layout="column" style="width:350px;padding: 0px 10px 0px 15px;">
                 <div layout="row" layout-align="space-between center" style="height: 75px;">
                     <div layout="row" layout-align="center center">
@@ -35,8 +35,7 @@
                     </div>
                     <div style="padding: 25px 0px 0px 10px;" flex>
                         <md-input-container class="md-block" md-no-float>
-                            <input type="text" placeholder="Add comment" class="comment-box" ng-model="newComment.text" ng-keydown="createComment(newComment, post, $event)"
-                            />
+                            <input type="text" placeholder="Add comment" class="comment-box" ng-model="newComment.text" ng-keydown="createComment(newComment, post, $event)" />
                         </md-input-container>
                     </div>
                     <div layout="row" layout-align="end center">

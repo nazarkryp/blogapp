@@ -1,4 +1,12 @@
-<div class="post">
+<div class="post" ng-if="vm.post.isCreating">
+    <div class="post-content" layout="column">
+        <img ng-src="{{vm.post.attachments[0].url}}" alt="post-image">
+        <div class="post-overlay" layout="row" layout-align="center center">
+            <md-progress-circular class="md-primary" md-diameter="70"></md-progress-circular>
+        </div>
+    </div>
+</div>
+<div class="post" ng-if="!vm.post.isCreating">
     <div class="post-header" layout="row" layout-align="start center">
         <img class="avatar" ng-src="{{vm.post.user.imageUri}}" alt="avatar">
         <div class="details" layout="row" layout-align="space-between center" flex>
@@ -7,7 +15,7 @@
         </div>
     </div>
     <div class="post-content">
-        <img ng-src="{{vm.post.attachment.url}}" alt="post-image">
+        <img ng-src="{{vm.post.attachments[0].url}}" alt="post-image">
     </div>
     <div class="post-footer">
         <div class="post-likes">
@@ -21,7 +29,7 @@
                 <md-icon ng-class="{'liked': vm.post.userHasLiked}">favorite</md-icon>
             </md-button>
             <md-input-container class="md-block comment-input-container " md-no-float flex>
-                <input class="comment-box" type="text" placeholder="Add a comment" ng-model="vm.newComment.text" ng-keydown="vm.postComment(vm.newComment, vm.post, $event)"/>
+                <input class="comment-box" type="text" placeholder="Add a comment" ng-model="vm.newComment.text" ng-keydown="vm.postComment(vm.newComment, vm.post, $event)" />
             </md-input-container>
             <div>
                 <md-menu>
@@ -43,7 +51,7 @@
                         </md-menu-item>
                         <md-menu-divider></md-menu-divider>
                         <md-menu-item>
-                            <md-button ui-sref="fullscreen({url : vm.post.attachment.url})" target="_blank">
+                            <md-button ui-sref="fullscreen({url : vm.post.attachments[0].url})" target="_blank">
                                 <md-icon>star_rate</md-icon>
                                 Open full size
                             </md-button>

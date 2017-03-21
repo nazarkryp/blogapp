@@ -12,8 +12,8 @@
         vm.step = 1;
 
         vm.isLoading = false;
-        vm.isUploading = false;
         vm.browsedFile = {
+            isUploading: false,
             file: null
         };
 
@@ -34,16 +34,16 @@
         }
 
         vm.createAccount = function(account) {
-            if (vm.attachment) {
-                vm.account.attachment = vm.attachment;
-            }
-
             accountService.createAccount(vm.account).then(
                 function(response) {
                     $state.go('signin');
                 },
                 function(error) {
-                    vm.errorMessage = error.error_description;
+                    if (error.error_description) {
+                        vm.errorMessage = error.error_description;
+                    } else {
+                        vm.errorMessage = error;
+                    }
                 }
             );
         }
@@ -78,6 +78,12 @@
             vm.step = 1;
         }
 
+        $scope.$watch("vm.browsedFile.file", function(file) {
+            if (file) {
+                uploadImage(file);
+            }
+        });
+
         function validateStep1() {
             vm.account.isUsernameValid = !(!vm.account.username || vm.account.username.length < 3);
             vm.account.isEmailValid = !(!vm.account.email || vm.account.email < 3);
@@ -87,24 +93,18 @@
             return (vm.account.isPasswordValid && vm.account.isConfirmPasswordValid && vm.account.isPasswordValid && vm.account.isConfirmPasswordValid && vm.account.privacyPolicyChecked);
         }
 
-        $scope.$watch("vm.browsedFile.file", function(file) {
-            if (file) {
-                uploadImage(file);
-            }
-        })
-
         function uploadImage(file) {
             if (file) {
-                vm.isUploading = true;
+                vm.browsedFile.isUploading = true;
 
                 uploadService.uploadFile(file)
                     .then(function(response) {
-                            vm.isUploading = false;
-                            vm.attachment = response;
+                            vm.browsedFile.isUploading = false;
+                            vm.account.attachment = response;
                             vm.browsedFile.file = null;
                         },
                         function(error) {
-                            vm.isUploading = false;
+                            vm.browsedFile.isUploading = false;
                             vm.browsedFile.file = null;
                         });
             }

@@ -51,6 +51,7 @@
         vm.showCreatePostDialog = function(ev) {
             $mdDialog.show({
                 controller: 'CreatePostController',
+                controllerAs: 'vm',
                 templateUrl: 'app/components/upload/create-post.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
@@ -65,33 +66,24 @@
                 function() {});
         };
 
-        var createPost = function(post) {
-            var promise = null;
+        function createPost(post) {
+            postsService.createPost(post)
+                .then(function(response) {
+                    mapPost(post, response);
+                    post.isCreating = false;
 
-            if (!post.isExternal) {
-                promise = postsService.createPost(post);
-            } else {
-                promise = postsService.createPostFromExternal(post);
-            }
-
-            promise.then(function(response) {
-                mapPost(post, response);
-                post.isCreating = false;
-
-                if (vm.feed.items.length === 0) {
-                    vm.infoMessage = 'Nobody has posted anything yet';
-                } else {
-                    vm.infoMessage = '';
-                }
-            }, function(error) {
-                console.log(error);
-            });
+                    if (vm.feed.items.length === 0) {
+                        vm.infoMessage = 'Nobody has posted anything yet';
+                    } else {
+                        vm.infoMessage = '';
+                    }
+                }, function(error) {
+                    console.log(error);
+                });
         };
 
-        var addNewPost = function(post) {
-            if (!$stateParams.username) {
-                vm.feed.items.unshift(post);
-            } else if ($stateParams.username === authService.username) {
+        function addNewPost(post) {
+            if (!$stateParams.username || $stateParams.username === authService.username) {
                 vm.feed.items.unshift(post);
             }
 
@@ -102,9 +94,12 @@
             }
         };
 
-        var mapPost = function(post, response) {
+        function mapPost(post, response) {
             post.id = response.id;
-            post.attachment.id = response.attachment.id;
+            post.attachments = [];
+            response.attachments.forEach(function(attachment) {
+                post.attachments.push(attachment);
+            }, this);
             post.created = response.created;
             post.caption = response.caption;
             post.user = response.user;
@@ -114,7 +109,7 @@
             post.likes = response.likesCount;
         };
 
-        var showLoadingDialog = function() {
+        function showLoadingDialog() {
             $mdDialog.show({
                 contentElement: '#loadingDialog',
                 parent: angular.element(document.body),
@@ -122,7 +117,7 @@
             });
         };
 
-        var getFeedPromise = function() {
+        function getFeedPromise() {
             if (!$stateParams.username) {
                 pageService.title = 'Photocloud';
 

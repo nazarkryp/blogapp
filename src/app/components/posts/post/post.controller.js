@@ -1,4 +1,4 @@
-(function () {
+(function() {
     angular.module('photocloud').controller('PostController', PostController);
 
     PostController.$inject = ['$scope', '$state', '$mdDialog', 'postsService', 'commentService', 'authService'];
@@ -8,7 +8,7 @@
         vm.authService = authService;
         vm.isAuthenticated = authService.isAuthenticated;
 
-        vm.like = function (post) {
+        vm.like = function(post) {
             if (post.userHasLiked) {
                 post.likesCount--;
             } else {
@@ -18,17 +18,17 @@
             post.userHasLiked = !post.userHasLiked;
 
             postsService.like(post.id).then(
-                function (response) {
+                function(response) {
                     post.likesCount = response.likesCount;
                     post.userHasLiked = response.userHasLiked;
                 },
-                function (error) {
+                function(error) {
                     vm.errorMessage = error;
                 }
             );
         };
 
-        vm.postComment = function (newComment, post, event) {
+        vm.postComment = function(newComment, post, event) {
             if (event.key === 'Enter') {
                 if (newComment) {
                     var comment = {
@@ -36,14 +36,14 @@
                     };
 
                     commentService.createComment(comment, post.id).then(
-                        function (response) {
+                        function(response) {
                             if (!post.comments) {
                                 post.comments = [];
                             }
 
                             post.comments.push(response);
                         },
-                        function (error) {
+                        function(error) {
                             vm.errorMessage = error;
                         });
 
@@ -52,33 +52,33 @@
             }
         };
 
-        vm.viewMoreCommentsClick = function (post) {
+        vm.viewMoreCommentsClick = function(post) {
             postsService.getComments(post.id).then(
-                function (response) {
+                function(response) {
                     post.comments = response;
                 },
-                function (error) {
+                function(error) {
                     vm.errorMessage = error;
                 }
             );
         };
 
-        vm.newPostCaptionFocusLost = function () {
+        vm.newPostCaptionFocusLost = function() {
             vm.newPost.value = '';
         };
 
-        vm.openMenu = function ($mdOpenMenu, ev) {
+        vm.openMenu = function($mdOpenMenu, ev) {
             $mdOpenMenu(ev);
         };
 
-        vm.copyLink = function (post) {
+        vm.copyLink = function(post) {
             $state.go('post', {
                 postId: post.id
             });
         };
 
         $scope.$watch("vm.authService.isAuthenticated",
-            function (isAuthenticated) {
+            function(isAuthenticated) {
                 vm.isAuthenticated = isAuthenticated;
             });
     };

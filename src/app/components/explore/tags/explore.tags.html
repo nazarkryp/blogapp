@@ -10,7 +10,7 @@
         <div layout="row" style="margin-top:50px;">
             <div layout="row" layout-align="center start" layout-wrap>
                 <md-card layout="column" ng-repeat="post in vm.feed.items" style="width: 400px;margin: 0px 25px 50px 25px;">
-                    <img ng-src="{{post.attachment.url}}" alt="post.user.username" style="width: 400px;">
+                    <img ng-src="{{post.attachments[0].url}}" alt="post.user.username" style="width: 400px;">
                     <div layout="column" style="padding: 25px;">
                         <span class="md-headline">@{{post.user.username}}</span>
                         <span class="md-headline" ng-bind-html="post.caption | content"></span>

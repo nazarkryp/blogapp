@@ -1,10 +1,10 @@
 <md-dialog aria-label="Create Post" flex="50">
-    <form ng-submit="createPost(post)" ng-cloak>
+    <form ng-submit="vm.createPost()" ng-cloak>
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <h2>Create post</h2>
                 <span flex></span>
-                <md-button aria-label="menu" class="md-icon-button md-primary" ng-click="cancel()">
+                <md-button aria-label="menu" class="md-icon-button md-primary" ng-click="vm.cancel()">
                     <md-icon>close</md-icon>
                 </md-button>
             </div>
@@ -16,37 +16,31 @@
                         <div style="padding: 5px;">
                             <div layout="column">
                                 <span class="md-subhead" style="padding: 5px;">To create new post pick up image from your computer or add link to it</span>
-                                <md-button class="md-raised md-warn" ng-click="browse()">Upload file</md-button>
-                                <input id="uploadInput" file-model="browsed.file" type="file" aria-label class="md-input" ng-hide="true" />
+                                <md-button class="md-raised md-warn" ng-click="vm.selectAttachment()">Upload file</md-button>
+                                <input class="md-input" id="uploadInput" file-model="vm.browsed.file" type="file" aria-label ng-hide="true" />
                             </div>
                         </div>
-                        <span class="md-padding" flex></span>
-                        <div style="padding: 10px;" layout="row" layout-align="stretch stretch">
-                            <md-input-container md-no-float flex>
-                                <label>External resource url</label>
-                                <input type="text" placeholder="http://example.com/image.jpg" class="comment-box text-area" ng-model="external.url" style="background-color: rgb(239, 239, 239);border: 1px solid #efefef;"/>
-                            </md-input-container>
-                        </div>
                     </div>
-                    <div layout="column" layout-align="center center" ng-if="isUploading" style="padding: 10px;">
+                    <div layout="column" layout-align="center center" ng-if="vm.browsed.isUploading" style="padding: 10px;">
                         <md-progress-linear md-mode="indeterminate"></md-progress-linear>
                         <span style="padding: 10px;">Uploading image</span>
                     </div>
-                    <div layout="row" style="padding: 10px;" ng-if="preview.url">
-                        <div>
-                            <img style="margin: auto; max-width: 300px;width:100%;" alt="Image" ng-src="{{preview.url}}">
+                    <div layout="row" style="padding: 10px;" ng-if="vm.post.attachments.length > 0">
+                        <div layout="column">
+                            <div ng-repeat="attachment in vm.post.attachments">
+                                <img style="margin: auto; max-width: 300px;width:100%;" alt="Image" ng-src="{{attachment.url}}">
+                            </div>
                         </div>
                         <div layout="column" style="padding: 15px 0px 0px 25px;" flex>
                             <md-input-container class="md-block" md-no-float flex>
                                 <label>Caption</label>
-                                <textarea placeholder="Write description to your image" class="comment-box text-area" name="description" rows="3" ng-model="post.caption"
-                                    style="background-color: rgb(239, 239, 239);border: 1px solid #efefef;"></textarea>
+                                <textarea placeholder="Write description to your image" class="comment-box text-area" name="description" rows="3" ng-model="vm.post.caption" style="background-color: rgb(239, 239, 239);border: 1px solid #efefef;"></textarea>
                             </md-input-container>
                             <div layout="row" layout-align="end center">
-                                <md-button aria-label="cancel" ng-click="cancel()">
+                                <md-button class="md-raised" aria-label="cancel" ng-click="vm.cancel()">
                                     Cancel
                                 </md-button>
-                                <md-button type="submit" md-colors="{background: 'blue'}">
+                                <md-button class="md-raised md-primary" type="submit">
                                     Post
                                 </md-button>
                             </div>

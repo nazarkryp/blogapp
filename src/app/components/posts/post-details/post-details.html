@@ -5,11 +5,9 @@
 <div class="md-padding" layout="row" layout-align="center start" ng-if="!isLoading" ng-cloak>
     <div layout="row">
         <div>
-            <img ng-model="image" ng-src="{{post.attachment.url}}" alt="image" style="max-height: {{image.maxHeight}}px;max-width: {{image.maxWidth}}px;"
-                element-size>
+            <img ng-model="image" ng-src="{{post.attachments[0].url}}" alt="image" style="max-height: {{image.maxHeight}}px;max-width: {{image.maxWidth}}px;" element-size>
         </div>
-        <div layout="column" layout-align="stretch stretch" style="width:350px;padding: 0px 10px 0px 15px;background:white;margin:0px 0px 5px 50px;"
-            md-whiteframe="1">
+        <div layout="column" layout-align="stretch stretch" style="width:350px;padding: 0px 10px 0px 15px;background:white;margin:0px 0px 5px 50px;" md-whiteframe="1">
             <div layout="row" layout-align="space-between center" style="height: 75px;">
                 <div layout="row" layout-align="center center">
                     <img class="post-profile-image" ng-src="{{post.user.imageUri}}" />
@@ -43,13 +41,12 @@
                 </div>
                 <div style="padding: 25px 0px 0px 10px;" flex>
                     <md-input-container class="md-block" md-no-float>
-                        <input type="text" placeholder="Add comment" class="comment-box" ng-model="newComment.text" ng-keydown="postComment(newComment, post, $event)"
-                        />
+                        <input type="text" placeholder="Add comment" class="comment-box" ng-model="newComment.text" ng-keydown="postComment(newComment, post, $event)" />
                     </md-input-container>
                 </div>
                 <div layout="row" layout-align="end center">
                     <md-menu>
-                        <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+                        <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdMenu.open, $event)">
                             <md-icon style="font-size: 30px;">more_horiz</md-icon>
                         </md-button>
                         <md-menu-content width="4">

@@ -1,61 +1,39 @@
-<div layout="column" layout-align="center center">
-	<div class="authentication-container" layout="column" layout-align="center center">
-		<div class="authentication-form-header" layout="column" layout-align="center center">
-			<span class="md-headline">Login to PhotoCloud</span>
-		</div>
-
-		<div style="width:500px;margin: 0px 0px 25px 0px;" ng-if="errorMessage">
-			<div md-colors="{background : 'warn'}" style="color:white;padding: 20px 0px 20px 20px;" md-whiteframe="3">
-				<div layout="row" layout-align="space-between center">
-					<span class="md-headline">Oops! Unable to login</span>
-					<!--<md-button class="md-icon-button" ng-click="closeInfo()">
-						<md-icon style="color:white;">clear</md-icon>
-					</md-button>-->
-				</div>
-				<span class="md-subhead">{{errorMessage}}</span>
-			</div>
-		</div>
-
-		<form class="authentication-form" name="signInForm" ng-submit="signIn(credentials)">
-			<md-input-container class="md-block input-box" md-no-float>
-				<!--<label>Username or Email</label>-->
-				<input class="text-area" name="username" placeholder="Username" ng-model="credentials.username" required style="border: 1px solid #dbdbdb;"
-				/>
-				<div ng-messages="signInForm.username.$error">
-					<ng-message when="required">This field is required.</ng-message>
-				</div>
-			</md-input-container>
-			<md-input-container class="md-block" md-no-float>
-				<!--<label>Password</label>-->
-				<input class="text-area" name="password" type="password" placeholder="Password" ng-model="credentials.password" required
-					style="border: 1px solid #dbdbdb;" />
-				<div ng-messages="signInForm.password.$error">
-					<ng-message when="required">Password field is required.</ng-message>
-				</div>
-			</md-input-container>
-			<!--<div ng-if="errorMessage" class="md-padding" layout="row" layout-align="center stretch">
-				<label md-colors="{color : 'red'}">{{errorMessage}}</label>
-			</div>-->
-			<div layout="row" layout-align="center stretch">
-				<md-button>Forgot password?</md-button>
-				<md-button type="submit" md-colors="{background: 'blue'}">Sign In</md-button>
-			</div>
-		</form>
-
-		<div class="authentication-form-actions">
-			<div layout="row" layout-align="center center">
-				<md-button ng-click="gotoCreateAccountPage()">Create account</md-button>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div style="visibility: hidden">
-	<div class="md-dialog-container" id="myDialog">
-		<md-dialog aria-label="loading" layout-padding>
-			<div layout="row" layout-align="center center">
-				<md-progress-circular md-mode="indeterminate"></md-progress-circular>
-			</div>
-		</md-dialog>
-	</div>
+<div class="content" layout="row">
+    <div layout="column" layout-align="start" flex="50">
+        <div style="margin: 50px 50px 50px 50px;">
+            <img src="http://www.murrey-soft.com.au/wp-content/uploads/cloud-computing-png.png" alt="image" style="max-width: 500px;">
+        </div>
+    </div>
+    <div layout="column" layout-align="start" flex="50">
+        <form ng-submit="vm.signIn(vm.account)" class="md-padding" layout="column" style="margin-top: 50px; width: 80%;">
+            <span class="md-headline">Login to PhotoCloud</span>
+            <md-divider style="margin: 25px 0px 25px 0px;"></md-divider>
+            <div class="form-item" layout="row" layout-align="start center">
+                <div style="padding-right: 25px; text-align: right;" flex="20">
+                    <label aria-required="username">Username</label>
+                </div>
+                <md-input-container class="md-block" md-no-float flex>
+                    <input ng-class="{'form-invalid' : vm.account.isUsernameValid == false, 'light' : vm.account.isUsernameValid == true}" type="text" name="username" placeholder="Username" ng-model="vm.account.username" aria-label="account">
+                </md-input-container>
+            </div>
+            <div class="form-item" layout="row" layout-align="start center">
+                <div style="padding-right: 25px; text-align: right;" flex="20">
+                    <label>Password</label>
+                </div>
+                <md-input-container class="md-block" md-no-float flex>
+                    <input ng-class="{'form-invalid' : vm.account.isPasswordValid == false, 'light' : vm.account.isPasswordValid == true}" type="password" name="password" placeholder="Enter your password" ng-model="vm.account.password" aria-label="account">
+                </md-input-container>
+            </div>
+            <div style="margin: 0px 15px 10px 25px;">
+                <div class="container" layout="row" layout-align="space-between center">
+                    <div>
+                        <!--<a href="#">Forgot Password?</a>-->
+                    </div>
+                    <div flex="35">
+                        <md-button class="md-raised md-primary fill" type="submit" ng-disabled="vm.isLoading">{{ vm.isLoading ? 'Loading' : 'Sign In' }}</md-button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

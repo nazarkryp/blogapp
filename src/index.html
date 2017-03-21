@@ -27,7 +27,7 @@
                         </div>
                         <div layout="row" layout-align="center end" flex="25" ng-if="currentUser.isAuthenticated && currentUser.isActive && currentUser.isPrivate">
                             <md-menu md-offset="0 35" md-position-mode="target-right target">
-                                <div ui-sref="users" class="icon material-icons mdl-badge" data-badge="1" style="cursor: pointer;" ng-click="$mdOpenMenu($event)">person</div>
+                                <div ui-sref="users" class="icon material-icons mdl-badge" data-badge="1" style="cursor: pointer;" ng-click="$mdMenu.open($event)">person</div>
                                 <md-menu-content width="5" md-colors="{background : 'blue'}">
                                     <div layout="column" layout-align="center center" ng-if="requests.length == 0">
                                         <span>No pending requests</span>
@@ -55,7 +55,7 @@
                         </div>
                         <div flex>
                             <md-menu>
-                                <md-button class="md-icon-button navbar-button" aria-label="Open interactions menu" ng-click="$mdOpenMenu($event)">
+                                <md-button class="md-icon-button navbar-button" aria-label="Open interactions menu" ng-click="$mdMenu.open($event)">
                                     <div layout="row" layout-align="center center">
                                         <img class="navbar-image" ng-src="{{currentUser.imageUri}}" alt="profile image">
                                     </div>

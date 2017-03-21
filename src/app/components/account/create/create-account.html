@@ -56,9 +56,13 @@
             </div>
             <div style="margin: 50px 0px 50px 0px;">
                 <div class="container" layout="row" layout-align="space-between center">
-                    <md-checkbox ng-model="vm.account.privacyPolicyChecked">I have read and agree to the <a class="link-primary" href="/#/">Privacy Policy</a></md-checkbox>
+                    <div>
+                        <md-checkbox ng-model="vm.account.privacyPolicyChecked">I have read and agree to the <a class="link-primary" href="/#/">Privacy Policy</a></md-checkbox>
+                        <!--<p class="description" ng-if="!vm.account.privacyPolicyChecked">You need to accept licence agreement before continuing</p>-->
+                    </div>
+
                     <div flex="35">
-                        <md-button class="md-raised md-primary fill" ng-click="vm.continue()">{{ vm.isLoading ? 'Loading' : 'Continue' }}</md-button>
+                        <md-button class="md-raised md-primary fill" ng-click="vm.continue()" ng-disabled="!vm.account.privacyPolicyChecked || vm.isLoading">{{ vm.isLoading ? 'Loading' : 'Continue' }}</md-button>
                     </div>
                 </div>
             </div>
@@ -76,10 +80,10 @@
                             <span class="description"> (optional)</span>
                         </div>
                         <div layout="row" layout-align="space-between center" flex>
-                            <md-button class="md-raised" ng-disabled="vm.isUploading" ng-click="vm.browseAttachment()">Select profile photo</md-button>
-                            <input id="uploadInput" file-model="browsedFile.file" type="file" aria-label class="md-input" ng-hide="true" />
-                            <img class="avatar-big" ng-src="{{attachment.url}}" alt="avatar" ng-if="attachment.url">
-                            <md-progress-circular class="md-accent" md-mode="indeterminate" ng-if="vm.isUploading"></md-progress-circular>
+                            <md-button class="md-raised" ng-disabled="vm.browsedFile.isUploading" ng-click="vm.browseAttachment()">Select profile photo</md-button>
+                            <input id="uploadInput" file-model="vm.browsedFile.file" type="file" aria-label class="md-input" ng-hide="true" />
+                            <img class="avatar-big" ng-src="{{vm.account.attachment.url}}" alt="avatar" ng-if="!vm.browsedFile.isUploading && vm.account.attachment.url">
+                            <md-progress-circular class="md-accent" md-mode="indeterminate" ng-if="vm.browsedFile.isUploading"></md-progress-circular>
                         </div>
                     </div>
                     <div class="form-item" layout="row" layout-align="start center">
@@ -88,7 +92,7 @@
                             <span class="description"> (optional)</span>
                         </div>
                         <md-input-container class="md-block" md-no-float flex>
-                            <input class="light" type="text" placeholder="Firstname Lastname">
+                            <input class="light" type="text" placeholder="Firstname Lastname" ng-model="vm.account.fullName">
                         </md-input-container>
                     </div>
                     <div class="form-item" layout="row" layout-align="start center">
@@ -97,7 +101,7 @@
                             <span class="description"> (optional)</span>
                         </div>
                         <md-input-container class="md-block" md-no-float flex>
-                            <input class="light" type="text" placeholder="Tell us something about yourself">
+                            <input class="light" type="text" placeholder="Tell us something about yourself" ng-model="vm.account.bio">
                         </md-input-container>
                     </div>
                     <div class="form-item" layout="row" layout-align="start start">
@@ -106,7 +110,7 @@
                             <span class="description"> (optional)</span>
                         </div>
                         <div layout="column">
-                            <md-checkbox ng-model="account.isPrivate" aria-label="Private Account"></md-checkbox>
+                            <md-checkbox ng-model="vm.account.isPrivate" aria-label="Private Account"></md-checkbox>
                             <p class="description">When your account is private, only people you approve can see you photos and videos on PhotoCloud. The existing followers won't be affected</p>
                         </div>
                     </div>
