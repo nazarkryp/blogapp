@@ -19,12 +19,11 @@
             isPasswordValid: true
         };
 
-        vm.signIn = function(account) {
+        vm.signIn = function() {
             vm.errorMessage = '';
             vm.isLoading = true;
-            showLoadingDialog();
 
-            accountService.signIn(account).then(
+            accountService.signIn(vm.account).then(
                 function(response) {
                     $mdDialog.hide();
                     vm.isLoading = false;

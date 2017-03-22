@@ -1,5 +1,5 @@
 <div class="content" layout="row" layout-align="center start">
-    <form class="form" name="signInForm" ng-submit="vm.signIn(vm.account)" layout="column">
+    <form class="form" name="signInForm" ng-submit="vm.signIn()" layout="column">
         <div class="md-padding" layout="row" layout-align="center center">
             <img src="assets/images/logo.png" alt="logo">
         </div>
@@ -15,7 +15,7 @@
         </div>
         <md-checkbox ng-model="vm.account.remember">Remember me?</md-checkbox>
         <div class="row">
-            <md-button class="md-raised md-primary fill" ng-disabled="vm.isLoading">{{ vm.isLoading ? 'Loading' : 'Sign In' }}</md-button>
+            <md-button class="md-raised md-primary fill" type="submit" ng-disabled="vm.isLoading">{{ vm.isLoading ? 'Loading' : 'Sign In' }}</md-button>
             <md-divider class="row"></md-divider>
             <md-button class="md-raised button-facebook fill">Login with Facebook</md-button>
         </div>
