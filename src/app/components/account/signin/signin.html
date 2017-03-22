@@ -1,39 +1,23 @@
-<div class="content" layout="row">
-    <div layout="column" layout-align="start" flex="50">
-        <div style="margin: 50px 50px 50px 50px;">
-            <img src="http://www.murrey-soft.com.au/wp-content/uploads/cloud-computing-png.png" alt="image" style="max-width: 500px;">
+<div class="content" layout="row" layout-align="center start">
+    <form class="form" name="signInForm" ng-submit="vm.signIn(vm.account)" layout="column">
+        <div class="md-padding" layout="row" layout-align="center center">
+            <img src="assets/images/logo.png" alt="logo">
         </div>
-    </div>
-    <div layout="column" layout-align="start" flex="50">
-        <form ng-submit="vm.signIn(vm.account)" class="md-padding" layout="column" style="margin-top: 50px; width: 80%;">
-            <span class="md-headline">Login to PhotoCloud</span>
-            <md-divider style="margin: 25px 0px 25px 0px;"></md-divider>
-            <div class="form-item" layout="row" layout-align="start center">
-                <div style="padding-right: 25px; text-align: right;" flex="20">
-                    <label aria-required="username">Username</label>
-                </div>
-                <md-input-container class="md-block" md-no-float flex>
-                    <input ng-class="{'form-invalid' : vm.account.isUsernameValid == false, 'light' : vm.account.isUsernameValid == true}" type="text" name="username" placeholder="Username" ng-model="vm.account.username" aria-label="account">
-                </md-input-container>
-            </div>
-            <div class="form-item" layout="row" layout-align="start center">
-                <div style="padding-right: 25px; text-align: right;" flex="20">
-                    <label>Password</label>
-                </div>
-                <md-input-container class="md-block" md-no-float flex>
-                    <input ng-class="{'form-invalid' : vm.account.isPasswordValid == false, 'light' : vm.account.isPasswordValid == true}" type="password" name="password" placeholder="Enter your password" ng-model="vm.account.password" aria-label="account">
-                </md-input-container>
-            </div>
-            <div style="margin: 0px 15px 10px 25px;">
-                <div class="container" layout="row" layout-align="space-between center">
-                    <div>
-                        <!--<a href="#">Forgot Password?</a>-->
-                    </div>
-                    <div flex="35">
-                        <md-button class="md-raised md-primary fill" type="submit" ng-disabled="vm.isLoading">{{ vm.isLoading ? 'Loading' : 'Sign In' }}</md-button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+        <div class="form-item" layout="row" layout-align="start center">
+            <md-input-container class="md-block" md-no-float flex>
+                <input ng-class="{'form-invalid' : vm.account.isUsernameValid == false, 'light' : vm.account.isUsernameValid == true}" type="text" name="username" placeholder="Username" ng-model="vm.account.username" aria-label="account">
+            </md-input-container>
+        </div>
+        <div class="form-item" layout="row" layout-align="start center">
+            <md-input-container class="md-block" md-no-float flex>
+                <input ng-class="{'form-invalid' : vm.account.isPasswordValid == false, 'light' : vm.account.isPasswordValid == true}" type="password" name="password" placeholder="Enter your password" ng-model="vm.account.password" aria-label="account">
+            </md-input-container>
+        </div>
+        <md-checkbox ng-model="vm.account.remember">Remember me?</md-checkbox>
+        <div class="row">
+            <md-button class="md-raised md-primary fill" ng-disabled="vm.isLoading">{{ vm.isLoading ? 'Loading' : 'Sign In' }}</md-button>
+            <md-divider class="row"></md-divider>
+            <md-button class="md-raised button-facebook fill">Login with Facebook</md-button>
+        </div>
+    </form>
 </div>

@@ -226,6 +226,10 @@ md-toolbar:not(.md-menu-toolbar) {
     top: 0;
 }
 
+.row {
+    margin: 25px 0px 25px 0px;
+}
+
 .divider-padding {
     margin: 5px 10px 0px 10px;
 }
@@ -435,6 +439,16 @@ md-virtual-repeat-container.md-autocomplete-suggestions-container {
     border-style: none;
 }
 
+.button-facebook.md-button.md-raised {
+    padding: 5px 0px 5px 0px;
+    background-color: #3b5998;
+    color: white;
+}
+
+.md-button {
+    margin: 0px !important;
+}
+
 .md-button.md-primary.md-raised {
     background-color: #2196f3;
     color: white;
@@ -457,12 +471,20 @@ md-checkbox {
     margin-bottom: 0px;
 }
 
+.divider {
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    bottom: 10%;
+    border-left: 1px solid #efefef;
+}
+
 .vertical-divider {
-    border-right: 3px;
-    border-right-style: solid;
+    border-right: 1px solid #d8d8d8;
     height: 50%;
+    min-height: 25px;
     margin-left: 10px;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 .feed-info-message {
@@ -579,6 +601,11 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input.search-bar 
     padding: 0px 10px 0px 10px;
 }
 
+.form {
+    width: 25%;
+    min-width: 300px;
+}
+
 .form-item>md-input-container .md-errors-spacer {
     min-height: 0px !important;
 }
@@ -599,6 +626,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input.comment-box
 .content {
     min-height: calc(100vh - 147px);
     padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .form-item {
