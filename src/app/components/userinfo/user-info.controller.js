@@ -1,12 +1,12 @@
 angular.module('photocloud')
     .controller('UserInfoController', ['$scope', 'userService', 'authService', 'RELATIONSHIPS',
-        function ($scope, userService, authService, RELATIONSHIPS) {
+        function($scope, userService, authService, RELATIONSHIPS) {
             $scope.currentUserName = authService.username;
             $scope.user = $scope.$ctrl.user;
 
-            $scope.invertRelationshipsWithUser = function () {
+            $scope.invertRelationshipsWithUser = function() {
                 userService.invertRelationshipsWithUser($scope.user.id).then(
-                    function (response) {
+                    function(response) {
                         $scope.user.relationshipStatus = response;
 
                         if (response == 'None') {
@@ -16,4 +16,5 @@ angular.module('photocloud')
                         }
                     });
             };
-        }]);
+        }
+    ]);

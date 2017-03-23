@@ -9,6 +9,15 @@
     function UserFeedController($state, $stateParams, $mdDialog, $window, $timeout, postsService, userService, authService, pageService) {
         var vm = this;
 
+        vm.currentUser = {
+            userId: authService.userId,
+            username: authService.username,
+            imageUri: authService.imageUri,
+            isPrivate: authService.isPrivate,
+            isActive: authService.isActive,
+            isAuthenticated: authService.isAuthenticated
+        };
+
         vm.feed = {
             pageIndex: 0,
             pageSize: 12,

@@ -16,8 +16,7 @@
                         <span class="md-subhead" style="font-weight: lighter;color: #9E9E9E;">Lorem ipsum dolor sit amet consectetur adipiscing elit</span>
                         <a class="md-subhead" ui-sref="userfeed({username : user.username})" style="font-weight: lighter;font-size:14px;color:#64B5F6;">View posts</a>
                     </div>
-                    <md-button class="button-bordered" ng-class="{'green' : user.relationships.outgoingStatus === 'Followed', 'orange' : user.relationships.outgoingStatus === 'Requested'}"
-                        ng-click="invertRelationshipsWithUser(user)" ng-if="currentUserId != user.id">
+                    <md-button class="button-bordered" ng-class="{'green' : user.relationships.outgoingStatus === 'Followed', 'orange' : user.relationships.outgoingStatus === 'Requested'}" ng-click="invertRelationshipsWithUser(user)" ng-if="currentUserId != user.id">
                         {{user.relationships.outgoingStatus | relationshipButton}}
                     </md-button>
                 </div>
