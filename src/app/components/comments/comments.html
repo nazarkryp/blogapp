@@ -4,7 +4,7 @@
         view all {{vm.post.commentsCount}} comments
     </a>
     </div>
-    <div class="comment" ng-repeat="comment in vm.post.comments">
+    <div class="comment" ng-repeat="comment in vm.post.comments track by $index">
         <div class="md-block">
             <a class="comment-from" ui-sref="userfeed({username: comment.from.username})">{{comment.from.username}}</a>
             <span class="comment-text">{{comment.text}}</span>

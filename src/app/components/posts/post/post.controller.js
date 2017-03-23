@@ -42,9 +42,7 @@
                             }
 
                             post.comments.push(response);
-                        },
-                        function(error) {
-                            vm.errorMessage = error;
+                            post.commentsCount = post.comments.length;
                         });
 
                     newComment.text = null;
