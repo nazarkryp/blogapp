@@ -357,32 +357,10 @@ md-toolbar:not(.md-menu-toolbar) {
     cursor: pointer;
 }
 
-.authentication-form {
-    width: 400px;
-}
-
-.authentication-container {
-    margin-top: 50px;
-    padding: 25px 0px 0px 0px;
-    width: 700px;
-    background-color: white;
-    border: 1px solid #efefef;
-}
-
-.authentication-form-header {
-    /*height: 40px;*/
-    padding-bottom: 25px;
-}
-
-.authentication-form-content {}
-
-.authentication-error {
-    width: 500px;
-    padding: 0px 10px 0px 10px;
-    margin: 0px 0px 25px 0px;
-    background-color: #f44336;
-    /*border:1px solid #efefef;*/
-    color: white;
+.error {
+    text-align: center;
+    margin: 25px 0px 0px 0px;
+    color: #f44336;
 }
 
 .authentication-form-actions {
@@ -454,6 +432,7 @@ md-virtual-repeat-container.md-autocomplete-suggestions-container {
 }
 
 .md-button.md-primary.md-raised {
+    padding: 5px 0px 5px 0px;
     background-color: #2196f3;
     color: white;
 }
@@ -561,6 +540,14 @@ md-progress-linear .md-container .md-bar {
     height: 2px;
 }
 
+md-progress-circular.md-primary path {
+    stroke: #2196f3;
+}
+
+md-progress-circular.white path {
+    stroke: white;
+}
+
 .md-input.light {
     background-color: white;
     height: 40px;
@@ -631,6 +618,10 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input.comment-box
     min-height: calc(100vh - 147px);
     padding-top: 50px;
     padding-bottom: 50px;
+}
+
+.content>.content-message {
+    margin-top: 10%;
 }
 
 .form-item {

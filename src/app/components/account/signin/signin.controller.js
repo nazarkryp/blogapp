@@ -10,7 +10,7 @@
         var vm = this;
 
         vm.isLoading = false;
-        vm.errorMessage = '';
+        vm.error = '';
 
         vm.account = {
             username: '',
@@ -20,38 +20,24 @@
         };
 
         vm.signIn = function() {
-            vm.errorMessage = '';
+            vm.error = '';
             vm.isLoading = true;
 
             accountService.signIn(vm.account).then(
                 function(response) {
-                    $mdDialog.hide();
-                    vm.isLoading = false;
                     authService.signIn(response);
+                    vm.isLoading = false;
+
                     $state.go('feed');
                 },
                 function(error) {
                     vm.isLoading = false;
-                    $mdDialog.hide();
-
-                    if (error && error.error_description) {
-                        vm.errorMessage = error.error_description;
-                    } else {
-                        vm.errorMessage = error;
-                    }
+                    vm.error = 'Sorry, your username or password was incorrect. Please check your username and password.';
                 });
         };
 
         vm.gotoCreateAccountPage = function() {
             $state.go('signup');
-        };
-
-        function showLoadingDialog() {
-            $mdDialog.show({
-                contentElement: '#myDialog',
-                parent: angular.element(document.body),
-                clickOutsideToClose: false
-            });
         };
     }
 })();

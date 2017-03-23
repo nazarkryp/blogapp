@@ -14,9 +14,15 @@
             </md-input-container>
         </div>
         <md-checkbox ng-model="vm.account.remember">Remember me?</md-checkbox>
-        <div class="row">
-            <md-button class="md-raised md-primary fill" type="submit" ng-disabled="vm.isLoading">{{ vm.isLoading ? 'Loading' : 'Sign In' }}</md-button>
-            <md-divider class="row"></md-divider>
+        <div class="row" layout="column" layout-align="center center">
+            <md-progress-circular class="md-primary" md-diameter="35px" ng-if="vm.isLoading"></md-progress-circular>
+            <md-button class="md-raised md-primary fill" type="submit" ng-disabled="vm.isLoading" ng-if="!vm.isLoading">
+                {{ vm.isLoading ? 'Loading' : 'Sign In' }}
+            </md-button>
+            <div class="error" ng-if="vm.error">
+                <span>{{vm.error}}</span>
+            </div>
+            <md-divider class="row fill"></md-divider>
             <md-button class="md-raised button-facebook fill">Login with Facebook</md-button>
         </div>
     </form>

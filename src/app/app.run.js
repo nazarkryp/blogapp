@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
 
     angular.module('photocloud')
@@ -8,7 +8,7 @@
 
     function runBlock($rootScope, $state, authService) {
         $rootScope.$on("$stateChangeStart",
-            function (event, next, params) {
+            function(event, next, params) {
                 if (authService.isAuthenticated) {
                     if (next.name) {
                         if (!authService.getIsActive() && next.url != '/settings') {
@@ -27,7 +27,7 @@
                     }
                 } else {
                     if (next.name) {
-                        if (next.url === '/settings') {
+                        if (next.url === '/settings' || next.url === '/') {
                             $state.go('signin');
                             event.preventDefault();
                         }
