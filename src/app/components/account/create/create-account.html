@@ -116,9 +116,13 @@
                     </div>
                     <div style="margin: 50px 0px 50px 0px;">
                         <div class="container" layout="row" layout-align="space-between center">
-                            <md-button class="md-raised" ng-click="vm.goBack()">Go Back</md-button>
+                            <md-button class="md-primary" ng-click="vm.goBack()" ng-disabled="vm.isLoading">
+                                <div layout="row" layout-align="center center">
+                                    <md-icon>arrow_back</md-icon> Go Back
+                                </div>
+                            </md-button>
                             <div flex="35">
-                                <md-button class="md-raised md-primary md-block fill" ng-click="vm.createAccount()">Create Account</md-button>
+                                <md-button class="md-raised md-primary md-block fill" ng-click="vm.createAccount()" ng-disabled="vm.isLoading">{{ vm.isLoading ? 'Loading' : 'Create Account' }}</md-button>
                             </div>
                         </div>
                     </div>

@@ -40,7 +40,8 @@
         function getUser(username) {
             userService.getUserByName(username).then(
                 function(response) {
-                    if (response.isActive && vm.currentUser && vm.currentUser.username != response.username) {
+                    if (response.isActive && vm.currentUser && vm.currentUser.isAuthenticated && vm.currentUser.username != response.username) {
+                        console.log(vm.currentUser);
                         getRelationshipsStatus(response);
                     } else {
                         pageService.isLoading = false;
@@ -61,6 +62,12 @@
         }
 
         function getFeed() {
+            if (!vm.currentUser.isAuthenticated && vm.user.isPrivate) {
+                vm.errorMessage = 'This account is private';
+
+                return;
+            }
+
             pageService.isLoading = true;
 
             postsService.getUsersFeed($stateParams.username, vm.feed.pageIndex + 1, vm.feed.pageSize).then(
@@ -74,6 +81,8 @@
 
                     pageService.isLoading = false;
                     vm.isLoadingMorePosts = false;
+
+                    generateInfoMessage();
                 },
                 function(errorResponse) {
                     pageService.isLoading = false;
@@ -96,6 +105,14 @@
             post.showDetails = false;
         };
 
+        function generateInfoMessage() {
+            if (vm.feed.items.length === 0) {
+                vm.infoMessage = vm.user.username + ' hasn\'t posted anything yet';
+            } else {
+                vm.infoMessage = '';
+            }
+        };
+
         vm.showPostDetailsDialog = function(ev, post) {
             $mdDialog.show({
                 controller: 'PostDetailsDialogController',
@@ -109,13 +126,11 @@
             });
         };
 
-        var init = function() {
+        vm.$onInit = function() {
             pageService.isLoading = true;
             pageService.title = 'Photocloud - ' + $stateParams.username;
 
             getUser($stateParams.username);
         };
-
-        init();
     }
 })();

@@ -34,11 +34,15 @@
         }
 
         vm.createAccount = function(account) {
+            vm.isLoading = true;
+
             accountService.createAccount(vm.account).then(
                 function(response) {
+                    vm.isLoading = false;
                     $state.go('signin');
                 },
                 function(error) {
+                    vm.isLoading = false;
                     if (error.error_description) {
                         vm.errorMessage = error.error_description;
                     } else {
@@ -108,14 +112,6 @@
                             vm.browsedFile.file = null;
                         });
             }
-        }
-
-        function showLoadingDialog() {
-            $mdDialog.show({
-                contentElement: '#myDialog',
-                parent: angular.element(document.body),
-                clickOutsideToClose: false
-            });
         }
     }
 })();

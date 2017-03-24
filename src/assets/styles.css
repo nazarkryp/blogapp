@@ -48,7 +48,7 @@ a:hover {
 }
 
 .link-primary:hover {
-    color: #0074d0;
+    color: #00aaff;
     text-decoration: none;
 }
 
@@ -121,7 +121,7 @@ md-toolbar:not(.md-menu-toolbar) {
 }
 
 .input-box.md-input {
-    border: 1px solid #efefef;
+    border: 1px solid #d8d8d8;
 }
 
 .md-toolbar-tools {
@@ -257,7 +257,7 @@ md-toolbar:not(.md-menu-toolbar) {
     padding: 0px 10px 0px 10px;
     background-color: white;
     height: 40px;
-    border: 1px solid #efefef;
+    border: 1px solid #d8d8d8;
 }
 
 .profile-info-bar {
@@ -275,7 +275,7 @@ md-toolbar:not(.md-menu-toolbar) {
 .user-bar-image {
     width: 150px;
     height: 150px;
-    border: 1px solid #efefef;
+    border: 1px solid #d8d8d8;
     border-radius: 90px 90px 90px 90px;
     object-fit: cover;
     overflow: hidden;
@@ -368,7 +368,7 @@ md-toolbar:not(.md-menu-toolbar) {
 }
 
 md-autocomplete-wrap {
-    border: 1px solid #efefef;
+    border: 1px solid #d8d8d8;
     border-radius: 2px;
     box-shadow: none !important;
     background-color: #fafafa;
@@ -376,7 +376,7 @@ md-autocomplete-wrap {
 
 md-virtual-repeat-container.md-autocomplete-suggestions-container {
     border-style: solid;
-    border-color: #efefef;
+    border-color: #d8d8d8;
     border-width: 0px 1px 1px 1px;
     box-shadow: none !important;
 }
@@ -431,6 +431,15 @@ md-virtual-repeat-container.md-autocomplete-suggestions-container {
     margin: 0px !important;
 }
 
+.md-button.md-primary {
+    padding: 5px 0px 5px 0px;
+    color: #2196f3;
+}
+
+.md-button.md-primary[disabled] {
+    color: gray;
+}
+
 .md-button.md-primary.md-raised {
     padding: 5px 0px 5px 0px;
     background-color: #2196f3;
@@ -443,6 +452,11 @@ md-virtual-repeat-container.md-autocomplete-suggestions-container {
 
 .md-button.md-primary.md-raised:not([disabled]):hover {
     background-color: #0074d0;
+}
+
+.md-button.md-default-theme.md-primary:not([disabled]) md-icon,
+.md-button.md-primary:not([disabled]) md-icon {
+    color: #2196f3;
 }
 
 md-checkbox.md-default-theme.md-checked .md-icon,
@@ -459,7 +473,7 @@ md-checkbox {
     left: 50%;
     top: 10%;
     bottom: 10%;
-    border-left: 1px solid #efefef;
+    border-left: 1px solid #d8d8d8;
 }
 
 .vertical-divider {
@@ -611,17 +625,22 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input.comment-box
 }
 
 .title-block {
-    padding: 0px 0px 25px 0px;
+    padding: 25px 0px 25px 0px;
 }
 
 .content {
     min-height: calc(100vh - 147px);
-    padding-top: 50px;
-    padding-bottom: 50px;
 }
 
 .content>.content-message {
     margin-top: 10%;
+}
+
+.content-error {
+    height: 200px;
+    width: 750px;
+    border: 1px solid #efefef;
+    background: white;
 }
 
 .form-item {
