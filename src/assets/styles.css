@@ -226,6 +226,45 @@ md-toolbar:not(.md-menu-toolbar) {
     top: 0;
 }
 
+.post-slideshow {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    padding: 0px 10px 0px 10px;
+    right: 0;
+    top: 0;
+}
+
+.post-slideshow-button {
+    background-color: black;
+    opacity: 0.7;
+}
+
+.post-slideshow-button:hover {
+    background-color: black;
+}
+
+.post-slideshow-arrow {
+    color: white;
+}
+
+.md-icon-button.arrow {
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
+.md-button.md-icon-button.arrow:hover {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.post-badge {
+    font-size: 14px;
+    color: gainsboro;
+}
+
+.post-badge.active {
+    color: #2196f3;
+}
+
 .row {
     margin: 25px 0px 25px 0px;
 }
@@ -676,4 +715,19 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input.comment-box
     font-size: 14px;
     font-weight: 400;
     color: #808080;
+}
+
+.slide-button {
+    border: none;
+    display: inline-block;
+    outline: 0;
+    padding: 8px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap
 }

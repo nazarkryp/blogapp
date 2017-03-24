@@ -75,9 +75,28 @@
             });
         };
 
+        vm.previous = function() {
+            if (vm.post.activeAttachment > 0) {
+                vm.post.activeAttachment--;
+            }
+
+            console.log(vm.post.activeAttachment);
+        }
+
+        vm.next = function() {
+            if (vm.post.activeAttachment < vm.post.attachments.length - 1) {
+                vm.post.activeAttachment++;
+            }
+
+            console.log(vm.post.activeAttachment);
+        }
+
         $scope.$watch("vm.authService.isAuthenticated",
             function(isAuthenticated) {
                 vm.isAuthenticated = isAuthenticated;
             });
+        vm.$onInit = function() {
+            vm.post.activeAttachment = 0;
+        };
     };
 })();
