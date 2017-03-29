@@ -17,7 +17,7 @@
                 <div class="fill" layout="row" layout-align="center stretch">
                     <div layout="row" layout-align="center center" flex="25">
                         <div layout="row" layout-align="center center" flex="50">
-                            <md-progress-circular class="md-black" md-mode="indeterminate" md-diameter="25" ng-disabled="!vm.pageService.isLoading"></md-progress-circular>
+                            <md-progress-circular class="md-black" md-mode="indeterminate" md-diameter="25" ng-if="vm.pageService.isLoading"></md-progress-circular>
                         </div>
                         <div layout="row" layout-align="center center" flex="50">
                             <a class="logo-text" ui-sref="feed" layout="row" layout-align="end end">photocloud</a>
@@ -93,9 +93,9 @@
                             </md-menu>
                         </div>
                     </div>
-                    <div layout="row" layout-align="start start" flex="30" ng-if="!vm.currentUser.isAuthenticated">
-                        <md-button ui-sref="signup">Create account</md-button>
-                        <md-button class="md-raised md-primary" ui-sref="signin">Sign In</md-button>
+                    <div layout="row" layout-align="start center" flex="30" ng-if="!vm.currentUser.isAuthenticated">
+                        <md-button ui-sref="signup"><span class="bold">Create account</span></md-button>
+                        <md-button class="md-primary" ui-sref="signin"><span class="bold">Sign In</span></md-button>
                     </div>
                 </div>
             </div>

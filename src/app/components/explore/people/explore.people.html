@@ -1,31 +1,25 @@
-<div layout="column" layout-align="center center" style="padding:50px 0px 50px 0px;" ng-if="!vm.pageService.isLoading">
-    <div layout="column" style="padding:0px 50px 25px 50px;background-color:white;border: 1px solid #efefef;max-width: 1000px;width:1000px;">
-        <div layout="column" style="padding: 0px 0px 25px 0px;">
-            <div layout="row" layout-align="space-between center" style="height: 75px;">
-                <span class="md-subhead" style="font-weight: bold;color:gray;">DISCOVER {{pvm.header}}</span>
-            </div>
-            <md-divider></md-divider>
+<div class="row" layout="column" layout-align="center center" ng-if="!vm.pageService.isLoading">
+    <div class="row page-content" layout="column">
+        <div class="page-content-header" layout="column" layout-align="center">
+            <span class="md-subhead bold">DISCOVER {{pvm.header}}</span>
+            <md-divider class="fill" style="position: absolute;"></md-divider>
         </div>
-        <div ng-repeat="user in vm.group.users" layout="row" style="height: 100px;padding-bottom: 10px;">
-            <a ui-sref="userfeed({username : user.username})">
-                <img class="post-profile-thumbnail" ng-src="{{user.imageUri}}" alt="user">
-            </a>
-            <div layout="column" layout-align="space-between stretch" flex style="padding-left: 25px;">
-                <div layout="row" layout-align="space-between start">
-                    <div layout="column" layout-align="start start">
-                        <a ui-sref="userfeed({username : user.username})">
-                            <span class="md-subhead" style="font-weight: bold;cursor:pointer;">{{user.username}}</span>
-                        </a>
-                        <span class="md-subhead" style="font-weight: lighter;color: #9E9E9E;">{{user.bio}}</span>
-                        <a ui-sref="userfeed({username : user.username})">
-                            <a class="md-subhead" ui-sref="userfeed({username : user.username})" style="font-weight: lighter;font-size:14px;color:#64B5F6;">View posts</a>
-                        </a>
+        <div class="user-panel" ng-repeat="user in vm.group.users">
+            <div class="fill" layout="row" layout-align="space-between start">
+                <a ui-sref="userfeed({username : user.username})">
+                    <img class="post-profile-thumbnail" ng-src="{{user.imageUri}}" alt="User Image">
+                </a>
+                <div class="user-panel-details" layout="column" layout-align="space-between" flex>
+                    <div class="fill" layout="row" layout-align="space-between start">
+                        <div class="user-details-grid" layout="column" layout-align="center start">
+                            <a class="md-subhead" ui-sref="userfeed({username : user.username})">{{user.username}}</a>
+                            <span class="description">{{user.bio}}</span>
+                        </div>
+                        <md-button class="button-bordered" ng-class="{'green' : user.relationships.outgoingStatus === 'Followed', 'orange' : user.relationships.outgoingStatus === 'Requested'}"
+                            ng-click="vm.invertRelationshipsWithUser(user)" ng-if="vm.currentUserId != user.id">{{user.relationships.outgoingStatus | relationshipButton}}</md-button>
                     </div>
-                    <md-button class="button-bordered" ng-class="{'green' : user.relationships.outgoingStatus === 'Followed', 'orange' : user.relationships.outgoingStatus === 'Requested'}" ng-click="vm.invertRelationshipsWithUser(user)" ng-if="vm.currentUserId != user.id">
-                        {{user.relationships.outgoingStatus | relationshipButton}}
-                    </md-button>
+                    <md-divider ng-if="!$last"></md-divider>
                 </div>
-                <md-divider ng-if="!$last"></md-divider>
             </div>
         </div>
         <div layout="column" layout-align="center center" style="padding-top: 25px;" ng-if="vm.group.hasMoreItems">

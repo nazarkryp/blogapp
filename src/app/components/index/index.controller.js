@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular.module('photocloud')
@@ -12,12 +12,12 @@
         vm.authService = authService;
         vm.pageService = pageService;
 
-        vm.openMenu = function($mdOpenMenu, ev) {
+        vm.openMenu = function ($mdOpenMenu, ev) {
             originatorEv = ev;
             $mdOpenMenu(ev);
         };
 
-        vm.signOut = function() {
+        vm.signOut = function () {
             vm.authService.signOut();
 
             if ($state.current.name !== 'feed') {
@@ -25,26 +25,26 @@
             }
         };
 
-        vm.acceptRequest = function(index) {
+        vm.acceptRequest = function (index) {
             var request = vm.requests[index];
 
             userService.responseIncommingRequest(request.id, true).then(
-                function(response) {
+                function (response) {
                     vm.requests.splice(index, 1);
                 });
         };
 
-        vm.rejectRequest = function(index) {
+        vm.rejectRequest = function (index) {
             var request = vm.requests[index];
 
             userService.responseIncommingRequest(request.id, false).then(
-                function(response) {
+                function (response) {
                     vm.requests.splice(index, 1);
                 });
         };
 
         $scope.$watch('vm.authService.isAuthenticated',
-            function(isAuthenticated) {
+            function (isAuthenticated) {
                 if (isAuthenticated) {
                     getUserFromSession();
 
@@ -57,7 +57,7 @@
             });
 
         $scope.$watch('vm.authService.isActive',
-            function(isActive) {
+            function (isActive) {
                 if (vm.currentUser) {
                     vm.currentUser.isActive = isActive;
 
@@ -68,14 +68,14 @@
             });
 
         $scope.$watch('vm.authService.imageUri',
-            function(imageUri) {
+            function (imageUri) {
                 if (vm.currentUser) {
                     vm.currentUser.imageUri = imageUri;
                 }
             });
 
         $scope.$watch('vm.authService.isPrivate',
-            function(isPrivate) {
+            function (isPrivate) {
                 if (vm.currentUser) {
                     vm.currentUser.isPrivate = isPrivate;
 
@@ -88,7 +88,7 @@
         function getIncommingRequests() {
             if (vm.currentUser.isPrivate) {
                 userService.getIncommingRequests().then(
-                    function(response) {
+                    function (response) {
                         vm.requests = response;
                     });
             }
@@ -105,7 +105,7 @@
             };
         };
 
-        vm.$onInit = function() {
+        vm.$onInit = function () {
             getUserFromSession();
 
             vm.date = new Date();

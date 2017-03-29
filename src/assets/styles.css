@@ -288,6 +288,10 @@ md-toolbar:not(.md-menu-toolbar) {
     margin: 25px 0px 25px 0px;
 }
 
+.row-padding {
+    padding: 25px 0px 25px 0px;
+}
+
 .divider-padding {
     margin: 5px 10px 0px 10px;
 }
@@ -395,6 +399,32 @@ md-toolbar:not(.md-menu-toolbar) {
     cursor: pointer;
 }
 
+.page-content {
+    padding:0px 50px 25px 50px;
+    background-color:white;
+    border: 1px solid #efefef;
+    max-width: 1000px;
+    width:1000px;
+}
+
+.user-panel {
+    margin-bottom: 15px;
+    height: 85px;
+}
+
+.page-content-header {
+    height: 75px;
+}
+
+.user-panel-details {
+    height: 85px;
+}
+
+.user-details-grid {
+    height: 40px;
+    padding: 0px 10px 0px 10px;
+}
+
 .post-profile-thumbnail {
     height: 65px;
     width: 65px;
@@ -430,6 +460,8 @@ md-toolbar:not(.md-menu-toolbar) {
     color: white;
     padding: 0px 0px 0px 10px;
 }
+
+
 
 .user-post {
     cursor: pointer;
@@ -515,9 +547,9 @@ md-virtual-repeat-container.md-autocomplete-suggestions-container {
     text-align: start;
 }
 
-.md-button.md-raised {
+/*.md-button.md-raised {
     padding: 5px 0px 5px 0px;
-}
+}*/
 
 .md-button.md-primary {
     color: #2196f3;
@@ -528,7 +560,6 @@ md-virtual-repeat-container.md-autocomplete-suggestions-container {
 }
 
 .md-button.md-primary.md-raised {
-    padding: 5px 0px 5px 0px;
     background-color: #2196f3;
     color: white;
 }

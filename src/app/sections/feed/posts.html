@@ -1,0 +1,24 @@
+<div class="content">
+    <div class="content-message" layout="row" layout-align="center center" ng-if="vm.feed.items.length == 0">
+        <span class="md-display-1">{{vm.infoMessage}}</span>
+    </div>
+
+    <div class="md-padding" layout="row" layout-align="center start">
+        <div ng-if="!vm.isLoading">
+            <div class="posts">
+                <post post="post" remove-callback="vm.removePost($index)" ng-repeat="post in vm.feed.items"></post>
+            </div>
+            <div layout="column" layout-align="center center" ng-if="vm.feed.hasMoreItems">
+                <md-button ng-click="vm.loadMorePosts()" ng-if="!vm.isLoadingMorePosts" md-colors="{ background: 'blue' }">Load More</md-button>
+                <md-progress-circular md-mode="indeterminate" ng-if="vm.isLoadingMorePosts"></md-progress-circular>
+            </div>
+        </div>
+    </div>
+    <md-fab-speed-dial class="md-fab-bottom-right" ng-click="vm.showCreatePostDialog($event)" ng-if="vm.isAuthenticated">
+        <md-fab-trigger>
+            <md-button aria-label="create post" class="md-fab" md-colors="{background: 'blue'}">
+                <md-icon>add_a_photo</md-icon>
+            </md-button>
+        </md-fab-trigger>
+    </md-fab-speed-dial>
+</div>
