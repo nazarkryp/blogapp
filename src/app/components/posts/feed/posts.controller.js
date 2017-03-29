@@ -146,11 +146,9 @@
 
                     generateInfoMessage();
                 },
-                function(errorResponse) {
+                function(error) {
                     pageService.isLoading = false;
                     vm.isLoadingMorePosts = false;
-
-                    vm.errorMessage = errorResponse.error.message;
                 });
         };
 
