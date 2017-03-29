@@ -10,43 +10,52 @@
     <link href="assets/styles.css" rel="stylesheet" />
 </head>
 
-<body layout="column" ng-controller="IndexController as idxCtrl" ng-cloak>
-    <md-content layout="column">
+<body ng-controller="IndexController as vm" ng-cloak>
+    <header>
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <div layout="row" layout-align="center stretch" flex>
-                    <div layout="row" layout-align="end center" flex="25">
-                        <a class="logo-text" layout="row" layout-align="end end" ng-click="gotoFeedPage()">photocloud</a>
-                    </div>
-                    <div layout="row" layout-align="center center" flex style="padding: 0px 0px 0px 0px;">
-                        <search ng-if="currentUser.isAuthenticated && currentUser.isActive" flex="85" style="max-width: 600px;"></search>
-                    </div>
-                    <div layout="row" layout-align="start center" flex="25" ng-if="currentUser.isAuthenticated">
-                        <div layout="row" layout-align="center end" flex="25">
-                            <div ui-sref="explore.people" class="icon material-icons mdl-badge" data-badge="1" style="cursor: pointer;" ng-if="currentUser.isActive">explore</div>
+                <div class="fill" layout="row" layout-align="center stretch">
+                    <div layout="row" layout-align="center center" flex="25">
+                        <div layout="row" layout-align="center center" flex="50">
+                            <md-progress-circular class="md-black" md-mode="indeterminate" md-diameter="25" ng-disabled="!vm.pageService.isLoading"></md-progress-circular>
                         </div>
-                        <div layout="row" layout-align="center end" flex="25" ng-if="currentUser.isAuthenticated && currentUser.isActive && currentUser.isPrivate">
-                            <md-menu md-offset="0 35" md-position-mode="target-right target">
-                                <div ui-sref="users" class="icon material-icons mdl-badge" data-badge="1" style="cursor: pointer;" ng-click="$mdMenu.open($event)">person</div>
-                                <md-menu-content width="5" md-colors="{background : 'blue'}">
-                                    <div layout="column" layout-align="center center" ng-if="requests.length == 0">
+                        <div layout="row" layout-align="center center" flex="50">
+                            <a class="logo-text" ui-sref="feed" layout="row" layout-align="end end">photocloud</a>
+                        </div>
+                    </div>
+                    <div layout="row" layout-align="center center" flex>
+                        <search class="search-bar" ng-if="vm.currentUser.isAuthenticated && vm.currentUser.isActive"></search>
+                    </div>
+                    <div layout="row" layout-align="center center" flex="25" ng-if="vm.currentUser.isAuthenticated">
+                        <div layout="row" layout-align="center end" flex="25">
+                            <div ui-sref="explore.people" class="icon material-icons mdl-badge" data-badge="1" ng-if="vm.currentUser.isActive">explore</div>
+                        </div>
+                        <div layout="row" layout-align="center end" flex="25" ng-if="vm.currentUser.isAuthenticated && vm.currentUser.isActive && vm.currentUser.isPrivate">
+                            <md-menu md-offset="100 55" md-position-mode="target-right target">
+                                <div ui-sref="users" class="icon material-icons mdl-badge" data-badge="1" ng-click="$mdMenu.open($event)">{{ vm.requests.length > 0 ? 'notifications_active' : 'notifications' }}</div>
+                                <md-menu-content width="6">
+                                    <div layout="column" layout-align="center center" ng-if="vm.requests.length == 0">
                                         <span>No pending requests</span>
                                     </div>
-                                    <md-content ng-if="requests.length > 0">
-                                        <div layout="row" layout-align="space-between center" ng-repeat="user in requests">
-                                            <div style="padding: 10px;">
-                                                <img ui-sref="userfeed({username : user.username})" class="post-profile-image" ng-src="{{user.imageUri}}" alt="user.username">
+                                    <md-content ng-if="vm.requests.length > 0">
+                                        <div layout="column">
+                                            <div class="md-padding">
+                                                <span class="md-subtitle">Incomming requests</span>
                                             </div>
-                                            <div layout="row" layout-align="start center" flex>
-                                                <span ui-sref="userfeed({username : user.username})" class="md-subtitle" style="font-weight: bold;cursor:pointer;">{{user.username}}</span>
+                                            <div class="md-padding-wide">
+                                                <md-divider></md-divider>
                                             </div>
-                                            <div layout="row" layout-align="end center" style="width:110px;">
-                                                <md-button class="md-icon-button" style="border: 1px solid rgb(33, 150, 243);" ng-click="acceptRequest($index)">
-                                                    <md-icon style="color:rgb(33, 150, 243);">done</md-icon>
-                                                </md-button>
-                                                <md-button class="md-icon-button" ng-click="rejectRequest($index)">
-                                                    <md-icon style="color: red;">clear</md-icon>
-                                                </md-button>
+                                            <div class="md-padding" layout="row" layout-align="start center" ng-repeat="user in vm.requests">
+                                                <img class="follower-profile-image" ui-sref="userfeed({username : user.username})" ng-src="{{user.imageUri}}" alt="user.username">
+                                                <div class="md-padding" layout="column">
+                                                    <span><a class="bold" ui-sref="userfeed({username : user.username})">{{user.username}}</a>
+                                                        started following you
+                                                    </span>
+                                                    <div class="md-padding top" layout="row">
+                                                        <md-button class="md-primary md-text" ng-click="vm.acceptRequest($index)">Accept</md-button>
+                                                        <md-button class="md-warn md-text" ng-click="vm.rejectRequest($index)">Decline</md-button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </md-content>
@@ -55,14 +64,14 @@
                         </div>
                         <div flex>
                             <md-menu>
-                                <md-button class="md-icon-button navbar-button" aria-label="Open interactions menu" ng-click="$mdMenu.open($event)">
+                                <md-button class="md-icon-button navbar-button" aria-label="Open menu" ng-click="$mdMenu.open($event)">
                                     <div layout="row" layout-align="center center">
-                                        <img class="navbar-image" ng-src="{{currentUser.imageUri}}" alt="profile image">
+                                        <img class="navbar-image" ng-src="{{vm.currentUser.imageUri}}" alt="profile image">
                                     </div>
                                 </md-button>
                                 <md-menu-content width="3">
                                     <md-menu-item>
-                                        <md-button ng-click="gotoProfile()">
+                                        <md-button ui-sref="userfeed({username : vm.currentUser.username})">
                                             <md-icon>home</md-icon>
                                             My Profile
                                         </md-button>
@@ -75,7 +84,7 @@
                                     </md-menu-item>
                                     <md-menu-divider></md-menu-divider>
                                     <md-menu-item>
-                                        <md-button ng-click="signOut()">
+                                        <md-button ng-click="vm.signOut()">
                                             <md-icon>exit_to_app</md-icon>
                                             Sign out
                                         </md-button>
@@ -84,24 +93,24 @@
                             </md-menu>
                         </div>
                     </div>
-                    <div layout="row" layout-align="start start" flex="30" ng-if="!currentUser.isAuthenticated">
-                        <md-button ng-click="gotoSignUpPage()">Create account</md-button>
-                        <md-button class="md-raised" md-colors="{background: 'blue'}" ng-click="gotoSignInPage()">Sign In</md-button>
+                    <div layout="row" layout-align="start start" flex="30" ng-if="!vm.currentUser.isAuthenticated">
+                        <md-button ui-sref="signup">Create account</md-button>
+                        <md-button class="md-raised md-primary" ui-sref="signin">Sign In</md-button>
                     </div>
                 </div>
             </div>
         </md-toolbar>
-        <md-progress-linear class="md-primary" md-mode="indeterminate" ng-disabled="!isLoading"></md-progress-linear>
-        <main>
-            <ui-view></ui-view>
-        </main>
-        <span flex></span>
-        <footer>
-            <div class="footer" layout="row" layout-align="center center">
-                <span>Copyright © 2016 KrypApp</span>
-            </div>
-        </footer>
-    </md-content>
+    </header>
+
+    <main>
+        <ui-view></ui-view>
+    </main>
+
+    <footer>
+        <div class="footer" layout="row" layout-align="center center">
+            <span>Copyright &copy; {{ vm.date | date : 'yyyy' }} PhotoCloud</span>
+        </div>
+    </footer>
 
     <script src="assets/libs/js/angular.min.js"></script>
     <script src="assets/libs/js/angular-ui-router.min.js"></script>

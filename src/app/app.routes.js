@@ -40,7 +40,7 @@
                 url: '/explore',
                 templateUrl: 'app/components/explore/explore.html',
                 controller: 'ExploreController',
-                controllerAs: 'vm'
+                controllerAs: 'pvm'
             })
             .state('explore.people', {
                 url: '/people',

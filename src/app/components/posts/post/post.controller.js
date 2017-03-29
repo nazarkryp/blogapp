@@ -5,6 +5,7 @@
 
     function PostController($scope, $state, $mdDialog, postsService, commentService, authService) {
         var vm = this;
+
         vm.authService = authService;
         vm.isAuthenticated = authService.isAuthenticated;
 
@@ -21,9 +22,6 @@
                 function(response) {
                     post.likesCount = response.likesCount;
                     post.userHasLiked = response.userHasLiked;
-                },
-                function(error) {
-                    vm.errorMessage = error;
                 }
             );
         };
@@ -79,22 +77,19 @@
             if (vm.post.activeAttachment > 0) {
                 vm.post.activeAttachment--;
             }
-
-            console.log(vm.post.activeAttachment);
         }
 
         vm.next = function() {
             if (vm.post.activeAttachment < vm.post.attachments.length - 1) {
                 vm.post.activeAttachment++;
             }
-
-            console.log(vm.post.activeAttachment);
         }
 
         $scope.$watch("vm.authService.isAuthenticated",
             function(isAuthenticated) {
                 vm.isAuthenticated = isAuthenticated;
             });
+
         vm.$onInit = function() {
             vm.post.activeAttachment = 0;
         };

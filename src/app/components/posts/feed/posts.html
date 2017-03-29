@@ -4,9 +4,9 @@
     </div>
 
     <div class="md-padding" layout="row" layout-align="center start">
-        <div flex="45" ng-if="!vm.isLoading">
-            <div class="posts" ng-repeat="post in vm.feed.items">
-                <post post="post" remove-callback="vm.removePost($index)"></post>
+        <div ng-if="!vm.isLoading">
+            <div class="posts">
+                <post post="post" remove-callback="vm.removePost($index)" ng-repeat="post in vm.feed.items"></post>
             </div>
             <div layout="column" layout-align="center center" ng-if="vm.feed.hasMoreItems">
                 <md-button ng-click="vm.loadMorePosts()" ng-if="!vm.isLoadingMorePosts" md-colors="{ background: 'blue' }">Load More</md-button>

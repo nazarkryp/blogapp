@@ -2,37 +2,26 @@
     'use strict';
 
     angular.module('photocloud')
-        .run(runBlock);
+        .run(run);
 
-    runBlock.$inject = ["$rootScope", "$state", "authService"];
+    run.$inject = ["$rootScope", "$state", "authService"];
 
-    function runBlock($rootScope, $state, authService) {
-        $rootScope.$on("$stateChangeStart",
-            function(event, next, params) {
-                if (authService.isAuthenticated) {
-                    if (next.name) {
-                        if (!authService.getIsActive() && next.url != '/settings') {
-                            $state.go('settings', { isRedirected: true });
+    function run($rootScope, $state, authService) {
+        $rootScope.$on("$stateChangeStart", stateChangeStart);
 
-                            event.preventDefault();
-                        }
-
-                        if (next.url === '/signin') {
-                            $state.go('feed');
-                            event.preventDefault();
-                        } else if (next.url === '/signup') {
-                            $state.path('feed');
-                            event.preventDefault();
-                        }
-                    }
-                } else {
-                    if (next.name) {
-                        if (next.url === '/settings' || next.url === '/') {
-                            $state.go('signin');
-                            event.preventDefault();
-                        }
-                    }
+        function stateChangeStart(event, next, params) {
+            if (authService.isAuthenticated) {
+                if (next.url !== '/settings' && !authService.getIsActive()) {
+                    $state.go('settings', { isRedirected: true });
+                    event.preventDefault();
+                } else if (next.url === '/signin' || next.url === '/signup') {
+                    $state.go('feed');
+                    event.preventDefault();
                 }
-            });
-    };
+            } else if (next.url !== '/signin' && next.url === '/') {
+                $state.go('signin');
+                event.preventDefault();
+            }
+        }
+    }
 })();

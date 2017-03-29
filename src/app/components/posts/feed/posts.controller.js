@@ -29,7 +29,7 @@
             getFeed($stateParams.username);
         };
 
-        $scope.$watch("authService.isAuthenticated",
+        $scope.$watch("vm.authService.isAuthenticated",
             function(value) {
                 vm.isAuthenticated = value;
             });

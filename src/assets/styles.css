@@ -1,9 +1,10 @@
-md-content {
-    height: calc(100vh);
+html {
+    overflow-y: scroll;
+    background-color: #FAFAFA;
 }
 
-body {
-    background: white;
+main {
+    min-height: calc(100vh - 145px);
 }
 
 md-fab-speed-dial.md-fab-bottom-right {
@@ -115,6 +116,18 @@ md-toolbar:not(.md-menu-toolbar) {
     font-size: 14px;
 }
 
+.col-1 {
+    width: 25%;
+}
+
+.col-2 {
+    width: 50%;
+}
+
+.search-bar {
+    width: 600px;
+}
+
 .search-box.md-input {
     border-style: none;
     font-weight: lighter;
@@ -127,6 +140,10 @@ md-toolbar:not(.md-menu-toolbar) {
 .md-toolbar-tools {
     height: 75px;
     max-height: 75px;
+}
+
+.logo {
+    padding-bottom: 50px;
 }
 
 .logo-text {
@@ -153,11 +170,13 @@ md-toolbar:not(.md-menu-toolbar) {
 }
 
 .posts {
-    margin-top: 25px;
+    margin-top: 50px;
+    width: 600px;
 }
 
 .post {
-    margin: 16px 25px 50px 25px;
+    width: 100%;
+    margin: 25px 0px 50px 0px;
     border: 1px solid #efefef;
     background-color: white;
     border-radius: 2px;
@@ -277,6 +296,18 @@ md-toolbar:not(.md-menu-toolbar) {
     margin: 25px 0px 25px 0px;
 }
 
+.md-padding-wide {
+    padding: 0px 16px 0px 16px;
+}
+
+.md-padding.top {
+    padding: 5px 0px 0px 0px;
+}
+
+.md-padding.bottom {
+    padding: 0px 0px 5px 0px;
+}
+
 .post-box {
     padding-left: 10px;
     height: 70px;
@@ -353,7 +384,15 @@ md-toolbar:not(.md-menu-toolbar) {
     border-radius: 90px 90px 90px 90px;
     object-fit: cover;
     overflow: hidden;
-    /*position: absolute;*/
+}
+
+.follower-profile-image {
+    height: 50px;
+    width: 50px;
+    border-radius: 90px 90px 90px 90px;
+    object-fit: cover;
+    overflow: hidden;
+    cursor: pointer;
 }
 
 .post-profile-thumbnail {
@@ -457,7 +496,6 @@ md-virtual-repeat-container.md-autocomplete-suggestions-container {
 }
 
 .md-button.button-facebook.md-raised {
-    padding: 5px 0px 5px 0px;
     background-color: #3b5998;
     color: white;
 }
@@ -470,8 +508,18 @@ md-virtual-repeat-container.md-autocomplete-suggestions-container {
     margin: 0px !important;
 }
 
-.md-button.md-primary {
+.md-text.md-button {
+    min-height: 20px;
+    max-width: 0px;
+    line-height: 0px;
+    text-align: start;
+}
+
+.md-button.md-raised {
     padding: 5px 0px 5px 0px;
+}
+
+.md-button.md-primary {
     color: #2196f3;
 }
 
@@ -547,26 +595,14 @@ md-checkbox {
 .material-icons.icon,
 .material-label {
     font-size: 2em;
-    /*line-height: 1;*/
+    cursor: pointer;
     display: block;
     color: #424242;
     margin: .5em 0
 }
 
-.material-icons.mdl-badge[data-badge]::after,
-.material-label.mdl-badge[data-badge]::after {
-    font-size: .3em;
-    /*width: 2em;
-  height: 2em;*/
-}
-
 #uploadInput {
     display: none;
-}
-
-.material-icons.mdl-badge[data-badge]::after {
-    top: -1em;
-    right: -1em;
 }
 
 .md-display-1 {
@@ -585,7 +621,7 @@ md-progress-linear .md-container {
 
 .md-progress-linear.md-default-theme .md-bar,
 md-progress-linear .md-bar {
-    background-color: rgb(33, 150, 243);
+    background-color: black;
     height: 2px;
 }
 
@@ -597,8 +633,12 @@ md-progress-circular.md-primary path {
     stroke: #2196f3;
 }
 
-md-progress-circular.white path {
+md-progress-circular.md-white path {
     stroke: white;
+}
+
+md-progress-circular.md-black path {
+    stroke: black;
 }
 
 .md-input.light {
@@ -707,6 +747,10 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input.comment-box
     font-weight: bold;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .md-headline {
     font-weight: lighter;
 }
@@ -730,4 +774,12 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input.comment-box
     text-align: center;
     cursor: pointer;
     white-space: nowrap
+}
+
+body::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #2196f3;
 }

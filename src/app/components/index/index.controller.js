@@ -1,137 +1,114 @@
-angular.module('photocloud').controller('IndexController', ['$scope', '$state', '$mdDialog', 'authService', 'userService', 'pageService',
-    function ($scope, $state, $mdDialog, authService, userService, pageService) {
-        $scope.authService = authService;
-        $scope.pageService = pageService;
+(function() {
+    'use strict';
 
-        $scope.currentUser = {
-            userId: authService.userId,
-            username: authService.username,
-            imageUri: authService.imageUri,
-            isPrivate: authService.isPrivate,
-            isActive: authService.isActive,
-            isAuthenticated: authService.isAuthenticated
-        };
+    angular.module('photocloud')
+        .controller('IndexController', IndexController);
 
-        $scope.gotoProfile = function () {
-            $state.go('userfeed', { username: authService.username });
-        };
+    IndexController.$inject = ['$scope', '$state', '$mdDialog', 'authService', 'userService', 'pageService'];
 
-        $scope.gotoSignInPage = function () {
-            $state.go('signin');
-        };
+    function IndexController($scope, $state, $mdDialog, authService, userService, pageService) {
+        var vm = this;
 
-        $scope.gotoSignUpPage = function () {
-            $state.go('signup');
-        };
+        vm.authService = authService;
+        vm.pageService = pageService;
 
-        $scope.gotoFeedPage = function () {
-            $state.go('feed');
-        };
-
-        $scope.openMenu = function ($mdOpenMenu, ev) {
+        vm.openMenu = function($mdOpenMenu, ev) {
             originatorEv = ev;
             $mdOpenMenu(ev);
         };
 
-        $scope.$watch('authService.isAuthenticated',
-            function (isAuthenticated) {
-                if (isAuthenticated) {
-                    getAuthenticatedUser();
-
-                    if ($scope.currentUser && $scope.currentUser.isActive && $scope.currentUser.isPrivate) {
-                        getIncommingRequests();
-                    }
-                } else {
-                    $scope.currentUser = null;
-                }
-            });
-
-        $scope.$watch('authService.isActive',
-            function (isActive) {
-                if (!$scope.currentUser) {
-                    return;
-                }
-
-                $scope.currentUser.isActive = isActive;
-
-                if (isActive && authService.getIsPrivate()) {
-                    getIncommingRequests();
-                }
-            });
-
-        $scope.$watch('authService.imageUri',
-            function (imageUri) {
-                if (!$scope.currentUser) {
-                    return;
-                }
-
-                $scope.currentUser.imageUri = imageUri;
-            });
-
-        $scope.$watch('authService.isPrivate',
-            function (isPrivate) {
-                if (!$scope.currentUser) {
-                    return;
-                }
-
-                $scope.currentUser.isPrivate = isPrivate;
-
-                if ($scope.currentUser && authService.getIsActive() && isPrivate) {
-                    getIncommingRequests();
-                }
-            });
-
-        $scope.$watch('pageService.isLoading',
-            function (isLoading) {
-                $scope.isLoading = isLoading;
-            });
-
-
-        $scope.signOut = function () {
-            authService.signOut();
+        vm.signOut = function() {
+            vm.authService.signOut();
 
             if ($state.current.name !== 'feed') {
                 $state.go('signin');
             }
         };
 
-        $scope.acceptRequest = function (index) {
-            var request = $scope.requests[index];
+        vm.acceptRequest = function(index) {
+            var request = vm.requests[index];
 
             userService.responseIncommingRequest(request.id, true).then(
-                function (response) {
-                    $scope.requests.splice(index, 1);
+                function(response) {
+                    vm.requests.splice(index, 1);
                 });
         };
 
-        $scope.rejectRequest = function (index) {
-            var request = $scope.requests[index];
+        vm.rejectRequest = function(index) {
+            var request = vm.requests[index];
 
             userService.responseIncommingRequest(request.id, false).then(
-                function (response) {
-                    $scope.requests.splice(index, 1);
+                function(response) {
+                    vm.requests.splice(index, 1);
                 });
         };
 
+        $scope.$watch('vm.authService.isAuthenticated',
+            function(isAuthenticated) {
+                if (isAuthenticated) {
+                    getUserFromSession();
+
+                    if (vm.currentUser && vm.currentUser.isActive && vm.currentUser.isPrivate) {
+                        getIncommingRequests();
+                    }
+                } else {
+                    vm.currentUser = null;
+                }
+            });
+
+        $scope.$watch('vm.authService.isActive',
+            function(isActive) {
+                if (vm.currentUser) {
+                    vm.currentUser.isActive = isActive;
+
+                    if (isActive && vm.authService.getIsPrivate()) {
+                        getIncommingRequests();
+                    }
+                }
+            });
+
+        $scope.$watch('vm.authService.imageUri',
+            function(imageUri) {
+                if (vm.currentUser) {
+                    vm.currentUser.imageUri = imageUri;
+                }
+            });
+
+        $scope.$watch('vm.authService.isPrivate',
+            function(isPrivate) {
+                if (vm.currentUser) {
+                    vm.currentUser.isPrivate = isPrivate;
+
+                    if (vm.authService.getIsActive() && isPrivate) {
+                        getIncommingRequests();
+                    }
+                }
+            });
+
         function getIncommingRequests() {
-            if ($scope.currentUser.isPrivate) {
+            if (vm.currentUser.isPrivate) {
                 userService.getIncommingRequests().then(
-                    function (response) {
-                        $scope.requests = response;
+                    function(response) {
+                        vm.requests = response;
                     });
             }
         };
 
-        function getAuthenticatedUser() {
-            $scope.currentUser = {
-                userId: authService.userId,
-                username: authService.username,
-                imageUri: authService.imageUri,
-                isPrivate: authService.isPrivate,
-                isActive: authService.isActive,
-                isAuthenticated: authService.isAuthenticated
+        function getUserFromSession() {
+            vm.currentUser = {
+                userId: vm.authService.userId,
+                username: vm.authService.username,
+                imageUri: vm.authService.imageUri,
+                isPrivate: vm.authService.isPrivate,
+                isActive: vm.authService.isActive,
+                isAuthenticated: vm.authService.isAuthenticated
             };
         };
 
-        getAuthenticatedUser();
-    }]);
+        vm.$onInit = function() {
+            getUserFromSession();
+
+            vm.date = new Date();
+        }
+    }
+})();
