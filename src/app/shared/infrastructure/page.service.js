@@ -1,5 +1,6 @@
 angular.module('photocloud')
-    .service('pageService', function () {
+    .service('pageService', function() {
         this.title = 'Photocloud';
         this.isLoading = false;
+        this.navbarVisible = true;
     });

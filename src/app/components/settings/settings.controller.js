@@ -52,23 +52,6 @@
             );
         };
 
-        vm.savePrivacy = function() {
-            SettingsService.savePrivacy(vm.settings.isPrivate).then(
-                function(response) {
-                    if (vm.settingsBackup.isPrivate != response.isPrivate) {
-                        authService.isPrivate = response.isPrivate;
-                        authService.setValue('isPrivate', response.isPrivate);
-
-                        vm.settingsBackup.isPrivate = response.isPrivate;
-                        vm.settings.isPrivate = response.isPrivate;
-                    }
-
-                    vm.privacyChanged();
-
-                    showToastNotification('Privacy has been changed!');
-                });
-        };
-
         vm.updateProfile = function() {
             var profile = {
                 username: vm.settings.username,
@@ -125,8 +108,27 @@
             vm.isRedirected = false;
         };
 
+        vm.savePrivacy = function() {
+            SettingsService.savePrivacy(vm.settings.isPrivate).then(
+                function(response) {
+                    if (vm.settingsBackup.isPrivate != response.isPrivate) {
+                        authService.isPrivate = response.isPrivate;
+                        authService.setValue('isPrivate', response.isPrivate);
+
+                        vm.settingsBackup.isPrivate = response.isPrivate;
+                        vm.settings.isPrivate = response.isPrivate;
+                    }
+
+                    //vm.privacyChanged();
+
+                    showToastNotification(vm.settings.isPrivate ? 'Privacy has been enabled!' : 'Privacy has been disabled!');
+                });
+        };
+
         vm.privacyChanged = function() {
-            vm.pendingChanges.isPrivate = (vm.settingsBackup.isPrivate !== vm.settings.isPrivate);
+            //vm.pendingChanges.isPrivate = (vm.settingsBackup.isPrivate !== vm.settings.isPrivate);
+
+            vm.savePrivacy();
         };
 
         vm.imageChanged = function() {

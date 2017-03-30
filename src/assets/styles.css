@@ -152,7 +152,7 @@ md-toolbar:not(.md-menu-toolbar) {
 }
 
 .content-header {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: lighter;
 }
 
@@ -300,16 +300,24 @@ md-toolbar:not(.md-menu-toolbar) {
     margin: 25px 0px 25px 0px;
 }
 
-.md-padding-wide {
-    padding: 0px 16px 0px 16px;
+.md-padding.left {
+    padding: 0px 0px 0px 16px;
+}
+
+.md-padding.right {
+    padding: 0px 16px 0px 0px;
 }
 
 .md-padding.top {
-    padding: 5px 0px 0px 0px;
+    padding: 16px 0px 0px 0px;
 }
 
 .md-padding.bottom {
-    padding: 0px 0px 5px 0px;
+    padding: 0px 0px 16px 0px;
+}
+
+.md-padding-wide {
+    padding: 0px 16px 0px 16px;
 }
 
 .post-box {
@@ -547,6 +555,20 @@ md-virtual-repeat-container.md-autocomplete-suggestions-container {
     text-align: start;
 }
 
+.md-button.md-grey {
+    background-color: #7E8FA5;
+    color: white;
+}
+
+.md-button.md-grey:not([disabled]):hover {
+    background-color: #646E89;
+}
+
+.md-button.md-grey[disabled] {
+    background-color: gray;
+    color: black;
+}
+
 .md-button.md-primary {
     color: #2196f3;
 }
@@ -750,7 +772,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input.comment-box
 }
 
 .form-item {
-    padding-bottom: 25px;
+    padding-bottom: 15px;
 }
 
 .form-item-label {
@@ -772,6 +794,10 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input.comment-box
 
 .md-body-2 {
     font-weight: bold;
+}
+
+.md-subhead.bold {
+    color: #505050;
 }
 
 .bold {

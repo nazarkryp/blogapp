@@ -11,7 +11,7 @@
 </head>
 
 <body ng-controller="IndexController as vm" ng-cloak>
-    <header>
+    <header ng-if="vm.pageService.navbarVisible">
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <div class="fill" layout="row" layout-align="center stretch">

@@ -7,10 +7,75 @@
             <md-divider></md-divider>
         </div>
         <div layout="row">
-            <div>
-
+            <div layout="column">
+                <img class="user-bar-image" ng-src="{{vm.settings.imageUri}}" alt="profile" />
+                <div class="md-padding" layout="row" layout-align="center center">
+                    <md-button class="md-raised md-grey">
+                        Edit Avatar
+                    </md-button>
+                </div>
             </div>
-            <div></div>
+            <div class="md-padding left" layout="column" flex>
+                <div layout="row">
+                    <div class="md-padding right" flex>
+                        <label class="md-subhead bold" for="username">Username</label>
+                        <md-input-container class="md-block" md-no-float flex>
+                            <input class="light" type="text" name="username" placeholder="Username" ng-model="vm.account.username" aria-label="account">
+                        </md-input-container>
+                    </div>
+                    <div flex>
+                        <label class="md-subhead bold" for="fullname">Full Name</label>
+                        <md-input-container class="md-block" md-no-float flex>
+                            <input class="light" type="text" name="fullName" placeholder="Full Name" ng-model="vm.account.fullName" aria-label="account">
+                        </md-input-container>
+                    </div>
+                </div>
+                <div>
+                    <label class="md-subhead bold" for="bio">Bio</label>
+                    <md-input-container class="md-block" md-no-float flex>
+                        <input class="light" type="text" name="bio" placeholder="Tell us something about yourself" ng-model="vm.account.bio" aria-label="account">
+                    </md-input-container>
+                </div>
+                <div>
+                    <label class="md-subhead bold" for="email">Email Address</label>
+                    <md-input-container class="md-block" md-no-float flex>
+                        <input class="light" type="text" name="email" placeholder="username@example.com" ng-model="vm.account.email" aria-label="account">
+                    </md-input-container>
+                    <md-button class="md-raised md-primary fill">Change Email</md-button>
+                </div>
+                <div class="md-padding top">
+                    <div layout="row" layout-align="start center">
+                        <div class="md-padding right" flex>
+                            <label class="md-subhead bold" for="oldPassword">Old Password</label>
+                            <md-input-container class="md-block" md-no-float flex>
+                                <input class="light" type="password" name="oldPassword" placeholder="" ng-model="vm.account.oldPassword" aria-label="account">
+                            </md-input-container>
+                        </div>
+                        <div class="md-padding right" flex>
+                            <label class="md-subhead bold" for="newPassword">New Password</label>
+                            <md-input-container class="md-block" md-no-float flex>
+                                <input class="light" type="password" name="newPassword" placeholder="" ng-model="vm.account.newPassword" aria-label="account">
+                            </md-input-container>
+                        </div>
+                        <div class="md-padding right" flex>
+                            <label class="md-subhead bold" for="confirmPassword">Confirm Password</label>
+                            <md-input-container class="md-block" md-no-float flex>
+                                <input class="light" type="password" name="confirmPassword" placeholder="" ng-model="vm.account.confirmPassword" aria-label="account">
+                            </md-input-container>
+                        </div>
+                        <md-button class="md-raised md-primary">Change Password</md-button>
+                    </div>
+                </div>
+                <div class="md-padding top">
+                    <md-switch ng-change="vm.privacyChanged()" ng-model="vm.settings.isPrivate" aria-label="Is Private">
+                        Is Private {{pendingChanges.isPrivate}}
+                    </md-switch>
+                    <p class="description">When your account is private, only people you approve can see you photos and videos on PhotoCloud. The existing followers won't be affected</p>
+                </div>
+                <div class="md-padding top">
+                    <md-button class="md-raised" md-colors="{background : '{{vm.settings.isActive | buttonStatusColor}}'}" ng-click="vm.invertAccountStatus()" style="width: 200px;">{{vm.settings.isActive | accountActionStatus}} account</md-button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

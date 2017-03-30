@@ -4,9 +4,9 @@
     angular.module('photocloud')
         .run(run);
 
-    run.$inject = ["$rootScope", "$state", "authService"];
+    run.$inject = ['$rootScope', '$state', 'authService', 'pageService'];
 
-    function run($rootScope, $state, authService) {
+    function run($rootScope, $state, authService, pageService) {
         $rootScope.$on("$stateChangeStart", stateChangeStart);
 
         function stateChangeStart(event, next, params) {
@@ -22,6 +22,8 @@
                 $state.go('signin');
                 event.preventDefault();
             }
+
+            //pageService.navbarVisible = !(next.url === '/signin');
         }
     }
 })();
