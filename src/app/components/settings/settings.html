@@ -10,9 +10,10 @@
             <div layout="column">
                 <img class="user-bar-image" ng-src="{{vm.settings.imageUri}}" alt="profile" />
                 <div class="md-padding" layout="row" layout-align="center center">
-                    <md-button class="md-raised md-grey">
-                        Edit Avatar
+                    <md-button class="md-raised" ng-click="vm.browseAttachment()">
+                        Change Image
                     </md-button>
+                    <input id="uploadInput" file-model="vm.browsedFile.file" type="file" aria-label class="md-input" ng-hide="true" />
                 </div>
             </div>
             <div class="md-padding left" layout="column" flex>

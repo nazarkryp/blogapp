@@ -4,10 +4,10 @@
     angular.module('photocloud')
         .controller('SettingsController', SettingsController);
 
-    SettingsController.$inject = ['$state', '$stateParams', '$mdToast', 'SettingsService', 'authService', 'pageService'];
+    SettingsController.$inject = ['$state', '$stateParams', '$mdToast', 'settingsService', 'authService', 'pageService'];
 
 
-    function SettingsController($state, $stateParams, $mdToast, SettingsService, authService, pageService) {
+    function SettingsController($state, $stateParams, $mdToast, settingsService, authService, pageService) {
         var vm = this;
 
         vm.isRedirected = $stateParams.isRedirected;
@@ -33,11 +33,15 @@
             password: false,
         };
 
+        vm.browsedFile = {
+            isUploading: false,
+            file: null
+        };
+
         vm.settingsBackup = {};
-        vm.pageCenter = window.innerHeight / 2;
 
         vm.invertAccountStatus = function() {
-            SettingsService.invertAccountStatus().then(
+            settingsService.invertAccountStatus().then(
                 function(response) {
                     vm.settings.isActive = response.isActive;
                     vm.settingsBackup.isActive = response.isActive;
@@ -52,6 +56,16 @@
             );
         };
 
+        vm.browseAttachment = function() {
+            uploadInput.click();
+        }
+
+        $scope.$watch("vm.browsedFile.file", function(file) {
+            if (file) {
+                uploadImage(file);
+            }
+        });
+
         vm.updateProfile = function() {
             var profile = {
                 username: vm.settings.username,
@@ -61,7 +75,7 @@
 
             vm.profileSaveError = '';
 
-            SettingsService.updateProfile(profile).then(
+            settingsService.updateProfile(profile).then(
                 function(response) {
                     vm.settingsBackup.username = response.username;
                     vm.settingsBackup.fullName = response.fullName;
@@ -87,7 +101,7 @@
             pageService.isLoading = true;
 
             vm.passwordChangeError = '';
-            SettingsService.changePassword(vm.password).then(
+            settingsService.changePassword(vm.password).then(
                 function(response) {
                     pageService.isLoading = false;
 
@@ -109,7 +123,7 @@
         };
 
         vm.savePrivacy = function() {
-            SettingsService.savePrivacy(vm.settings.isPrivate).then(
+            settingsService.savePrivacy(vm.settings.isPrivate).then(
                 function(response) {
                     if (vm.settingsBackup.isPrivate != response.isPrivate) {
                         authService.isPrivate = response.isPrivate;
@@ -151,25 +165,6 @@
                 vm.password.newPassword === vm.password.confirmPassword);
         };
 
-        var init = function() {
-            if (!authService.isAuthenticated) {
-                $state.go('signin');
-
-                return;
-            }
-
-            pageService.isLoading = true;
-
-            SettingsService.getAccountSettings(authService.userId).then(
-                function(response) {
-                    pageService.isLoading = false;
-
-                    updateSettings(response);
-                    vm.settings = response;
-                    vm.settingsBackup = angular.copy(response);
-                });
-        };
-
         function showToastNotification(message) {
             $mdToast.show(
                 $mdToast.simple()
@@ -204,6 +199,40 @@
             vm.settingsBackup = angular.copy(response);
         }
 
-        init();
+        function uploadImage(file) {
+            if (file) {
+                vm.browsedFile.isUploading = true;
+
+                uploadService.uploadFile(file)
+                    .then(function(response) {
+                            vm.browsedFile.isUploading = false;
+                            vm.account.attachment = response;
+                            vm.browsedFile.file = null;
+                        },
+                        function(error) {
+                            vm.browsedFile.isUploading = false;
+                            vm.browsedFile.file = null;
+                        });
+            }
+        }
+
+        vm.$onInit = function() {
+            if (!authService.isAuthenticated) {
+                $state.go('signin');
+
+                return;
+            }
+
+            pageService.isLoading = true;
+
+            settingsService.getAccountSettings(authService.userId).then(
+                function(response) {
+                    pageService.isLoading = false;
+
+                    updateSettings(response);
+                    vm.settings = response;
+                    vm.settingsBackup = angular.copy(response);
+                });
+        };
     }
 })();
