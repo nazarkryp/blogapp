@@ -1,7 +1,17 @@
-angular.module('photocloud').controller('SettingsController', ['$scope', '$state', '$stateParams', '$mdToast', 'SettingsService', 'authService', 'pageService',
-    function ($scope, $state, $stateParams, $mdToast, SettingsService, authService, pageService) {
-        $scope.isRedirected = $stateParams.isRedirected;
-        $scope.settings = {
+(function() {
+    'use strict';
+
+    angular.module('photocloud')
+        .controller('SettingsController', SettingsController);
+
+    SettingsController.$inject = ['$state', '$stateParams', '$mdToast', 'SettingsService', 'authService', 'pageService'];
+
+
+    function SettingsController($state, $stateParams, $mdToast, SettingsService, authService, pageService) {
+        var vm = this;
+
+        vm.isRedirected = $stateParams.isRedirected;
+        vm.settings = {
             username: authService.username,
             fullName: authService.fullName,
             imageUri: authService.imageUri,
@@ -10,27 +20,27 @@ angular.module('photocloud').controller('SettingsController', ['$scope', '$state
             isActive: authService.isActive
         };
 
-        $scope.password = {
+        vm.password = {
             oldPassword: '',
             newPassword: '',
             confirmPassword: ''
         }
 
-        $scope.pendingChanges = {
+        vm.pendingChanges = {
             profile: false,
             image: false,
             isPrivate: false,
             password: false,
         };
 
-        $scope.settingsBackup = {};
-        $scope.pageCenter = window.innerHeight / 2;
+        vm.settingsBackup = {};
+        vm.pageCenter = window.innerHeight / 2;
 
-        $scope.invertAccountStatus = function () {
+        vm.invertAccountStatus = function() {
             SettingsService.invertAccountStatus().then(
-                function (response) {
-                    $scope.settings.isActive = response.isActive;
-                    $scope.settingsBackup.isActive = response.isActive;
+                function(response) {
+                    vm.settings.isActive = response.isActive;
+                    vm.settingsBackup.isActive = response.isActive;
 
                     authService.isActive = response.isActive;
                     authService.setValue('isActive', response.isActive);
@@ -42,103 +52,104 @@ angular.module('photocloud').controller('SettingsController', ['$scope', '$state
             );
         };
 
-        $scope.savePrivacy = function () {
-            SettingsService.savePrivacy($scope.settings.isPrivate).then(
-                function (response) {
-                    if ($scope.settingsBackup.isPrivate != response.isPrivate) {
+        vm.savePrivacy = function() {
+            SettingsService.savePrivacy(vm.settings.isPrivate).then(
+                function(response) {
+                    if (vm.settingsBackup.isPrivate != response.isPrivate) {
                         authService.isPrivate = response.isPrivate;
                         authService.setValue('isPrivate', response.isPrivate);
 
-                        $scope.settingsBackup.isPrivate = response.isPrivate;
-                        $scope.settings.isPrivate = response.isPrivate;
+                        vm.settingsBackup.isPrivate = response.isPrivate;
+                        vm.settings.isPrivate = response.isPrivate;
                     }
 
-                    $scope.privacyChanged();
+                    vm.privacyChanged();
 
                     showToastNotification('Privacy has been changed!');
                 });
         };
 
-        $scope.updateProfile = function () {
+        vm.updateProfile = function() {
             var profile = {
-                username: $scope.settings.username,
-                fullName: $scope.settings.fullName,
-                bio: $scope.settings.bio
+                username: vm.settings.username,
+                fullName: vm.settings.fullName,
+                bio: vm.settings.bio
             };
 
-            $scope.profileSaveError = '';
+            vm.profileSaveError = '';
 
             SettingsService.updateProfile(profile).then(
-                function (response) {
-                    $scope.settingsBackup.username = response.username;
-                    $scope.settingsBackup.fullName = response.fullName;
-                    $scope.settingsBackup.bio = response.bio;
-                    $scope.profileChanged();
+                function(response) {
+                    vm.settingsBackup.username = response.username;
+                    vm.settingsBackup.fullName = response.fullName;
+                    vm.settingsBackup.bio = response.bio;
+                    vm.profileChanged();
 
                     showToastNotification('Profile has been updated!');
                 },
-                function (errorResponse) {
-                    $scope.profileSaveError = errorResponse.error.message;
+                function(errorResponse) {
+                    vm.profileSaveError = errorResponse.error.message;
                 }
             );
         };
 
-        $scope.resetProfileChanges = function () {
-            $scope.settings.username = $scope.settingsBackup.username;
-            $scope.settings.fullName = $scope.settingsBackup.fullName;
-            $scope.settings.bio = $scope.settingsBackup.bio;
-            $scope.profileChanged();
+        vm.resetProfileChanges = function() {
+            vm.settings.username = vm.settingsBackup.username;
+            vm.settings.fullName = vm.settingsBackup.fullName;
+            vm.settings.bio = vm.settingsBackup.bio;
+            vm.profileChanged();
         };
 
-        $scope.changePassword = function () {
+        vm.changePassword = function() {
             pageService.isLoading = true;
 
-            $scope.passwordChangeError = '';
-            SettingsService.changePassword($scope.password).then(
-                function (response) {
+            vm.passwordChangeError = '';
+            SettingsService.changePassword(vm.password).then(
+                function(response) {
                     pageService.isLoading = false;
 
-                    $scope.password.oldPassword = '';
-                    $scope.password.newPassword = '';
-                    $scope.password.confirmPassword = '';
-                    $scope.passwordChanged();
+                    vm.password.oldPassword = '';
+                    vm.password.newPassword = '';
+                    vm.password.confirmPassword = '';
+                    vm.passwordChanged();
 
                     showToastNotification('Your password has been updated!');
-                }, function (errorResponse) {
-                    $scope.passwordChangeError = errorResponse.message;
+                },
+                function(errorResponse) {
+                    vm.passwordChangeError = errorResponse.message;
                     pageService.isLoading = false;
                 });
         };
 
-        $scope.closeInfo = function () {
-            $scope.isRedirected = false;
+        vm.closeInfo = function() {
+            vm.isRedirected = false;
         };
 
-        $scope.privacyChanged = function () {
-            $scope.pendingChanges.isPrivate = ($scope.settingsBackup.isPrivate !== $scope.settings.isPrivate);
+        vm.privacyChanged = function() {
+            vm.pendingChanges.isPrivate = (vm.settingsBackup.isPrivate !== vm.settings.isPrivate);
         };
 
-        $scope.imageChanged = function () {
-            $scope.pendingChanges.image = $scope.settingsBackup.image !== $scope.settings.image;
+        vm.imageChanged = function() {
+            vm.pendingChanges.image = vm.settingsBackup.image !== vm.settings.image;
         };
 
-        $scope.profileChanged = function () {
-            $scope.pendingChanges.profile = $scope.settingsBackup.username !== $scope.settings.username
-                || $scope.settingsBackup.fullName != $scope.settings.fullName
-                || $scope.settingsBackup.bio != $scope.settings.bio;
+        vm.profileChanged = function() {
+            vm.pendingChanges.profile = vm.settingsBackup.username !== vm.settings.username ||
+                vm.settingsBackup.fullName != vm.settings.fullName ||
+                vm.settingsBackup.bio != vm.settings.bio;
 
-            $scope.profileSaveError = '';
+            vm.profileSaveError = '';
         };
 
-        $scope.passwordChanged = function () {
-            $scope.pendingChanges.password = (
-                $scope.password.oldPassword !== ''
-                && $scope.password.newPassword !== ''
-                && $scope.password.confirmPassword !== ''
-                && $scope.password.newPassword === $scope.password.confirmPassword);
+        vm.passwordChanged = function() {
+            vm.pendingChanges.password = (
+                vm.password.oldPassword !== '' &&
+                vm.password.newPassword !== '' &&
+                vm.password.confirmPassword !== '' &&
+                vm.password.newPassword === vm.password.confirmPassword);
         };
 
-        var init = function () {
+        var init = function() {
             if (!authService.isAuthenticated) {
                 $state.go('signin');
 
@@ -148,48 +159,49 @@ angular.module('photocloud').controller('SettingsController', ['$scope', '$state
             pageService.isLoading = true;
 
             SettingsService.getAccountSettings(authService.userId).then(
-                function (response) {
+                function(response) {
                     pageService.isLoading = false;
 
                     updateSettings(response);
-                    $scope.settings = response;
-                    $scope.settingsBackup = angular.copy(response);
+                    vm.settings = response;
+                    vm.settingsBackup = angular.copy(response);
                 });
         };
 
         function showToastNotification(message) {
             $mdToast.show(
                 $mdToast.simple()
-                    .textContent(message)
-                    .position('bottom right')
-                    .hideDelay(3000)
+                .textContent(message)
+                .position('bottom right')
+                .hideDelay(3000)
             );
         };
 
         function updateSettings(response) {
-            if ($scope.settingsBackup.username != response.username) {
+            if (vm.settingsBackup.username != response.username) {
                 authService.username = response.username;
                 authService.setValue('username', response.username);
             }
 
-            if ($scope.settingsBackup.imageUri != response.imageUri) {
+            if (vm.settingsBackup.imageUri != response.imageUri) {
                 authService.imageUri = response.imageUri;
                 authService.setValue('imageUri', response.imageUri);
             }
 
-            if ($scope.settingsBackup.isPrivate != response.isPrivate) {
+            if (vm.settingsBackup.isPrivate != response.isPrivate) {
                 authService.isPrivate = response.isPrivate;
                 authService.setValue('isPrivate', response.isPrivate);
             }
 
-            if ($scope.settingsBackup.isActive != response.isActive) {
+            if (vm.settingsBackup.isActive != response.isActive) {
                 authService.isActive = response.isActive;
                 authService.setValue('isActive', response.isActive);
             }
 
-            $scope.settings = response;
-            $scope.settingsBackup = angular.copy(response);
+            vm.settings = response;
+            vm.settingsBackup = angular.copy(response);
         }
 
         init();
-    }]);
+    }
+})();

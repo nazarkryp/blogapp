@@ -400,11 +400,12 @@ md-toolbar:not(.md-menu-toolbar) {
 }
 
 .page-content {
-    padding:0px 50px 25px 50px;
-    background-color:white;
+    margin: 50px 0px 50px 0px;
+    padding: 25px 25px 25px 25px;
+    background-color: white;
     border: 1px solid #efefef;
     max-width: 1000px;
-    width:1000px;
+    width: 1000px;
 }
 
 .user-panel {
@@ -413,7 +414,8 @@ md-toolbar:not(.md-menu-toolbar) {
 }
 
 .page-content-header {
-    height: 75px;
+    height: 40px;
+    /*margin: 0px 0px 20px 0px;*/
 }
 
 .user-panel-details {
@@ -460,8 +462,6 @@ md-toolbar:not(.md-menu-toolbar) {
     color: white;
     padding: 0px 0px 0px 10px;
 }
-
-
 
 .user-post {
     cursor: pointer;
@@ -546,10 +546,6 @@ md-virtual-repeat-container.md-autocomplete-suggestions-container {
     line-height: 0px;
     text-align: start;
 }
-
-/*.md-button.md-raised {
-    padding: 5px 0px 5px 0px;
-}*/
 
 .md-button.md-primary {
     color: #2196f3;
