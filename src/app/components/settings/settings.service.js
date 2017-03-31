@@ -4,7 +4,7 @@ angular.module('photocloud')
             this.getAccountSettings = function(userId) {
                 var deferred = $q.defer();
 
-                httpService.get(constService.baseAddress + 'api/users?userId=' + userId, deferred);
+                httpService.get(constService.baseAddress + 'api/account', deferred);
 
                 return deferred.promise;
             };
@@ -28,10 +28,18 @@ angular.module('photocloud')
             this.changeProfilePicture = function(attachmentId) {
                 var deferred = $q.defer();
 
-                httpService.post(constService.baseAddress + 'api/account/profile/picture?attachmentId=' + attachmentId, deferred);
+                httpService.post(constService.baseAddress + 'api/account/profile/picture?attachmentId=' + attachmentId, null, deferred);
 
                 return deferred.promise;
             };
+
+            this.changeEmailAddress = function(account) {
+                var deferred = $q.defer();
+
+                httpService.post(constService.baseAddress + 'api/account/change/email', account, deferred);
+
+                return deferred.promise;
+            }
 
             this.updateProfile = function(profile) {
                 var deferred = $q.defer();

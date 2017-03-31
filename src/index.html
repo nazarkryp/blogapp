@@ -106,7 +106,7 @@
         <ui-view></ui-view>
     </main>
 
-    <footer>
+    <footer ng-if="vm.pageService.navbarVisible">
         <div class="footer" layout="row" layout-align="center center">
             <span>Copyright &copy; {{ vm.date | date : 'yyyy' }} PhotoCloud</span>
         </div>
@@ -167,6 +167,7 @@
     <script src="app/components/explore/tags/explore-tags.controller.js"></script>
 
     <script src="app/shared/directives/file-model.directive.js"></script>
+    <script src="app/shared/services/toast.service.js"></script>
     <script src="app/shared/services/http.service.js"></script>
     <script src="app/shared/services/upload.service.js"></script>
     <script src="app/shared/infrastructure/const.service.js"></script>

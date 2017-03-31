@@ -4,18 +4,20 @@
     angular.module('photocloud')
         .controller('SettingsController', SettingsController);
 
-    SettingsController.$inject = ['$state', '$stateParams', '$mdToast', 'settingsService', 'authService', 'pageService'];
+    SettingsController.$inject = ['$scope', '$state', '$stateParams', 'toast', 'settingsService', 'uploadService', 'authService', 'pageService'];
 
 
-    function SettingsController($state, $stateParams, $mdToast, settingsService, authService, pageService) {
+    function SettingsController($scope, $state, $stateParams, toast, settingsService, uploadService, authService, pageService) {
         var vm = this;
 
         vm.isRedirected = $stateParams.isRedirected;
+
         vm.settings = {
             username: authService.username,
             fullName: authService.fullName,
             imageUri: authService.imageUri,
             bio: '',
+            email: '',
             isPrivate: authService.isPrivate,
             isActive: authService.isActive
         };
@@ -23,14 +25,17 @@
         vm.password = {
             oldPassword: '',
             newPassword: '',
-            confirmPassword: ''
+            confirmPassword: '',
+            error: ''
         }
 
         vm.pendingChanges = {
             profile: false,
             image: false,
             isPrivate: false,
-            password: false,
+            password: {
+                valid: false
+            },
         };
 
         vm.browsedFile = {
@@ -45,13 +50,10 @@
                 function(response) {
                     vm.settings.isActive = response.isActive;
                     vm.settingsBackup.isActive = response.isActive;
-
                     authService.isActive = response.isActive;
                     authService.setValue('isActive', response.isActive);
-
-                    var message = 'Account has been ' + (response.isActive ? 'activated' : 'deactivated');
-
-                    showToastNotification(message);
+                    toast.show('Account has been ' + (response.isActive ? 'activated' : 'deactivated'));
+                    getAccountSettings();
                 }
             );
         };
@@ -82,7 +84,7 @@
                     vm.settingsBackup.bio = response.bio;
                     vm.profileChanged();
 
-                    showToastNotification('Profile has been updated!');
+                    toast.show('Profile has been updated!');
                 },
                 function(errorResponse) {
                     vm.profileSaveError = errorResponse.error.message;
@@ -90,31 +92,28 @@
             );
         };
 
-        vm.resetProfileChanges = function() {
-            vm.settings.username = vm.settingsBackup.username;
-            vm.settings.fullName = vm.settingsBackup.fullName;
-            vm.settings.bio = vm.settingsBackup.bio;
-            vm.profileChanged();
-        };
+        vm.changeEmailAddress = function() {
+            settingsService.changeEmailAddress(vm.settings)
+                .then(function(response) {
+                    toast.show('Email successfully updated');
+                }, function(error) {
+                    toast.show('Could not update email ' + error);
+                });
+        }
 
         vm.changePassword = function() {
+            vm.password.error = '';
             pageService.isLoading = true;
-
-            vm.passwordChangeError = '';
             settingsService.changePassword(vm.password).then(
                 function(response) {
                     pageService.isLoading = false;
+                    vm.password = {};
 
-                    vm.password.oldPassword = '';
-                    vm.password.newPassword = '';
-                    vm.password.confirmPassword = '';
-                    vm.passwordChanged();
-
-                    showToastNotification('Your password has been updated!');
+                    toast.show('Your password has been updated!');
                 },
-                function(errorResponse) {
-                    vm.passwordChangeError = errorResponse.message;
+                function(error) {
                     pageService.isLoading = false;
+                    vm.password.error = error.message;
                 });
         };
 
@@ -122,7 +121,7 @@
             vm.isRedirected = false;
         };
 
-        vm.savePrivacy = function() {
+        vm.changePrivacy = function() {
             settingsService.savePrivacy(vm.settings.isPrivate).then(
                 function(response) {
                     if (vm.settingsBackup.isPrivate != response.isPrivate) {
@@ -133,16 +132,8 @@
                         vm.settings.isPrivate = response.isPrivate;
                     }
 
-                    //vm.privacyChanged();
-
-                    showToastNotification(vm.settings.isPrivate ? 'Privacy has been enabled!' : 'Privacy has been disabled!');
+                    toast.show(vm.settings.isPrivate ? 'Privacy has been enabled!' : 'Privacy has been disabled!');
                 });
-        };
-
-        vm.privacyChanged = function() {
-            //vm.pendingChanges.isPrivate = (vm.settingsBackup.isPrivate !== vm.settings.isPrivate);
-
-            vm.savePrivacy();
         };
 
         vm.imageChanged = function() {
@@ -158,20 +149,29 @@
         };
 
         vm.passwordChanged = function() {
-            vm.pendingChanges.password = (
-                vm.password.oldPassword !== '' &&
-                vm.password.newPassword !== '' &&
-                vm.password.confirmPassword !== '' &&
-                vm.password.newPassword === vm.password.confirmPassword);
-        };
+            vm.password.error = '';
+            vm.pendingChanges.password.valid = false;
 
-        function showToastNotification(message) {
-            $mdToast.show(
-                $mdToast.simple()
-                .textContent(message)
-                .position('bottom right')
-                .hideDelay(3000)
-            );
+            if (vm.password.newPassword &&
+                vm.password.confirmPassword &&
+                vm.password.newPassword.length >= 6 &&
+                vm.password.confirmPassword.length >= 6 &&
+                vm.password.newPassword === vm.password.confirmPassword) {
+                vm.pendingChanges.password.valid = true;
+            } else if (vm.password.newPassword &&
+                vm.password.confirmPassword &&
+                vm.password.newPassword.length >= 6 &&
+                vm.password.confirmPassword.length >= 6 &&
+                vm.password.newPassword !== vm.password.confirmPassword) {
+                vm.pendingChanges.password.valid = false;
+                vm.password.error = 'Passwords do not match';
+            } else {
+                vm.pendingChanges.password.valid = false;
+            }
+
+            if (vm.password.oldPassword && vm.password.oldPassword.length < 6 || !vm.password.oldPassword) {
+                vm.pendingChanges.password.valid = false;
+            }
         };
 
         function updateSettings(response) {
@@ -206,8 +206,10 @@
                 uploadService.uploadFile(file)
                     .then(function(response) {
                             vm.browsedFile.isUploading = false;
-                            vm.account.attachment = response;
+                            vm.settings.imageUri = response.url;
                             vm.browsedFile.file = null;
+
+                            changeProfilePicture(response.id);
                         },
                         function(error) {
                             vm.browsedFile.isUploading = false;
@@ -216,15 +218,20 @@
             }
         }
 
-        vm.$onInit = function() {
-            if (!authService.isAuthenticated) {
-                $state.go('signin');
+        function changeProfilePicture(attachmentId) {
+            vm.updatingPicture = true;
+            settingsService.changeProfilePicture(attachmentId)
+                .then(
+                    function(response) {
+                        vm.updatingPicture = false;
+                        toast.show('Account picture has been successfully updated');
+                    },
+                    function(error) {
+                        vm.updatingPicture = false;
+                    });
+        }
 
-                return;
-            }
-
-            pageService.isLoading = true;
-
+        function getAccountSettings() {
             settingsService.getAccountSettings(authService.userId).then(
                 function(response) {
                     pageService.isLoading = false;
@@ -233,6 +240,11 @@
                     vm.settings = response;
                     vm.settingsBackup = angular.copy(response);
                 });
+        }
+
+        vm.$onInit = function() {
+            pageService.isLoading = true;
+            getAccountSettings();
         };
     }
 })();

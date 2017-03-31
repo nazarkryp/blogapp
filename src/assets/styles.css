@@ -1,6 +1,5 @@
 html {
     overflow-y: scroll;
-    background-color: #FAFAFA;
 }
 
 main {
@@ -413,7 +412,8 @@ md-toolbar:not(.md-menu-toolbar) {
     background-color: white;
     border: 1px solid #efefef;
     max-width: 1000px;
-    width: 1000px;
+    width: 100%;
+    min-width: 750px;
 }
 
 .user-panel {
@@ -567,6 +567,10 @@ md-virtual-repeat-container.md-autocomplete-suggestions-container {
 .md-button.md-grey[disabled] {
     background-color: gray;
     color: black;
+}
+
+.md-primary-text {
+    color: #2196f3;
 }
 
 .md-button.md-primary {
@@ -736,7 +740,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input.search-bar 
 
 .form {
     width: 25%;
-    min-width: 300px;
+    min-width: 500px;
 }
 
 .form-item>md-input-container .md-errors-spacer {
@@ -758,6 +762,10 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input.comment-box
 
 .content {
     min-height: calc(100vh - 147px);
+}
+
+.content.white {
+    background-color: white;
 }
 
 .content>.content-message {
@@ -814,6 +822,18 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input.comment-box
     color: #808080;
 }
 
+.description.warning {
+    font-size: 14px;
+    font-weight: 400;
+    color: orangered;
+}
+
+.description.danger {
+    font-size: 14px;
+    font-weight: 400;
+    color: red;
+}
+
 .slide-button {
     border: none;
     display: inline-block;
@@ -835,4 +855,27 @@ body::-webkit-scrollbar {
 
 body::-webkit-scrollbar-thumb {
     background-color: #2196f3;
+}
+
+.image-container {
+    position: relative;
+}
+
+.image-container .after {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: #ffffff;
+    display: none;
+    border-radius: 90px 90px 90px 90px;
+    border-style: none;
+    border: 0px;
+}
+
+.image-container:not([disabled]):hover .after {
+    cursor: pointer;
+    display: inline-flex;
+    background: rgba(0, 0, 0, .6);
+    width: 100%;
+    height: 100%;
 }
