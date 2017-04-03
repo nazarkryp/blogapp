@@ -17,6 +17,9 @@
                 </div>
             </div>
             <div class="md-padding left" layout="column" flex>
+                <div class="md-padding bottom" ng-if="!vm.settings.isActive">
+                    <span class="description warning">Account has been deactivated. To view posts and edit settings you need to activate your account</span>
+                </div>
                 <div layout="row">
                     <div class="md-padding right" flex>
                         <label class="md-subhead bold" for="username">Username</label>
