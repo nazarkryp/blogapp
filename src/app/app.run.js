@@ -23,7 +23,7 @@
                 event.preventDefault();
             }
 
-            pageService.navbarVisible = !(next.url === '/signin');
+            //pageService.navbarVisible = !(next.url === '/signin');
         }
     }
 })();

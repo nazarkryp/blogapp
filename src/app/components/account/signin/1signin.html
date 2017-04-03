@@ -1,7 +1,25 @@
-<div class="content" layout="row" layout-align="center center">
+<!--<div class="md-padding fill" layout="row" layout-align="space-between center" style="position: absolute;">
+    <h1 class="md-display-1" style="font-weight: lighter;">PhotoCloud</h1>
+    <a class="link-primary" ui-sref="signup" style="font-size: 20px; font-weight: lighter;">
+        Create account
+    </a>
+</div>
+
+<div class="md-padding fill" layout="row" layout-align="center center" style="position: absolute;bottom:0;height: 150px;background-color: white;">
+    <a class="link-primary" ui-sref="signup" style="font-size: 17px; font-weight: lighter;padding: 0px 10px 0px 10px;">
+        Forgot password?
+    </a>
+    <a class="link-primary" ui-sref="signup" style="font-size: 17px; font-weight: lighter; padding: 0px 10px 0px 10px;">
+        Terms and conditions
+    </a>
+</div>-->
+
+<div class="content white" layout="row" layout-align="center center">
     <form class="form" name="signInForm" ng-submit="vm.signIn()" layout="column">
-        <div class="logo" layout="row" layout-align="center center">
-            <img src="assets/images/logo.png" alt="logo">
+        <div class="logo" layout="column" layout-align="center center">
+            <span class="md-primary-text" style="font-size: 72px; font-weight: 200;">Sign In</span>
+            <span class="description" style="font-size: 17px; font-weight: lighter; padding: 50px 10px 10px 10px;">Hello there! Sign in and start managing your wonderful photos
+            </span>
         </div>
         <div class="form-item" layout="row" layout-align="start center">
             <md-input-container class="md-block" md-no-float flex>
