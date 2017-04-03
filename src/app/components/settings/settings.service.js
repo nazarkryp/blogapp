@@ -4,7 +4,7 @@ angular.module('photocloud')
             this.getAccountSettings = function(userId) {
                 var deferred = $q.defer();
 
-                httpService.get(constService.baseAddress + 'api/account', deferred);
+                httpService.get(constService.baseAddress + 'api/account/settings', deferred);
 
                 return deferred.promise;
             };

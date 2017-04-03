@@ -239,6 +239,9 @@
                     updateSettings(response);
                     vm.settings = response;
                     vm.settingsBackup = angular.copy(response);
+                },
+                function(error) {
+                    pageService.isLoading = false;
                 });
         }
 
