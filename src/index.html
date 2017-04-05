@@ -45,15 +45,15 @@
                                             <div class="md-padding-wide">
                                                 <md-divider></md-divider>
                                             </div>
-                                            <div class="md-padding" layout="row" layout-align="start center" ng-repeat="user in vm.requests">
+                                            <div class="md-padding left" layout="row" layout-align="start center" ng-repeat="user in vm.requests">
                                                 <img class="follower-profile-image" ui-sref="userfeed({username : user.username})" ng-src="{{user.imageUri}}" alt="user.username">
                                                 <div class="md-padding" layout="column">
                                                     <span><a class="bold" ui-sref="userfeed({username : user.username})">{{user.username}}</a>
                                                         started following you
                                                     </span>
                                                     <div class="md-padding top" layout="row">
-                                                        <md-button class="md-primary md-text" ng-click="vm.acceptRequest($index)">Accept</md-button>
-                                                        <md-button class="md-warn md-text" ng-click="vm.rejectRequest($index)">Decline</md-button>
+                                                        <md-button class="md-primary md-no-focus" ng-click="vm.acceptRequest($index)">Accept</md-button>
+                                                        <md-button class="md-warn md-no-focus" ng-click="vm.rejectRequest($index)">Decline</md-button>
                                                     </div>
                                                 </div>
                                             </div>
