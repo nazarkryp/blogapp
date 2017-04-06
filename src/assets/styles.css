@@ -486,7 +486,7 @@ md-toolbar:not(.md-menu-toolbar) {
 }
 
 md-autocomplete-wrap {
-    border: 1px solid #d8d8d8;
+    border: 1px solid #efefef;
     border-radius: 2px;
     box-shadow: none !important;
     background-color: #fafafa;

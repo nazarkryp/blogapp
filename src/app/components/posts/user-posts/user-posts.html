@@ -47,11 +47,4 @@
         <md-button ng-click="vm.loadMorePosts()" ng-if="!vm.isLoadingMorePosts">Load More</md-button>
         <md-progress-circular md-mode="indeterminate" ng-if="vm.isLoadingMorePosts"></md-progress-circular>
     </div>
-    <md-fab-speed-dial class="md-fab-bottom-right" ng-click="vm.showCreatePostDialog($event)" ng-if="vm.currentUser.isAuthenticated && vm.currentUser.userId == vm.user.id">
-        <md-fab-trigger>
-            <md-button aria-label="create post" class="md-fab" md-colors="{background: 'blue'}">
-                <md-icon>add_a_photo</md-icon>
-            </md-button>
-        </md-fab-trigger>
-    </md-fab-speed-dial>
 </div>

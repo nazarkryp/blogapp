@@ -6,7 +6,7 @@ var minifyHtml = require('gulp-minify-html');
 var concat = require('gulp-concat');
 var del = require('del');
 
-gulp.task('templatecache', function () {
+gulp.task('templatecache', function() {
     console.log('creating angularjs $templateCache');
 
     return gulp
@@ -19,19 +19,19 @@ gulp.task('templatecache', function () {
         .pipe(gulp.dest(config.build));
 });
 
-gulp.task('concat-scripts', function () {
+gulp.task('concat-scripts', function() {
     return gulp.src(config.jsfiles)
         .pipe(concat('app.js'))
         .pipe(gulp.dest(config.build));
 });
 
-gulp.task('concat-libs', function () {
+gulp.task('concat-libs', function() {
     return gulp.src(config.jsfiles)
         .pipe(concat('libs.js'))
         .pipe(gulp.dest(config.build));
 });
 
-gulp.task('clean-code', function (done) {
+gulp.task('clean-code', function(done) {
     var files = [].concat(
         config.temp + '**/*.js',
         config.build + '**/*.html',
@@ -41,7 +41,7 @@ gulp.task('clean-code', function (done) {
     clean(files, done);
 });
 
-gulp.task('copy-assets', function () {
+gulp.task('copy-assets', function() {
     var assets = {
         js: [
             './node_modules/angular/angular.min.js',
@@ -56,7 +56,7 @@ gulp.task('copy-assets', function () {
             './node_modules/angular-material/angular-material.min.css'
         ]
     };
-    _(assets).forEach(function (asset, type) {
+    _(assets).forEach(function(asset, type) {
         gulp.src(asset).pipe(gulp.dest('./src/assets/libs/' + type));
     });
 });
@@ -64,6 +64,5 @@ gulp.task('copy-assets', function () {
 gulp.task("default", ['clean-code', 'copy-assets']);
 
 function clean(files, done) {
-    console.log('cleaning...');
     del(files, done);
 }
