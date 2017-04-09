@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular.module('photocloud')
@@ -24,51 +24,49 @@
             hasMoreItems: false
         };
 
-        vm.loadMorePosts = function() {
+        vm.loadMorePosts = function () {
             vm.isLoadingMorePosts = true;
             getFeed($stateParams.username);
         };
 
         $scope.$watch("vm.authService.isAuthenticated",
-            function(value) {
+            function (value) {
                 vm.isAuthenticated = value;
             });
 
-        vm.removePost = function(index) {
+        vm.removePost = function (index) {
             var post = vm.feed.items[index];
 
             if (post.id) {
                 postsService.remove(post.id).then(
-                    function(response) {
+                    function (response) {
                         vm.feed.items.splice(index, 1);
                     },
-                    function(error) {
+                    function (error) {
                         console.log(error);
                     });
             }
         };
 
-        vm.showCreatePostDialog = function(ev) {
+        vm.showCreatePostDialog = function (ev) {
             $mdDialog.show({
-                controller: 'CreatePostController',
+                controller: 'UploadController',
                 controllerAs: 'vm',
                 templateUrl: 'app/components/upload/create-post.html',
                 parent: angular.element(document.body),
-                targetEvent: ev,
                 clickOutsideToClose: true,
-                fullscreen: '-sm'
             }).then(
-                function(post) {
+                function (post) {
                     post.isCreating = true;
                     addNewPost(post);
                     createPost(post);
                 },
-                function() {});
+                function () { });
         };
 
         function createPost(post) {
             postsService.createPost(post)
-                .then(function(response) {
+                .then(function (response) {
                     mapPost(post, response);
                     post.isCreating = false;
 
@@ -77,7 +75,7 @@
                     } else {
                         vm.infoMessage = '';
                     }
-                }, function(error) {
+                }, function (error) {
                     console.log(error);
                 });
         };
@@ -97,7 +95,7 @@
         function mapPost(post, response) {
             post.id = response.id;
             post.attachments = [];
-            response.attachments.forEach(function(attachment) {
+            response.attachments.forEach(function (attachment) {
                 post.attachments.push(attachment);
             }, this);
             post.created = response.created;
@@ -133,7 +131,7 @@
             vm.infoMessage = '';
 
             getFeedPromise().then(
-                function(response) {
+                function (response) {
                     if (response.items) {
                         vm.feed.items = vm.feed.items.concat(response.items);
                     }
@@ -146,7 +144,7 @@
 
                     generateInfoMessage();
                 },
-                function(error) {
+                function (error) {
                     pageService.isLoading = false;
                     vm.isLoadingMorePosts = false;
                 });
@@ -160,7 +158,7 @@
             }
         };
 
-        vm.$onInit = function() {
+        vm.$onInit = function () {
             pageService.isLoading = true;
 
             if ($stateParams.username) {

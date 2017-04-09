@@ -1,15 +1,13 @@
 angular.module('photocloud')
-    .factory("authInterpretatorService", ["$q", "$location", "authService",
+    .factory("httpInterceptor", ["$q", "$location", "authService",
         function ($q, $location, authService) {
             var service = {};
 
             var request = function (config) {
                 config.headers = config.headers || {};
 
-                if (config.url) {
-                    if (config.url.includes('dropbox')) {
-                        return config;
-                    }
+                if (config.url && config.url.includes('api.cloudinary.com')) {
+                    return config;
                 }
 
                 var session = authService.getSession();

@@ -78,6 +78,6 @@
             });
 
         $urlRouterProvider.otherwise('/');
-        $httpProvider.interceptors.push("authInterpretatorService");
+        $httpProvider.interceptors.push("httpInterceptor");
     };
 })();
