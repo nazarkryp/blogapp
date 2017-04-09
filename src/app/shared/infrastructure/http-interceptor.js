@@ -1,9 +1,9 @@
 angular.module('photocloud')
     .factory("httpInterceptor", ["$q", "$location", "authService",
-        function ($q, $location, authService) {
+        function($q, $location, authService) {
             var service = {};
 
-            var request = function (config) {
+            var request = function(config) {
                 config.headers = config.headers || {};
 
                 if (config.url && config.url.includes('api.cloudinary.com')) {
@@ -19,7 +19,7 @@ angular.module('photocloud')
                 return config;
             };
 
-            var response = function (response) {
+            var response = function(response) {
                 if (response.status === 401) {
                     authService.signOut();
                     $location.path("/signin");
@@ -28,7 +28,7 @@ angular.module('photocloud')
                 return response || $q.when(response);
             };
 
-            var responseError = function (rejection) {
+            var responseError = function(rejection) {
                 if (rejection.status === 401) {
                     authService.signOut();
                     $location.path("/signin");

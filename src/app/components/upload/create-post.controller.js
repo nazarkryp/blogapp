@@ -4,9 +4,9 @@
     angular.module('photocloud')
         .controller('CreatePostController', CreatePostController);
 
-    CreatePostController.$inject = ['$scope', '$mdDialog', 'uploadService', 'postsService'];
+    CreatePostController.$inject = ['$scope', '$mdDialog', 'uploadService', 'postsService', 'Upload'];
 
-    function CreatePostController($scope, $mdDialog, uploadService, postsService) {
+    function CreatePostController($scope, $mdDialog, uploadService, postsService, $upload) {
         var vm = this;
 
         vm.post = {
@@ -14,21 +14,6 @@
             attachments: [],
             attachmentIds: []
         };
-
-        vm.browsed = {
-            isUploading: false,
-            file: null
-        };
-
-        vm.selectAttachment = function() {
-            uploadInput.click();
-        };
-
-        $scope.$watch("vm.browsed.file", function(file) {
-            if (file) {
-                uploadAttachment(file);
-            }
-        });
 
         vm.createPost = function() {
             $mdDialog.hide(vm.post);
@@ -38,24 +23,31 @@
             $mdDialog.cancel();
         };
 
-        function uploadAttachment(file) {
-            vm.browsed.isUploading = true;
+        vm.upload = function(file) {
+            vm.progress = 0;
 
-            if (file) {
-                uploadService.uploadFile(file)
-                    .then(function(response) {
-                            vm.browsed.isUploading = false;
-                            vm.post.attachments.push(response);
-                            vm.post.attachmentIds = vm.post.attachments.map(function(attachment) {
-                                return attachment.id;
-                            });
-                            vm.browsed.file = null;
-                        },
-                        function(error) {
-                            vm.browsed.isUploading = false;
-                            vm.browsed.file = null;
-                        });
+            if (!file || file.error) {
+                return;
             }
-        };
+            vm.isUploading = true;
+
+            $upload.upload({
+                url: 'https://kryptogram.azurewebsites.net/api/attachments/upload',
+                data: {
+                    file: file
+                }
+            }).progress(function(e) {
+                vm.progress = Math.round((e.loaded * 100.0) / e.total);
+            }).success(function(data, status, headers, config) {
+                vm.isUploading = false;
+                vm.post.attachments.push(data);
+                vm.post.attachmentIds = vm.post.attachments.map(function(attachment) {
+                    return attachment.id;
+                });
+            }).error(function(data, status, headers, config) {
+                vm.isUploading = false;
+                file.result = data;
+            });
+        }
     }
 })();

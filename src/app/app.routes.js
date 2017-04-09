@@ -60,10 +60,6 @@
                 controller: 'FullScreenController',
                 controllerAs: 'vm'
             })
-            // .state('404', {
-            //     url: '/404',
-            //     templateUrl: 'app/components/404/404.html'
-            // })
             .state('userfeed', {
                 url: '/:username',
                 templateUrl: 'app/components/posts/user-posts/user-posts.html',
@@ -78,6 +74,6 @@
             });
 
         $urlRouterProvider.otherwise('/');
-        $httpProvider.interceptors.push("httpInterceptor");
+        $httpProvider.interceptors.push('httpInterceptor');
     };
 })();
