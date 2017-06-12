@@ -5,12 +5,14 @@
         </div>
         <div class="form-item" layout="row" layout-align="start center">
             <md-input-container class="md-block" md-no-float flex>
-                <input ng-class="{'form-invalid' : vm.account.isUsernameValid == false, 'light' : vm.account.isUsernameValid == true}" type="text" name="username" placeholder="Username" ng-model="vm.account.username" aria-label="account">
+                <input ng-class="{'form-invalid' : vm.account.isUsernameValid == false, 'light' : vm.account.isUsernameValid == true}" type="text"
+                    name="username" placeholder="Username" ng-model="vm.account.username" aria-label="account">
             </md-input-container>
         </div>
         <div class="form-item" layout="row" layout-align="start center">
             <md-input-container class="md-block" md-no-float flex>
-                <input ng-class="{'form-invalid' : vm.account.isPasswordValid == false, 'light' : vm.account.isPasswordValid == true}" type="password" name="password" placeholder="Enter your password" ng-model="vm.account.password" aria-label="account">
+                <input ng-class="{'form-invalid' : vm.account.isPasswordValid == false, 'light' : vm.account.isPasswordValid == true}" type="password"
+                    name="password" placeholder="Enter your password" ng-model="vm.account.password" aria-label="account">
             </md-input-container>
         </div>
         <md-checkbox ng-model="vm.account.remember">Remember me?</md-checkbox>

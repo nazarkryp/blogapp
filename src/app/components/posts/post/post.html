@@ -14,7 +14,7 @@
             <span class="date">{{vm.post.created | difference}}</span>
         </div>
     </div>
-    <div class="post-content">
+    <div class="post-content" md-ink-ripple>
         <img ng-src="{{vm.post.attachments[vm.post.activeAttachment].url}}" alt="post-image">
         <div class="post-slideshow" layout="row" layout-align="start center" ng-if="vm.post.attachments.length > 1">
             <md-button class="md-icon-button arrow" ng-click="vm.previous()" md-whiteframe="10" ng-hide="vm.post.activeAttachment === 0">
